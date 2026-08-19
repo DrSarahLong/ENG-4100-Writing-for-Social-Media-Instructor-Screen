@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 2 · The Medium Is Not Neutral</title>
+<style>
+  :root{
+    --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
+    --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
+    --accent:#eb8f99; --accent-deep:#8c2f39; --gold:#e8b567; --sage:#9ec6a6;
+    --field:#140d0f;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  html{scroll-snap-type:y proximity; scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1300px 850px at 72% -12%, #33202a 0%, var(--bg) 58%) fixed, var(--bg);
+    color:var(--ink); font:18px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .panel{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:62px 6vw 46px; border-bottom:1px solid var(--line)}
+  /* kicker with accent bar */
+  .kick{display:inline-flex; align-items:center; gap:13px; font-size:clamp(.95rem,1.4vw,1.1rem); letter-spacing:.22em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:18px}
+  .kick::before{content:""; width:36px; height:3px; background:var(--accent); border-radius:2px}
+  .kick.gold{color:var(--gold)} .kick.gold::before{background:var(--gold)}
+  /* title */
+  .title h1{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2.8rem,7.6vw,6rem); line-height:1.02; margin:0 0 16px; text-wrap:balance; letter-spacing:-.01em}
+  .title .idea{font-size:clamp(1.4rem,3vw,2.3rem); color:var(--soft); max-width:24ch; line-height:1.25}
+  .title .rule{width:120px; height:5px; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:3px; margin:0 0 26px}
+  /* questions */
+  .q{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2rem,4.6vw,3.5rem); line-height:1.12; margin:0 0 12px; text-wrap:balance}
+  .sub{color:var(--soft); font-size:clamp(1.1rem,1.8vw,1.4rem); margin:0 0 24px; line-height:1.45}
+  .hl{color:var(--accent); font-weight:700} .hl.g{color:var(--gold)}
+  /* teach card (explanation) */
+  .teach{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:16px; padding:26px 30px; box-shadow:0 16px 44px rgba(0,0,0,.4); font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.5}
+  .teach b{color:var(--accent)}
+  .teach.gold{border-left-color:var(--gold)} .teach.gold b{color:var(--gold)}
+  /* scene: image + prompt */
+  .scene{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:42px; align-items:center}
+  @media (max-width:900px){ .scene{grid-template-columns:1fr; gap:24px} }
+  figure{margin:0}
+  figure img{width:100%; max-height:80vh; object-fit:contain; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); cursor:zoom-in; background:#0d0809}
+  figcaption{color:var(--soft); font-size:.98rem; margin-top:10px; font-style:italic}
+  /* board textarea */
+  textarea{width:100%; min-height:34vh; background:var(--field); color:var(--ink); border:2px solid var(--line); border-radius:16px; padding:18px 20px; font:600 clamp(1.3rem,2.1vw,1.9rem)/1.5 -apple-system,system-ui,sans-serif; resize:vertical}
+  textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(235,143,153,.16)}
+  .scene textarea{min-height:44vh}
+  /* definition cards */
+  .defs{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:6px 0 28px}
+  @media (max-width:760px){ .defs{grid-template-columns:1fr} }
+  .def{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:16px; padding:22px 26px; box-shadow:0 12px 34px rgba(0,0,0,.36)}
+  .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent); font-family:Georgia,serif}
+  .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem); line-height:1.45}
+  .def.gold{border-top-color:var(--gold)} .def.gold h3{color:var(--gold)}
+  /* side-by-side comparison */
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:6px 0 20px}
+  @media (max-width:760px){ .pair{grid-template-columns:1fr} }
+  .pair figure img{max-height:54vh}
+  /* board callout */
+  .board{background:linear-gradient(180deg,#301f24,#261a1e); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px; padding:24px 30px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5; box-shadow:0 14px 40px rgba(0,0,0,.38)}
+  .board>b{color:var(--gold)}
+  .board .big{font-family:Georgia,serif; font-size:1.3em; color:var(--accent); display:block; margin:14px 0}
+  .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
+  /* numbered prompts */
+  .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
+  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  /* workshop grid */
+  .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
+  @media (max-width:760px){ .work{grid-template-columns:1fr} }
+  .work .cell{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  .work .cell .lab{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  .work .cell.g .lab{color:var(--gold)} .work .cell.s .lab{color:var(--sage)}
+  .work .cell p{margin:6px 0 0; font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink); line-height:1.4}
+  .pill{display:inline-block; background:rgba(235,143,153,.14); border:1px solid var(--accent); color:var(--accent); font-weight:700; font-size:clamp(1rem,1.5vw,1.25rem); border-radius:999px; padding:6px 16px; margin:4px 8px 4px 0}
+  /* controls */
+  .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.9); border:1px solid var(--line); color:var(--soft); border-radius:9px; padding:7px 13px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
+  .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
+  .lb{position:fixed; inset:0; background:rgba(10,6,7,.95); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
+  .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
+  .lb.on{display:flex}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+  <!-- 1 · TITLE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Week 2 · Tuesday</div>
+    <h1>The medium is not neutral.</h1>
+    <div class="idea">We obsess over <span class="hl">what</span> to post. The <span class="hl g">where</span> and <span class="hl g">how</span> are doing more of the talking than the words are.</div>
+  </section>
+
+  <!-- DEBATE OPENER -->
+  <section class="panel">
+    <div class="kick gold">Debate this &middot; in your pods</div>
+    <h2 class="q">"Posting about a cause is mostly about looking like a good person. It changes nothing."</h2>
+    <p class="sub">Pick a side and defend it to your pod. Two minutes, then we fight it out as a room. No fence-sitting.</p>
+    <textarea data-k="w2-debate" aria-label="board"></textarea>
+  </section>
+
+  <!-- 2 · GOAL -->
+  <section class="panel">
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="teach"><p>By the end of class you'll have wrestled with two ideas that change how you read every feed: <b>the medium is the message</b> and <b>artifacts have politics</b>. Then you'll start spotting the politics built into the exact platforms your cause depends on. You'll go deeper on both in Thursday's module; today we dig in together.</p></div>
+  </section>
+
+  <!-- 3 · HOOK: ONE MESSAGE, FIVE MEDIA -->
+  <section class="panel">
+    <div class="kick">Feel It</div>
+    <h2 class="q">Same four words: "I need your help." Sent five ways. What changes?</h2>
+    <p class="sub">(1) whispered face to face &middot; (2) in a handwritten letter &middot; (3) as a quick text &middot; (4) shouted through a megaphone at a rally &middot; (5) posted as a public hashtag. For each: who is it really for, and how does it land?</p>
+    <textarea data-k="w2-b1" aria-label="board"></textarea>
+  </section>
+
+  <!-- 4 · McLUHAN scene + question -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week2-mcluhan.jpg" alt="Portrait of media theorist Marshall McLuhan, 1945">
+        <figcaption>Marshall McLuhan, 1945. Josephine Smith (Library and Archives Canada, public domain).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">Name it</div>
+        <h2 class="q">"The medium is the message."</h2>
+        <p class="sub">Marshall McLuhan said this in 1964, before the internet existed. Now that you've felt it, what do you think he meant?</p>
+        <textarea data-k="w2-b2" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · McLUHAN teach -->
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <div class="teach"><p>McLuhan's claim: the <b>form</b> of a medium shapes us more than any single thing it carries. A text and a handwritten letter can hold the identical words, but the text trains you to expect speed and brevity, and the letter asks for patience and care. Change the medium and you change how people think, feel, and relate, no matter the content. So when you pick a platform for your cause, you are not choosing a neutral pipeline. You are choosing what kind of attention you'll get, and what kind you'll never get.</p></div>
+  </section>
+
+  <!-- 6a · BRIDGE COMPARISON -->
+  <section class="panel">
+    <div class="kick">A harder case</div>
+    <h2 class="q">What's different about these two bridges?</h2>
+    <div class="pair">
+      <figure>
+        <img src="images/week2-parkway-underpass.jpg" alt="A low stone overpass on a New York parkway">
+        <figcaption>A parkway overpass on the road to Jones Beach, New York (Wikimedia Commons, CC BY-SA 4.0).</figcaption>
+      </figure>
+      <figure>
+        <img src="images/week2-overpass-normal.jpg" alt="A modern highway overpass with cars passing underneath and plenty of clearance">
+        <figcaption>A highway overpass in Bentonville, Arkansas. Brandonrush (Wikimedia Commons, CC0).</figcaption>
+      </figure>
+    </div>
+    <textarea data-k="w2-b3" aria-label="board" style="min-height:16vh"></textarea>
+  </section>
+
+  <!-- 6b · WHAT DOES A BRIDGE HAVE TO DO WITH POWER -->
+  <section class="panel">
+    <div class="kick">Now the real question</div>
+    <h2 class="q">So what could a bridge possibly have to do with power?</h2>
+    <textarea data-k="w2-b3b" aria-label="board"></textarea>
+  </section>
+
+  <!-- 7 · WINNER reveal -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="board">
+      <b>Do artifacts have politics? (Langdon Winner, 1980)</b>
+      Robert Moses built the parkway bridges too low for buses to pass. In that era, the bus riders headed to the beach were poorer families, and because of how segregation worked, disproportionately Black families. Cars fit. Buses did not.
+      <span class="also">Historians still debate the details of that one. The bench on the next screen is a case nobody argues about.</span>
+    </div>
+  </section>
+
+  <!-- 7b · BENCH + the sneakier question -->
+  <section class="panel">
+    <div class="scene">
+      <figure data-note="add-image: save the Bournemouth bar-divider bench photo here as images/week2-bench-bars.jpg">
+        <img src="images/week2-bench-bars.jpg" alt="A public bench divided by metal bars into single seats so no one can lie down">
+        <figcaption>A public bench divided by bars so no one can stretch out and sleep.</figcaption>
+      </figure>
+      <div>
+        <div class="kick">Same move, in a bench</div>
+        <p class="sub">No sign, no law, no announcement. Just the shape of the thing.</p>
+        <h2 class="q">Why is a low bridge, or this bench, sneakier than a sign that says the same thing out loud?</h2>
+        <textarea data-k="w2-b4" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · MONTGOMERY -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week2-montgomery.jpg" alt="Rosa Parks being fingerprinted after her arrest during the Montgomery bus boycott, 1956">
+        <figcaption>Rosa Parks fingerprinted after her arrest, Montgomery, 1956 (Library of Congress, public domain).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">The contrast</div>
+        <h2 class="q">Bus segregation was a written law. The low bridge was just concrete.</h2>
+        <p class="sub">Which of the two was easier to fight, and why?</p>
+        <textarea data-k="w2-b5" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · TO THE PHONE -->
+  <section class="panel">
+    <div class="kick">Bring it home</div>
+    <h2 class="q">What politics are built into Instagram, TikTok, X? What's the low bridge in your feed?</h2>
+    <p class="sub">Think about who your posts reach, and who they never reach. What decides that?</p>
+    <textarea data-k="w2-b6" aria-label="board"></textarea>
+  </section>
+
+  <!-- 10 · FAST vs SLOW -->
+  <section class="panel">
+    <div class="kick">A second lens</div>
+    <p class="sub" style="margin-bottom:16px">Every medium sits somewhere on a spectrum, from fast to slow.</p>
+    <div class="defs">
+      <div class="def"><h3>Fast media</h3><p>Instant, huge potential reach, cheap, low commitment. A viral post, a mass text.</p></div>
+      <div class="def gold"><h3>Slow media</h3><p>Takes time and effort, smaller reach, high commitment. A zine, a letter, a face-to-face meeting, a printed newsletter.</p></div>
+    </div>
+    <h2 class="q">What is each one good at, and what does each one cost you?</h2>
+    <textarea data-k="w2-b7" aria-label="board"></textarea>
+  </section>
+
+  <!-- 11 · WORKSHOP -->
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; in your pods</div>
+    <h2 class="q">Put one platform on the table and find its low bridges.</h2>
+    <p class="sub">Each pod takes one medium, <span class="pill">Instagram</span><span class="pill">TikTok</span><span class="pill">X</span><span class="pill">a printed newsletter</span><span class="pill">a group text</span> and fills all four boxes. Pick a spokesperson to report back.</p>
+    <div class="work">
+      <div class="cell"><span class="lab">Makes easy</span><p>What does this medium reward, what flows and spreads here without friction?</p></div>
+      <div class="cell g"><span class="lab">Makes hard</span><p>What takes real effort, or gets buried, on this medium?</p></div>
+      <div class="cell s"><span class="lab">Makes invisible</span><p>Who or what never shows up here at all, the people the design quietly excludes?</p></div>
+      <div class="cell"><span class="lab">Who it serves</span><p>Given all that, whose interests does this medium actually serve? (Follow the money.)</p></div>
+    </div>
+    <textarea data-k="w2-b8" aria-label="board"></textarea>
+  </section>
+
+  <!-- 12 · FIELD NOTEBOOK -->
+  <section class="panel">
+    <div class="kick">Your cause &middot; Field Notebook</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">Open your Field Notebook. The platform is not a neutral pipeline for your cause.</h2>
+    <p class="sub">Work these three on your own, then we'll hear a few.</p>
+    <div class="prompts">
+      <div class="p">List every medium your cause uses right now to reach people (Instagram? a newsletter? word of mouth? nothing yet?).</div>
+      <div class="p">Pick the main one. In one sentence: what does that medium make easy for your cause, and what does it make hard or invisible? That's its politics.</div>
+      <div class="p">Name one slow-media move and one fast-media move you could make for your cause this semester.</div>
+    </div>
+  </section>
+
+  <!-- 13 · CLOSE / looking ahead -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Where we go from here</div>
+    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">The medium is never a neutral pipeline.</h1>
+    <div class="idea"><b>Thursday's module:</b> a little real McLuhan and Winner, then you map the politics of the exact platform your cause lives on. Bring the notebook. We'll reconvene at the end to share.</div>
+  </section>
+
+  <button class="clear" id="clear">Clear the boards</button>
+  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+    var key = 'e4_instr_' + ta.dataset.k;
+    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
+    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
+  });
+  document.getElementById('clear').addEventListener('click', function(){
+    if(!confirm('Clear everything typed on the boards?')) return;
+    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
+    });
+  });
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
+</script>
+</body>
+</html>

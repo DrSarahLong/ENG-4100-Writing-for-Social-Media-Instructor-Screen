@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 11 · Is Any of This Actually Doing Anything?</title>
+<style>
+  :root{
+    --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
+    --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
+    --accent:#eb8f99; --accent-deep:#8c2f39; --gold:#e8b567; --sage:#9ec6a6;
+    --field:#140d0f;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  html{scroll-snap-type:y proximity; scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1300px 850px at 72% -12%, #33202a 0%, var(--bg) 58%) fixed, var(--bg);
+    color:var(--ink); font:18px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .panel{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:62px 6vw 46px; border-bottom:1px solid var(--line)}
+  /* kicker with accent bar */
+  .kick{display:inline-flex; align-items:center; gap:13px; font-size:clamp(.95rem,1.4vw,1.1rem); letter-spacing:.22em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:18px}
+  .kick::before{content:""; width:36px; height:3px; background:var(--accent); border-radius:2px}
+  .kick.gold{color:var(--gold)} .kick.gold::before{background:var(--gold)}
+  /* title */
+  .title h1{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2.8rem,7.6vw,6rem); line-height:1.02; margin:0 0 16px; text-wrap:balance; letter-spacing:-.01em}
+  .title .idea{font-size:clamp(1.4rem,3vw,2.3rem); color:var(--soft); max-width:24ch; line-height:1.25}
+  .title .rule{width:120px; height:5px; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:3px; margin:0 0 26px}
+  /* questions */
+  .q{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2rem,4.6vw,3.5rem); line-height:1.12; margin:0 0 12px; text-wrap:balance}
+  .sub{color:var(--soft); font-size:clamp(1.1rem,1.8vw,1.4rem); margin:0 0 24px; line-height:1.45}
+  .hl{color:var(--accent); font-weight:700} .hl.g{color:var(--gold)}
+  /* teach card (explanation) */
+  .teach{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:16px; padding:26px 30px; box-shadow:0 16px 44px rgba(0,0,0,.4); font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.5}
+  .teach b{color:var(--accent)}
+  .teach.gold{border-left-color:var(--gold)} .teach.gold b{color:var(--gold)}
+  /* scene: image + prompt */
+  .scene{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:42px; align-items:center}
+  @media (max-width:900px){ .scene{grid-template-columns:1fr; gap:24px} }
+  figure{margin:0}
+  figure img{width:100%; max-height:80vh; object-fit:contain; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); cursor:zoom-in; background:#0d0809}
+  figcaption{color:var(--soft); font-size:.98rem; margin-top:10px; font-style:italic}
+  /* board textarea */
+  textarea{width:100%; min-height:34vh; background:var(--field); color:var(--ink); border:2px solid var(--line); border-radius:16px; padding:18px 20px; font:600 clamp(1.3rem,2.1vw,1.9rem)/1.5 -apple-system,system-ui,sans-serif; resize:vertical}
+  textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(235,143,153,.16)}
+  .scene textarea{min-height:44vh}
+  /* definition cards */
+  .defs{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:6px 0 28px}
+  @media (max-width:760px){ .defs{grid-template-columns:1fr} }
+  .def{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:16px; padding:22px 26px; box-shadow:0 12px 34px rgba(0,0,0,.36)}
+  .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent); font-family:Georgia,serif}
+  .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem); line-height:1.45}
+  .def.gold{border-top-color:var(--gold)} .def.gold h3{color:var(--gold)}
+  /* side-by-side comparison */
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:6px 0 20px}
+  @media (max-width:760px){ .pair{grid-template-columns:1fr} }
+  .pair figure img{max-height:54vh}
+  /* board callout */
+  .board{background:linear-gradient(180deg,#301f24,#261a1e); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px; padding:24px 30px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5; box-shadow:0 14px 40px rgba(0,0,0,.38)}
+  .board>b{color:var(--gold)}
+  .board .big{font-family:Georgia,serif; font-size:1.3em; color:var(--accent); display:block; margin:14px 0}
+  .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
+  /* numbered prompts */
+  .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
+  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  /* workshop grid */
+  .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
+  @media (max-width:760px){ .work{grid-template-columns:1fr} }
+  .work .cell{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  .work .cell .lab{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  .work .cell.g .lab{color:var(--gold)} .work .cell.s .lab{color:var(--sage)}
+  .work .cell p{margin:6px 0 0; font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink); line-height:1.4}
+  .pill{display:inline-block; background:rgba(235,143,153,.14); border:1px solid var(--accent); color:var(--accent); font-weight:700; font-size:clamp(1rem,1.5vw,1.25rem); border-radius:999px; padding:6px 16px; margin:4px 8px 4px 0}
+  /* controls */
+  .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.9); border:1px solid var(--line); color:var(--soft); border-radius:9px; padding:7px 13px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
+  .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
+  .lb{position:fixed; inset:0; background:rgba(10,6,7,.95); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
+  .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
+  .lb.on{display:flex}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+  <!-- 1 · TITLE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Week 11 · Tuesday</div>
+    <h1>Is any of this actually doing anything?</h1>
+    <div class="idea">Posting can feel exactly like <span class="hl">politics</span> while changing <span class="hl g">nothing</span>.</div>
+  </section>
+
+  <!-- 2 · DEBATE OPENER -->
+  <section class="panel">
+    <div class="kick gold">Debate this &middot; in your pods</div>
+    <h2 class="q">"Deleting your accounts would do more good than anything you'll ever post."</h2>
+    <p class="sub">Pick a side and defend it to your pod. Two minutes, then we fight it out as a room. No fence-sitting.</p>
+    <textarea data-k="w11-debate" aria-label="board"></textarea>
+  </section>
+
+  <!-- 3 · GOAL -->
+  <section class="panel">
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="teach"><p>Today we name three ideas that change how you read your own feed: <b>communicative capitalism</b>, <b>the attention economy</b>, and Jenny Odell's idea of <b>refusing it in place</b>. You'll test them on campaigns that went huge and changed nothing, and on small quiet ones that changed a lot. Thursday's module goes deeper; today we dig in together.</p></div>
+  </section>
+
+  <!-- 4 · HOOK: the two-hands survey -->
+  <section class="panel">
+    <div class="kick">Feel it</div>
+    <h2 class="q">Name one thing in the real world that changed because of something you posted.</h2>
+    <p class="sub">A person, a dollar, a vote, a policy, a door that opened. Real and offline only. A like on the post does not count.</p>
+    <textarea data-k="w11-b1" aria-label="board"></textarea>
+  </section>
+
+  <!-- 5 · ASK: message vs circulate -->
+  <section class="panel">
+    <div class="kick">Name it</div>
+    <h2 class="q">What's the difference between a message that wants a reply and a message that just wants to circulate?</h2>
+    <p class="sub">Texting one friend "please water my plant" versus posting "please water my plant" to ten thousand strangers.</p>
+    <textarea data-k="w11-b2" aria-label="board"></textarea>
+  </section>
+
+  <!-- 6 · REVEAL: communicative capitalism -->
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <div class="teach"><p>In 2005, before the iPhone, the political theorist <b>Jodi Dean</b> named this. On networked platforms your political speech stops being a <b>message</b>, something a person receives and has to answer, and becomes a <b>contribution to circulation</b>, one more unit added to the flow, valued only for moving. The count is the product. She calls the result <b>communicative capitalism</b>. The passion that could have become action gets spent as posting instead. It feels like doing something. That feeling is the trap.</p></div>
+  </section>
+
+  <!-- 7 · SCENE + ASK: what runs out -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week11-crowd-phones.jpg" alt="A crowd of people standing close together, each looking down at a smartphone">
+        <figcaption>Photo: Rawpixel Ltd (CC BY 2.0), via Wikimedia Commons.</figcaption>
+      </figure>
+      <div>
+        <div class="kick">What runs out</div>
+        <h2 class="q">Anyone can post forever, for free. Information is basically unlimited. So what is actually scarce?</h2>
+        <textarea data-k="w11-b3" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · REVEAL: Simon + attention economy -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="board">
+      <b>A wealth of information creates a poverty of attention. (Herbert Simon, 1971)</b>
+      <span class="big">Attention is the scarce resource, so it is the valuable one.</span>
+      The free app is not a charity. You are the product, and your attention is the raw material being sold to advertisers. That reframes the whole problem: what would it mean to take yours back?
+    </div>
+  </section>
+
+  <!-- 9 · CASE: Kony 2012 -->
+  <section class="panel">
+    <div class="kick">The case &middot; Kony 2012</div>
+    <p class="sub" style="margin-bottom:18px">In March 2012 an advocacy group released a 30-minute film urging the world to help capture a warlord. It hit about 100 million views in six days, the fastest-spreading video to that point in history. Then almost nothing followed. He was never captured. The real-world action fizzled. The organization fell apart within a year.</p>
+    <h2 class="q">More reach than your cause will ever get, and it produced less than sixty phone calls would. What was it missing?</h2>
+    <textarea data-k="w11-b4" aria-label="board"></textarea>
+  </section>
+
+  <!-- 10 · ASK: Odell -->
+  <section class="panel">
+    <div class="kick">A way out?</div>
+    <h2 class="q">If the answer isn't "log off forever and stop caring," what could refusing the attention economy actually look like?</h2>
+    <p class="sub">Jenny Odell wrote a whole book called <i>How to Do Nothing</i>. She is not telling you to quit.</p>
+    <textarea data-k="w11-b5" aria-label="board"></textarea>
+  </section>
+
+  <!-- 11 · REVEAL: Odell -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="teach gold"><p><b>Jenny Odell's</b> "doing nothing" is two moves at once. Refuse to hand your attention to the machine that turns it into circulation. Then re-place that attention on something real: a place, a community, the actual people and living things in front of you. Refusal in place, not escape. Where you put your attention is where your life goes, and reclaimed attention is the ground everything real stands on. You cannot organize what you can't even notice. For a cause, that means aiming the same energy at things that produce a reply and a relationship that lasts past the scroll.</p></div>
+  </section>
+
+  <!-- 12 · WORKSHOP -->
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; in your pods</div>
+    <h2 class="q">Take one piece of pure circulation and wire it to action.</h2>
+    <p class="sub">Each pod picks one move, <span class="pill">a viral hashtag</span><span class="pill">an online petition</span><span class="pill">a boosted video</span><span class="pill">a black-square solidarity post</span><span class="pill">a shared infographic</span> and fills all four boxes. Pick a spokesperson to report back.</p>
+    <div class="work">
+      <div class="cell"><span class="lab">What it circulates</span><p>What does this move spread well? What kind of reach can it get?</p></div>
+      <div class="cell g"><span class="lab">Where it dead-ends</span><p>Who has to receive it or answer it right now? If the answer is nobody, that is the dead end.</p></div>
+      <div class="cell s"><span class="lab">Who could answer</span><p>Name one real person or office that could be made to respond. Where is the power this should land on?</p></div>
+      <div class="cell"><span class="lab">Wire it to action</span><p>The one ask, channel, or captured contact that turns the reach into a reply. Redesign the move so something catches it.</p></div>
+    </div>
+    <textarea data-k="w11-b6" aria-label="board"></textarea>
+  </section>
+
+  <!-- 13 · FIELD NOTEBOOK -->
+  <section class="panel">
+    <div class="kick">Your cause &middot; Field Notebook</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">Open your Field Notebook. Is your cause building circulation, or action?</h2>
+    <p class="sub">Work these three on your own, then we'll hear a few. Most of it will land in "circulation," and that's the diagnosis, not a failure.</p>
+    <div class="prompts">
+      <div class="p">List five things your cause did to reach people in the last month. Beside each, write CIRCULATION (added to the flow, measured in likes and views) or ACTION (got a reply, met a person, changed a condition).</div>
+      <div class="p">Pick one that's stuck in circulation. In one sentence: what would turn it into action? A reply expected, a concrete ask, a real person met.</div>
+      <div class="p">Odell's move: name one channel or vanity metric to WITHDRAW your attention from, and one real, grounded place to RE-PLACE it (a relationship or condition you'll build instead).</div>
+    </div>
+  </section>
+
+  <!-- 14 · CLOSE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Where we go from here</div>
+    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">Stop feeding the flow. Start building the thing.</h1>
+    <div class="idea">Before "how do I get more reach," ask "if this circulates perfectly, does anything change, and who has to answer for it?" <b>Thursday's module:</b> the real Dean and Odell, a sorting tool on genuinely tricky cases, and you finalize Project 2. P2 is due Thursday, in the module.</div>
+  </section>
+
+  <button class="clear" id="clear">Clear the boards</button>
+  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+    var key = 'e4_instr_' + ta.dataset.k;
+    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
+    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
+  });
+  document.getElementById('clear').addEventListener('click', function(){
+    if(!confirm('Clear everything typed on the boards?')) return;
+    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
+    });
+  });
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
+</script>
+</body>
+</html>

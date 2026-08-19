@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 9 · An Army of Words</title>
+<style>
+  :root{
+    --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
+    --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
+    --accent:#eb8f99; --accent-deep:#8c2f39; --gold:#e8b567; --sage:#9ec6a6;
+    --field:#140d0f;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  html{scroll-snap-type:y proximity; scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1300px 850px at 72% -12%, #33202a 0%, var(--bg) 58%) fixed, var(--bg);
+    color:var(--ink); font:18px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .panel{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:62px 6vw 46px; border-bottom:1px solid var(--line)}
+  /* kicker with accent bar */
+  .kick{display:inline-flex; align-items:center; gap:13px; font-size:clamp(.95rem,1.4vw,1.1rem); letter-spacing:.22em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:18px}
+  .kick::before{content:""; width:36px; height:3px; background:var(--accent); border-radius:2px}
+  .kick.gold{color:var(--gold)} .kick.gold::before{background:var(--gold)}
+  /* title */
+  .title h1{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2.8rem,7.6vw,6rem); line-height:1.02; margin:0 0 16px; text-wrap:balance; letter-spacing:-.01em}
+  .title .idea{font-size:clamp(1.4rem,3vw,2.3rem); color:var(--soft); max-width:24ch; line-height:1.25}
+  .title .rule{width:120px; height:5px; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:3px; margin:0 0 26px}
+  /* questions */
+  .q{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2rem,4.6vw,3.5rem); line-height:1.12; margin:0 0 12px; text-wrap:balance}
+  .sub{color:var(--soft); font-size:clamp(1.1rem,1.8vw,1.4rem); margin:0 0 24px; line-height:1.45}
+  .hl{color:var(--accent); font-weight:700} .hl.g{color:var(--gold)}
+  /* teach card (explanation) */
+  .teach{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:16px; padding:26px 30px; box-shadow:0 16px 44px rgba(0,0,0,.4); font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.5}
+  .teach b{color:var(--accent)}
+  .teach.gold{border-left-color:var(--gold)} .teach.gold b{color:var(--gold)}
+  /* scene: image + prompt */
+  .scene{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:42px; align-items:center}
+  @media (max-width:900px){ .scene{grid-template-columns:1fr; gap:24px} }
+  figure{margin:0}
+  figure img{width:100%; max-height:80vh; object-fit:contain; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); cursor:zoom-in; background:#0d0809}
+  figcaption{color:var(--soft); font-size:.98rem; margin-top:10px; font-style:italic}
+  /* board textarea */
+  textarea{width:100%; min-height:34vh; background:var(--field); color:var(--ink); border:2px solid var(--line); border-radius:16px; padding:18px 20px; font:600 clamp(1.3rem,2.1vw,1.9rem)/1.5 -apple-system,system-ui,sans-serif; resize:vertical}
+  textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(235,143,153,.16)}
+  .scene textarea{min-height:44vh}
+  /* definition cards */
+  .defs{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:6px 0 28px}
+  @media (max-width:760px){ .defs{grid-template-columns:1fr} }
+  .def{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:16px; padding:22px 26px; box-shadow:0 12px 34px rgba(0,0,0,.36)}
+  .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent); font-family:Georgia,serif}
+  .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem); line-height:1.45}
+  .def.gold{border-top-color:var(--gold)} .def.gold h3{color:var(--gold)}
+  /* side-by-side comparison */
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:6px 0 20px}
+  @media (max-width:760px){ .pair{grid-template-columns:1fr} }
+  .pair figure img{max-height:54vh}
+  /* board callout */
+  .board{background:linear-gradient(180deg,#301f24,#261a1e); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px; padding:24px 30px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5; box-shadow:0 14px 40px rgba(0,0,0,.38)}
+  .board>b{color:var(--gold)}
+  .board .big{font-family:Georgia,serif; font-size:1.3em; color:var(--accent); display:block; margin:14px 0}
+  .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
+  /* quote */
+  .quote{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(1.5rem,3vw,2.4rem); line-height:1.3; color:var(--ink); border-left:5px solid var(--gold); padding-left:26px; margin:0; max-width:26ch}
+  .quote .src{display:block; font-family:-apple-system,sans-serif; font-size:.85rem; color:var(--soft); margin-top:16px; font-style:normal}
+  /* numbered prompts */
+  .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
+  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  /* workshop grid */
+  .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
+  @media (max-width:760px){ .work{grid-template-columns:1fr} }
+  .work .cell{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  .work .cell .lab{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  .work .cell.g .lab{color:var(--gold)} .work .cell.s .lab{color:var(--sage)}
+  .work .cell p{margin:6px 0 0; font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink); line-height:1.4}
+  .pill{display:inline-block; background:rgba(235,143,153,.14); border:1px solid var(--accent); color:var(--accent); font-weight:700; font-size:clamp(1rem,1.5vw,1.25rem); border-radius:999px; padding:6px 16px; margin:4px 8px 4px 0}
+  /* controls */
+  .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.9); border:1px solid var(--line); color:var(--soft); border-radius:9px; padding:7px 13px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
+  .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
+  .lb{position:fixed; inset:0; background:rgba(10,6,7,.95); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
+  .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
+  .lb.on{display:flex}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+  <!-- 1 · TITLE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Week 9 · Tuesday</div>
+    <h1>An army of words.</h1>
+    <div class="idea">They lost the shooting war in twelve days and won the <span class="hl g">story</span> war for decades.</div>
+  </section>
+
+  <!-- 2 · DEBATE OPENER -->
+  <section class="panel">
+    <div class="kick gold">Debate this &middot; in your pods</div>
+    <h2 class="q">"Online solidarity from strangers does a movement more harm than good."</h2>
+    <p class="sub">Pick a side and defend it to your pod. Two minutes, then we fight it out as a room. No fence-sitting.</p>
+    <textarea data-k="w9-debate" aria-label="board"></textarea>
+  </section>
+
+  <!-- 3 · GOAL -->
+  <section class="panel">
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="teach"><p>By the end of class you'll see how one small movement in Mexico paired the <b>slowest</b> medium it had with the <b>fastest</b> one, and lived. You'll meet the <b>communiqué</b>, the mask that became a mirror, and a word for war fought by a swarm with no headquarters: <b>netwar</b>. Then you'll turn that same slow-plus-fast lens on your own cause. You go deeper Thursday. Today we dig in together.</p></div>
+  </section>
+
+  <!-- 4 · HOOK (scene + question) -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week9-ezln.jpg" alt="Masked Zapatista fighters during the 1994 uprising in Chiapas, Mexico">
+        <figcaption>The Zapatista uprising, Chiapas, January 1994. Photo via Wikimedia Commons (CC BY-SA 4.0).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">New Year's Day, 1994 · Chiapas</div>
+        <h2 class="q">A few thousand farmers with old rifles cannot beat the Mexican army. So how does a movement this small avoid getting crushed and forgotten?</h2>
+        <textarea data-k="w9-b1" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · THE COMMUNIQUÉ (context defs) + question -->
+  <section class="panel">
+    <div class="defs">
+      <div class="def"><h3>Communiqué</h3><p>An old word for an official dispatch, a public bulletin from a group to the world (say "kuh-MEW-nih-kay"). Governments issue dry ones. The Zapatistas issued strange, beautiful ones: part manifesto, part poem, part letter, written by a masked man named Subcomandante Marcos who wrote more like a poet than a general.</p></div>
+      <div class="def gold"><h3>The path it traveled</h3><p>Written in the jungle. Mailed to newspapers. Typed onto the young internet by volunteers within hours. Translated and read in dozens of countries within days.</p></div>
+    </div>
+    <h2 class="q">Their whole demand was eleven plain words: work, land, housing, food, health care, education, independence, freedom, democracy, justice, peace. Why write it that way instead of a political program full of jargon?</h2>
+    <textarea data-k="w9-b2" aria-label="board"></textarea>
+  </section>
+
+  <!-- 6 · PLAIN WORDS reveal -->
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <div class="teach"><p>Jargon recruits the people who already agree. A list of plain human needs recruits <b>strangers</b>. Anyone anywhere can read "no health care, no food, no land" and feel it in their own life, even if they have never heard of Chiapas. When your survival depends on the whole world watching, you write for the stranger three countries away, not for the specialist in the room. That is why "¡Ya Basta!", just "Enough," could jump borders when a policy paper never could.</p></div>
+  </section>
+
+  <!-- 7 · THE MASK (scene: Marcos) + question -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week9-marcos.jpg" alt="Subcomandante Marcos, masked and smoking a pipe, the Zapatista spokesman">
+        <figcaption>Subcomandante Marcos, the masked Zapatista spokesman. Photo: César Bojórquez (CC BY 2.0).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">The man with no face</div>
+        <h2 class="q">The government kept trying to unmask him and print his real name. Why would staying anonymous make him more powerful, not less?</h2>
+        <textarea data-k="w9-b3" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · THE MIRROR reveal (quote + board) -->
+  <section class="panel">
+    <div class="scene">
+      <blockquote class="quote">
+        "Marcos is gay in San Francisco, Black in South Africa, a Palestinian in Israel, a Jew in Germany, a woman alone on the subway at 10pm. Marcos is every silenced, resisting minority saying ¡Ya Basta!"
+        <span class="src">Subcomandante Marcos, answering reporters who asked who was behind the mask.</span>
+      </blockquote>
+      <div class="board">
+        <b>The mask became a mirror.</b>
+        <span class="big">A face makes it one man's story. No face makes it your story.</span>
+        Anonymity, then universality, then solidarity. You looked at him and saw the excluded person in your own city.
+        <span class="also">Callback to Week 3: "Publius" in the Federalist Papers. A shared mask can amplify.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · THE SLOW HALF (context defs) + question -->
+  <section class="panel">
+    <div class="defs">
+      <div class="def"><h3>The community assembly</h3><p>How the Zapatistas decide: the whole community talks a question through, sometimes for days, until everyone reaches consensus, rather than taking an order from the top. Slow on purpose.</p></div>
+      <div class="def gold"><h3>Mandar obedeciendo</h3><p>"To lead by obeying." The leader carries out what the assembly decides. The community does not obey the leader; the leader obeys the community.</p></div>
+    </div>
+    <h2 class="q">A whole village debating for three days to settle one question sounds painfully inefficient. What does that slowness buy them that a quick order from the top never would?</h2>
+    <textarea data-k="w9-b4" aria-label="board"></textarea>
+  </section>
+
+  <!-- 10 · THE FAST HALF (context defs) + question -->
+  <section class="panel">
+    <div class="defs">
+      <div class="def"><h3>Netwar</h3><p>Coined by RAND analysts Arquilla and Ronfeldt: conflict waged by a swarm of small, networked groups instead of one chain of command. No general to capture. No headquarters to raid.</p></div>
+      <div class="def gold"><h3>An electronic fabric of struggle</h3><p>Scholar Harry Cleaver's name for it. One communiqué left the jungle, and within hours scattered volunteers translated it and flooded email lists, embassies, and newsrooms worldwide.</p></div>
+    </div>
+    <h2 class="q">So which one actually saved them, the internet or the assembly?</h2>
+    <textarea data-k="w9-b5" aria-label="board"></textarea>
+  </section>
+
+  <!-- 11 · THE PAIRING reveal (jungle scene + board) -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week9-jungle.jpg" alt="The Lacandon jungle of Chiapas, dense green forest and hills">
+        <figcaption>The Lacandón jungle, Chiapas, where the communiqués were written. Photo via Wikimedia Commons (public domain).</figcaption>
+      </figure>
+      <div class="board">
+        <span class="big">Both, and the pairing is the whole point.</span>
+        A viral message with no real community behind it is empty. A real community nobody ever hears about gets crushed in silence.
+        <span class="also">The slow assembly built the thing worth defending. The fast network made sure the world was watching while they defended it.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · CASE STUDY (board + honest) + forward question -->
+  <section class="panel">
+    <div class="kick">The case &middot; twelve days that ran on words</div>
+    <div class="board" style="border-left-color:var(--accent); margin-bottom:24px">
+      On January 1, 1994, the Zapatistas seized several towns in Chiapas. The army answered with overwhelming force, and by any military math it was over. What broke the math was the network. Communiqués were translated and posted worldwide, solidarity groups flooded embassies and newsrooms, and the government found it could not run a quiet offensive against people the whole world was suddenly reading about. Around twelve days in, it called a ceasefire and sat down to talk.
+      <span class="also"><b style="color:var(--gold)">Stay honest.</b> They never won their formal demands. The state response stayed harsh, and in 1997 a paramilitary group massacred 45 people at Acteal, most of them women and children. What they won was survival, self-rule in their own territory, and a playbook every networked movement since has borrowed. Both things are true at once.</span>
+    </div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem)">Netwar's edge is that there's no head to cut off. So name one real weakness of a movement with no headquarters and no single leader.</h2>
+    <textarea data-k="w9-b6" aria-label="board"></textarea>
+  </section>
+
+  <!-- 13 · WORKSHOP -->
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; in your pods</div>
+    <h2 class="q">Build both halves for one cause, Zapatista-style.</h2>
+    <p class="sub">Take one pod member's cause, or grab one of these: <span class="pill">a campus food pantry</span><span class="pill">a rural bus route</span><span class="pill">a river cleanup</span><span class="pill">a tenants' union</span>. Fill all four boxes, then your spokesperson reads just your ¡Ya Basta! line to the room, and we see whose lands.</p>
+    <div class="work">
+      <div class="cell"><span class="lab">The slow core</span><p>Who are the people who would actually keep showing up for this, in person, when it's hard? If there aren't any yet, name who they'd be.</p></div>
+      <div class="cell g"><span class="lab">The fast reach</span><p>What is the one channel that could carry this to strangers far away, fast? Where would it spread if it spread at all?</p></div>
+      <div class="cell s"><span class="lab">The ¡Ya Basta! line</span><p>Write one plain sentence, no jargon, that a stranger three states away could read and feel in their own life.</p></div>
+      <div class="cell"><span class="lab">The mirror</span><p>Whose story do you tell, and told how, so a stranger looks at it and sees themselves, more than they see you?</p></div>
+    </div>
+    <textarea data-k="w9-b7" aria-label="board"></textarea>
+  </section>
+
+  <!-- 14 · FIELD NOTEBOOK -->
+  <section class="panel">
+    <div class="kick">Your cause &middot; Field Notebook</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">Open your Field Notebook. Run the Zapatista lens over your own cause.</h2>
+    <p class="sub">Work these three on your own, then we'll hear a few.</p>
+    <div class="prompts">
+      <div class="p">The slow core: what real, bonded, offline part does your cause have or could have, the people who'd actually keep showing up? If there's none yet, name who they'd be.</div>
+      <div class="p">The fast reach: draft one short communiqué for your cause, a plain-language dispatch a stranger could read and see their own life in. Then pull out its one ¡Ya Basta! line.</div>
+      <div class="p">The mirror: whose story does your cause tell, and how would you tell it so a stranger sees themselves in it, more than they see you?</div>
+    </div>
+  </section>
+
+  <!-- 15 · CLOSE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Where we go from here</div>
+    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">Our word is our weapon.</h1>
+    <div class="idea"><b>Thursday's module:</b> read a real Zapatista communiqué, name the network that carried it, then run the first audit of your own cause's presence online. That audit is the on-ramp to Project 2, Content Strategy &amp; Audit. Bring the notebook. We'll reconvene at the end to share.</div>
+  </section>
+
+  <button class="clear" id="clear">Clear the boards</button>
+  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+    var key = 'e4_instr_' + ta.dataset.k;
+    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
+    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
+  });
+  document.getElementById('clear').addEventListener('click', function(){
+    if(!confirm('Clear everything typed on the boards?')) return;
+    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
+    });
+  });
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
+</script>
+</body>
+</html>

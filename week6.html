@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 6 · The Reader Is the Publisher</title>
+<style>
+  :root{
+    --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
+    --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
+    --accent:#eb8f99; --accent-deep:#8c2f39; --gold:#e8b567; --sage:#9ec6a6;
+    --field:#140d0f;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  html{scroll-snap-type:y proximity; scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1300px 850px at 72% -12%, #33202a 0%, var(--bg) 58%) fixed, var(--bg);
+    color:var(--ink); font:18px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .panel{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:62px 6vw 46px; border-bottom:1px solid var(--line)}
+  /* kicker with accent bar */
+  .kick{display:inline-flex; align-items:center; gap:13px; font-size:clamp(.95rem,1.4vw,1.1rem); letter-spacing:.22em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:18px}
+  .kick::before{content:""; width:36px; height:3px; background:var(--accent); border-radius:2px}
+  .kick.gold{color:var(--gold)} .kick.gold::before{background:var(--gold)}
+  /* title */
+  .title h1{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2.8rem,7.6vw,6rem); line-height:1.02; margin:0 0 16px; text-wrap:balance; letter-spacing:-.01em}
+  .title .idea{font-size:clamp(1.4rem,3vw,2.3rem); color:var(--soft); max-width:24ch; line-height:1.25}
+  .title .rule{width:120px; height:5px; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:3px; margin:0 0 26px}
+  /* questions */
+  .q{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2rem,4.6vw,3.5rem); line-height:1.12; margin:0 0 12px; text-wrap:balance}
+  .sub{color:var(--soft); font-size:clamp(1.1rem,1.8vw,1.4rem); margin:0 0 24px; line-height:1.45}
+  .hl{color:var(--accent); font-weight:700} .hl.g{color:var(--gold)}
+  /* teach card (explanation) */
+  .teach{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:16px; padding:26px 30px; box-shadow:0 16px 44px rgba(0,0,0,.4); font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.5}
+  .teach b{color:var(--accent)}
+  .teach.gold{border-left-color:var(--gold)} .teach.gold b{color:var(--gold)}
+  /* scene: image + prompt */
+  .scene{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:42px; align-items:center}
+  @media (max-width:900px){ .scene{grid-template-columns:1fr; gap:24px} }
+  figure{margin:0}
+  figure img{width:100%; max-height:80vh; object-fit:contain; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); cursor:zoom-in; background:#0d0809}
+  figcaption{color:var(--soft); font-size:.98rem; margin-top:10px; font-style:italic}
+  /* board textarea */
+  textarea{width:100%; min-height:34vh; background:var(--field); color:var(--ink); border:2px solid var(--line); border-radius:16px; padding:18px 20px; font:600 clamp(1.3rem,2.1vw,1.9rem)/1.5 -apple-system,system-ui,sans-serif; resize:vertical}
+  textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(235,143,153,.16)}
+  .scene textarea{min-height:44vh}
+  /* definition cards */
+  .defs{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:6px 0 28px}
+  @media (max-width:760px){ .defs{grid-template-columns:1fr} }
+  .def{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:16px; padding:22px 26px; box-shadow:0 12px 34px rgba(0,0,0,.36)}
+  .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent); font-family:Georgia,serif}
+  .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem); line-height:1.45}
+  .def.gold{border-top-color:var(--gold)} .def.gold h3{color:var(--gold)}
+  /* side-by-side comparison */
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:6px 0 20px}
+  @media (max-width:760px){ .pair{grid-template-columns:1fr} }
+  .pair figure img{max-height:54vh}
+  /* board callout */
+  .board{background:linear-gradient(180deg,#301f24,#261a1e); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px; padding:24px 30px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5; box-shadow:0 14px 40px rgba(0,0,0,.38)}
+  .board>b{color:var(--gold)}
+  .board .big{font-family:Georgia,serif; font-size:1.3em; color:var(--accent); display:block; margin:14px 0}
+  .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
+  /* numbered prompts */
+  .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
+  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  /* workshop grid */
+  .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
+  @media (max-width:760px){ .work{grid-template-columns:1fr} }
+  .work .cell{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  .work .cell .lab{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  .work .cell.g .lab{color:var(--gold)} .work .cell.s .lab{color:var(--sage)}
+  .work .cell p{margin:6px 0 0; font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink); line-height:1.4}
+  .pill{display:inline-block; background:rgba(235,143,153,.14); border:1px solid var(--accent); color:var(--accent); font-weight:700; font-size:clamp(1rem,1.5vw,1.25rem); border-radius:999px; padding:6px 16px; margin:4px 8px 4px 0}
+  /* controls */
+  .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.9); border:1px solid var(--line); color:var(--soft); border-radius:9px; padding:7px 13px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
+  .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
+  .lb{position:fixed; inset:0; background:rgba(10,6,7,.95); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
+  .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
+  .lb.on{display:flex}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+  <!-- 1 · TITLE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Week 6 · Tuesday</div>
+    <h1>The reader is the publisher.</h1>
+    <div class="idea">When the State owns every press, you don't get <span class="hl">louder</span>. You get <span class="hl g">slower</span>, and more personal.</div>
+  </section>
+
+  <!-- DEBATE OPENER -->
+  <section class="panel">
+    <div class="kick gold">Debate this &middot; in your pods</div>
+    <h2 class="q">"Some ideas are dangerous enough that banning them is the right call."</h2>
+    <p class="sub">Pick a side and defend it to your pod. Two minutes, then we fight it out as a room. No fence-sitting.</p>
+    <textarea data-k="w6-debate" aria-label="board"></textarea>
+  </section>
+
+  <!-- 2 · GOAL -->
+  <section class="panel">
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="teach"><p>Today you'll handle three ideas that change how you think about reach. First, <b>samizdat</b>, and the claim that the reader is the publisher. Second, <b>slow media and trust networks</b>, and why a message that can't go viral has its own kind of power. Third, the <b>ethics of visibility</b>: whose safety a post spends, and who agreed to spend it. You'll go deeper Thursday. Today we do it together, with a pen.</p></div>
+  </section>
+
+  <!-- 3 · SCENE + Q -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week6-samizdat.jpg" alt="Stacks of hand-copied samizdat pages and photo negatives of banned literature from the USSR">
+        <figcaption>Samizdat: hand-copied, underground literature passed reader to reader in the USSR (Wikimedia Commons, CC BY-SA 4.0).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">Feel it</div>
+        <h2 class="q">The State owns every press, every copier, every typewriter that matters.</h2>
+        <p class="sub">You've read something true. Owning a copy could cost you five years. How do you get it to a thousand people?</p>
+        <textarea data-k="w6-b1" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · NAME IT / reveal -->
+  <section class="panel">
+    <div class="kick gold">Here's what they did</div>
+    <div class="defs">
+      <div class="def"><h3>Samizdat</h3><p>Russian: <i>sam</i> (self) + <i>izdat</i> (publishing), so "self-published." The underground copying and hand-to-hand passing of banned texts in the USSR, roughly the 1950s through the 1980s.</p></div>
+      <div class="def gold"><h3>Carbon copy</h3><p>Stack thin paper with inky carbon sheets between, hit the keys hard, and one typing makes up to six copies at once. The whole "press" fits on a kitchen table.</p></div>
+    </div>
+    <div class="board">
+      One typing plus carbon paper makes about six copies at a strike.
+      <span class="big">6 readers &rarr; each retypes &rarr; 36 &rarr; 216 &hellip;</span>
+      No headquarters to raid. The distribution system lives in people's kitchens and coat pockets. <b>The reader is the publisher.</b>
+    </div>
+  </section>
+
+  <!-- 5 · THE POEM (analog activity) -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week6-mandelstam.jpg" alt="Portrait photograph of the poet Osip Mandelstam taken after his 1934 arrest">
+        <figcaption>Osip Mandelstam, photographed after his 1934 arrest (Public domain, Wikimedia Commons).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">Become the press</div>
+        <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.6rem)">Copy the whole thing by hand.</h2>
+        <p class="sub">Osip Mandelstam, "The Stalin Epigram" (1933), opening lines. Pen only. No going back to fix a slip. When you're done, hand your copy to the next person in your pod to copy from yours.</p>
+        <div class="board" style="border-left-color:var(--gold); font-family:Georgia,serif; font-style:italic; white-space:pre-line">We live, not feeling the country beneath us,
+our speech inaudible ten steps away.
+But where there's enough for half a conversation,
+the Kremlin mountaineer is named.
+His fingers are fat as grubs,
+his words drop like lead weights, and never miss.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · WHAT CHANGED (ask) -->
+  <section class="panel">
+    <div class="kick">Compare the copies</div>
+    <h2 class="q">Read the copies aloud, down the chain. What changed?</h2>
+    <p class="sub">Line up the last copy against the original, and against your neighbor's.</p>
+    <textarea data-k="w6-b2" aria-label="board"></textarea>
+  </section>
+
+  <!-- 7 · WHAT YOU FELT (reveal) -->
+  <section class="panel">
+    <div class="kick gold">What you just felt</div>
+    <div class="board">
+      It is <b>slow</b>, and it is <b>work</b>. That is why it stayed small.<br>
+      Each copy <b>drifts</b> a little. That's the human carbon-copy fade, live.<br>
+      You had to <b>choose</b> who got your copy. That choice is trust.
+      <span class="also">The slowness, the smallness, and the trust were not bugs in the system. They were the whole design.</span>
+    </div>
+  </section>
+
+  <!-- 8 · WINNER CALLBACK (ask) -->
+  <section class="panel">
+    <div class="kick">Callback &middot; Langdon Winner: artifacts have politics</div>
+    <h2 class="q">What politics are built into a typewriter and a sheet of carbon paper?</h2>
+    <p class="sub">Two weeks ago Winner argued that the design of a tool can quietly enforce power. Turn that lens on these two humble objects.</p>
+    <textarea data-k="w6-b3" aria-label="board"></textarea>
+  </section>
+
+  <!-- 8b · WINNER reveal -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="teach"><p>A printing press is central, costly, and seizable. A typewriter with carbon paper is none of those. The tool's very limits, slow, by hand, a few copies at a time, forced the network to be decentralized, with no center to raid and no list to demand. The weakness became the security feature. Winner's point, poured into an object: the politics were built into the thing itself.</p></div>
+  </section>
+
+  <!-- 9 · SURVEILLANCE (ask) -->
+  <section class="panel">
+    <div class="kick">The turn</div>
+    <h2 class="q">Before anyone is ever arrested, what does being watched do to people?</h2>
+    <p class="sub">Samizdat existed because people were watched. You won't face the KGB, but your cause still lives under watchful systems: platforms that log everything, employers who search names, opponents who screenshot.</p>
+    <textarea data-k="w6-b4" aria-label="board"></textarea>
+  </section>
+
+  <!-- 9b · SURVEILLANCE reveal -->
+  <section class="panel">
+    <div class="kick gold">Name it &middot; the chilling effect</div>
+    <div class="board">
+      After the 2013 revelations that the NSA was collecting bulk internet data, traffic to Wikipedia articles on terms like "car bomb" and "Al Qaeda" dropped measurably. Nobody was arrested for reading them. People simply stopped, because they felt watched.
+      <span class="big">Surveillance changes behavior without charging a soul.</span>
+      Researchers call it the <b>chilling effect</b>. One survey (Penney) found a personal legal threat made about 75% of people say they'd speak less online. For a movement, the danger is that your most vulnerable members go quiet before you even ask them to speak.
+    </div>
+  </section>
+
+  <!-- 10 · NO CENTER (ask) -->
+  <section class="panel">
+    <h2 class="q">Why is a network with no center harder to shut down than one big press?</h2>
+    <textarea data-k="w6-b5" aria-label="board"></textarea>
+  </section>
+
+  <!-- 11 · CHRONICLE case (reveal) -->
+  <section class="panel">
+    <div class="kick gold">A case &middot; Moscow, 1968 to 1983</div>
+    <div class="board">
+      <b>The Chronicle of Current Events</b> was a samizdat newsletter that did one plain, dangerous thing: it documented Soviet arrests, trials, and abuses, dryly and accurately, for about fifteen years. Editors were arrested. The Chronicle kept coming.
+      <span class="big">Its secret was structural. There was no center to cut.</span>
+      No subscriber list to seize, no single office to raid. Each issue told readers, in effect, "if you know of an arrest, pass the facts back up the same chain you got this from." Information traveled through trust, in both directions. The medium had no middle. That is the exact opposite of a contact list sitting on one shared link.
+    </div>
+  </section>
+
+  <!-- 12 · WORKSHOP -->
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; in your pods</div>
+    <h2 class="q">Move a risky message without burning the person it's about.</h2>
+    <p class="sub">Each pod takes one situation, <span class="pill">undocumented families at a school</span><span class="pill">a nurse blowing the whistle on unsafe staffing</span><span class="pill">an abuse survivor's story</span><span class="pill">quiet union organizing</span><span class="pill">protest logistics</span> and fills all four boxes. Pick a spokesperson to report back.</p>
+    <div class="work">
+      <div class="cell"><span class="lab">The message</span><p>What true thing has to reach people for this cause to move? Say it in one plain sentence.</p></div>
+      <div class="cell g"><span class="lab">The fast way</span><p>You post it publicly. What's the reach you gain, and exactly who does that post expose?</p></div>
+      <div class="cell s"><span class="lab">The slow way</span><p>You move it person to person through people who already trust each other. Sketch the chain: who tells whom?</p></div>
+      <div class="cell"><span class="lab">The call</span><p>Which do you choose, and whose safety are you spending either way? What's the one rule you'd set before posting a real person?</p></div>
+    </div>
+    <textarea data-k="w6-b6" aria-label="board"></textarea>
+  </section>
+
+  <!-- 13 · FIELD NOTEBOOK -->
+  <section class="panel">
+    <div class="kick">Your cause &middot; Field Notebook</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">Open your Field Notebook. Find the slow, high-trust core of your cause.</h2>
+    <p class="sub">Work these on your own, then we'll hear a few.</p>
+    <div class="prompts">
+      <div class="p">Name the slow, high-trust core of your cause: the specific people who'd actually show up and do real work, beyond liking a post. How many are there, really?</div>
+      <div class="p">Point to one place your cause exposes a person more than they chose to be, a tagged photo, a public list, a name on a post, and say what it could cost them.</div>
+      <div class="p">Pick one thing you'll move off the public feed and into a smaller, higher-trust channel this semester. What does the private version protect that the public one couldn't?</div>
+    </div>
+  </section>
+
+  <!-- 14 · CLOSE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Close</div>
+    <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">Whose safety am I spending, and did they agree to spend it?</h1>
+    <div class="idea"><b>Thursday's module:</b> how samizdat actually held together, then the ethics you just bumped into, privacy, surveillance, and what you owe the people you put online. Bring the notebook. <b>Project 1 is due this week.</b></div>
+  </section>
+
+  <button class="clear" id="clear">Clear the boards</button>
+  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+    var key = 'e4_instr_' + ta.dataset.k;
+    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
+    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
+  });
+  document.getElementById('clear').addEventListener('click', function(){
+    if(!confirm('Clear everything typed on the boards?')) return;
+    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
+    });
+  });
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
+</script>
+</body>
+</html>

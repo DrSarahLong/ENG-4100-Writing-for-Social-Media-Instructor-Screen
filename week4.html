@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 4 · Own the Press, Own the Story</title>
+<style>
+  :root{
+    --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
+    --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
+    --accent:#eb8f99; --accent-deep:#8c2f39; --gold:#e8b567; --sage:#9ec6a6;
+    --field:#140d0f;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  html{scroll-snap-type:y proximity; scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1300px 850px at 72% -12%, #33202a 0%, var(--bg) 58%) fixed, var(--bg);
+    color:var(--ink); font:18px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .panel{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:62px 6vw 46px; border-bottom:1px solid var(--line)}
+  /* kicker with accent bar */
+  .kick{display:inline-flex; align-items:center; gap:13px; font-size:clamp(.95rem,1.4vw,1.1rem); letter-spacing:.22em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:18px}
+  .kick::before{content:""; width:36px; height:3px; background:var(--accent); border-radius:2px}
+  .kick.gold{color:var(--gold)} .kick.gold::before{background:var(--gold)}
+  /* title */
+  .title h1{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2.8rem,7.6vw,6rem); line-height:1.02; margin:0 0 16px; text-wrap:balance; letter-spacing:-.01em}
+  .title .idea{font-size:clamp(1.4rem,3vw,2.3rem); color:var(--soft); max-width:24ch; line-height:1.25}
+  .title .rule{width:120px; height:5px; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:3px; margin:0 0 26px}
+  /* questions */
+  .q{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2rem,4.6vw,3.5rem); line-height:1.12; margin:0 0 12px; text-wrap:balance}
+  .sub{color:var(--soft); font-size:clamp(1.1rem,1.8vw,1.4rem); margin:0 0 24px; line-height:1.45}
+  .hl{color:var(--accent); font-weight:700} .hl.g{color:var(--gold)}
+  /* teach card (explanation) */
+  .teach{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:16px; padding:26px 30px; box-shadow:0 16px 44px rgba(0,0,0,.4); font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.5}
+  .teach b{color:var(--accent)}
+  .teach.gold{border-left-color:var(--gold)} .teach.gold b{color:var(--gold)}
+  /* scene: image + prompt */
+  .scene{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:42px; align-items:center}
+  @media (max-width:900px){ .scene{grid-template-columns:1fr; gap:24px} }
+  figure{margin:0}
+  figure img{width:100%; max-height:80vh; object-fit:contain; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); cursor:zoom-in; background:#0d0809}
+  figcaption{color:var(--soft); font-size:.98rem; margin-top:10px; font-style:italic}
+  /* board textarea */
+  textarea{width:100%; min-height:34vh; background:var(--field); color:var(--ink); border:2px solid var(--line); border-radius:16px; padding:18px 20px; font:600 clamp(1.3rem,2.1vw,1.9rem)/1.5 -apple-system,system-ui,sans-serif; resize:vertical}
+  textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(235,143,153,.16)}
+  .scene textarea{min-height:44vh}
+  /* definition cards */
+  .defs{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:6px 0 28px}
+  @media (max-width:760px){ .defs{grid-template-columns:1fr} }
+  .def{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:16px; padding:22px 26px; box-shadow:0 12px 34px rgba(0,0,0,.36)}
+  .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent); font-family:Georgia,serif}
+  .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem); line-height:1.45}
+  .def.gold{border-top-color:var(--gold)} .def.gold h3{color:var(--gold)}
+  /* side-by-side comparison */
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:6px 0 20px}
+  @media (max-width:760px){ .pair{grid-template-columns:1fr} }
+  .pair figure img{max-height:54vh}
+  /* board callout */
+  .board{background:linear-gradient(180deg,#301f24,#261a1e); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px; padding:24px 30px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5; box-shadow:0 14px 40px rgba(0,0,0,.38)}
+  .board>b{color:var(--gold)}
+  .board .big{font-family:Georgia,serif; font-size:1.3em; color:var(--accent); display:block; margin:14px 0}
+  .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
+  /* numbered prompts */
+  .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
+  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  /* workshop grid */
+  .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
+  @media (max-width:760px){ .work{grid-template-columns:1fr} }
+  .work .cell{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  .work .cell .lab{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  .work .cell.g .lab{color:var(--gold)} .work .cell.s .lab{color:var(--sage)}
+  .work .cell p{margin:6px 0 0; font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink); line-height:1.4}
+  .pill{display:inline-block; background:rgba(235,143,153,.14); border:1px solid var(--accent); color:var(--accent); font-weight:700; font-size:clamp(1rem,1.5vw,1.25rem); border-radius:999px; padding:6px 16px; margin:4px 8px 4px 0}
+  /* controls */
+  .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.9); border:1px solid var(--line); color:var(--soft); border-radius:9px; padding:7px 13px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
+  .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
+  .lb{position:fixed; inset:0; background:rgba(10,6,7,.95); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
+  .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
+  .lb.on{display:flex}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+  <!-- 1 · TITLE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Week 4 · Tuesday</div>
+    <h1>Own the press, own the story.</h1>
+    <div class="idea">If someone else controls <span class="hl">where</span> your cause gets to speak, they control <span class="hl g">what</span> it gets to say, and whether it gets heard at all.</div>
+  </section>
+
+  <!-- 2 · DEBATE OPENER -->
+  <section class="panel">
+    <div class="kick gold">Debate this &middot; in your pods</div>
+    <h2 class="q">"A cause should never give its opponents a platform, not even to prove them wrong."</h2>
+    <p class="sub">Pick a side and defend it to your pod. Two minutes, then we fight it out as a room. No fence-sitting.</p>
+    <textarea data-k="w4-debate" aria-label="board"></textarea>
+  </section>
+
+  <!-- 3 · GOAL -->
+  <section class="panel">
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="teach"><p>By the end of class you'll have wrestled with three ideas that decide whether a cause ever gets heard: <b>whoever owns the press owns the story</b>, <b>moral suasion</b> as a theory of change, and the difference between <b>owning</b> your audience and <b>renting</b> it. Frederick Douglass and his paper, The North Star, run through all three. You go deeper Thursday; today we dig in together.</p></div>
+  </section>
+
+  <!-- 4 · ONE RALLY, THREE NEWSPAPERS (ask) -->
+  <section class="panel">
+    <div class="kick">One rally &middot; three newspapers</div>
+    <p class="sub" style="margin-bottom:18px">Same 200 people. Same peaceful rally for a cap on rent. Same afternoon. Three papers cover it.</p>
+    <div style="display:grid; gap:14px; margin:0 0 22px">
+      <div style="background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px 22px">
+        <div style="color:var(--soft); font-size:.9rem; text-transform:uppercase; letter-spacing:.09em; margin-bottom:6px">The big city daily (owned by real-estate money)</div>
+        <div style="font-family:Georgia,serif; font-size:clamp(1.3rem,2.6vw,2rem); line-height:1.2">"Angry Mob Snarls Downtown Traffic"</div>
+      </div>
+      <div style="background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px 22px">
+        <div style="color:var(--soft); font-size:.9rem; text-transform:uppercase; letter-spacing:.09em; margin-bottom:6px">A neutral wire service</div>
+        <div style="font-family:Georgia,serif; font-size:clamp(1.3rem,2.6vw,2rem); line-height:1.2">"About 200 Attend Rally Over Housing Costs"</div>
+      </div>
+      <div style="background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px 22px">
+        <div style="color:var(--soft); font-size:.9rem; text-transform:uppercase; letter-spacing:.09em; margin-bottom:6px">The tenants' own newsletter</div>
+        <div style="font-family:Georgia,serif; font-size:clamp(1.3rem,2.6vw,2rem); line-height:1.2">"200 Neighbors Stand Together for Homes They Can Afford"</div>
+      </div>
+    </div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem)">What does that first headline do to them? Which word is doing the damage? And what can the tenants' own paper do that the other two can't?</h2>
+    <textarea data-k="w4-b1" aria-label="board"></textarea>
+  </section>
+
+  <!-- 5 · REVEAL: owns the press -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="board">
+      <span class="big">Whoever owns the press owns the story.</span>
+      When someone else controls where you get to speak, they control three things at once: whether you're covered at all, how you're framed when you are ("mob" or "neighbors"), and what gets cut, usually the reason you showed up in the first place.
+      <span class="also">So the question becomes: what do you do when the people with the printing presses will never tell your story straight?</span>
+    </div>
+  </section>
+
+  <!-- 6 · GARRISON (scene + ask) -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week4-garrison.jpg" alt="Portrait of William Lloyd Garrison, editor of The Liberator">
+        <figcaption>William Lloyd Garrison, editor of The Liberator (Library of Congress, public domain).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">On his own side</div>
+        <p class="sub">The young Frederick Douglass was the most powerful speaker in American abolition. The white leaders around <span class="hl">William Lloyd Garrison</span> wanted him to supply the raw facts of his enslavement and leave the arguing to them. Their line: "Give us the facts, we'll take care of the philosophy." He was welcome as evidence. He was not welcome as the author.</p>
+        <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.6rem)">If even the people on your side will only let you be the evidence, never the author, what do you do?</h2>
+        <textarea data-k="w4-b2" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · DOUGLASS + THE NORTH STAR (reveal) -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week4-douglass.png" alt="Daguerreotype portrait of Frederick Douglass around 1847">
+        <figcaption>Frederick Douglass, daguerreotype by Samuel J. Miller, around 1847 (Art Institute of Chicago, public domain).</figcaption>
+      </figure>
+      <div class="board">
+        <b>His answer:</b> in 1847 Douglass founded The North Star in Rochester, New York, a newspaper owned, edited, and run by a formerly enslaved man.
+        <span class="big">He would own the paper and do both, the facts and the philosophy.</span>
+        Its motto: "Right is of no Sex, Truth is of no Color, God is the Father of us all, and we are all Brethren."
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · NORTH STAR FRONT PAGE (image + ask) -->
+  <section class="panel">
+    <div class="kick">The paper itself</div>
+    <figure>
+      <img src="images/week4-northstar.jpg" alt="Front page of The North Star, Rochester, June 2, 1848">
+      <figcaption>The North Star, Rochester, N.Y., June 2, 1848, the paper Douglass owned (public domain).</figcaption>
+    </figure>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem); margin-top:22px">He was already the most famous speaker in the movement. Why build and run an entire newspaper on top of that?</h2>
+    <textarea data-k="w4-b3" aria-label="board"></textarea>
+  </section>
+
+  <!-- 9 · MORAL SUASION (ask) -->
+  <section class="panel">
+    <div class="kick">His theory of change</div>
+    <h2 class="q">Douglass rarely reached for a law or a weapon. His main tool was moral: make people feel a wrong so sharply they can no longer defend it.</h2>
+    <p class="sub">Name a cause working today that fights the same way, by moving hearts and consciences more than by passing a law.</p>
+    <textarea data-k="w4-b4" aria-label="board"></textarea>
+  </section>
+
+  <!-- 10 · MORAL SUASION (reveal) -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="board">
+      <b>Moral suasion:</b> a theory of change that moves people by testimony, argument, and appeal to conscience, until the wrong becomes impossible to defend.
+      <span class="big">Douglass's sharpest version worked by the gap.</span>
+      He took a value the country already claimed to hold ("all men are created equal," the Fourth of July) and held it against what the country was actually doing, until the distance was unbearable and someone had to close it. He didn't reject American ideals. He turned them into the argument.
+    </div>
+  </section>
+
+  <!-- 11 · MINI CASE: JONESBOROUGH (case + ask) -->
+  <section class="panel">
+    <div class="kick">A press of our own, nearby</div>
+    <div class="board" style="border-left-color:var(--sage); margin-bottom:24px">
+      The first US newspaper devoted entirely to abolishing slavery was not printed in Boston or New York. It was printed in <b style="color:var(--sage)">Jonesborough, in the mountains of East Tennessee</b>, about an hour over the ridge from Boone, by a Quaker named Elihu Embree in 1820, twenty-seven years before The North Star. His paper was The Emancipator. Embree also enslaved people himself, and argued only for gradual emancipation.
+    </div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem)">Put Embree's Emancipator next to Douglass's North Star. What could Douglass's paper do, precisely because of who ran it, that Embree's never could?</h2>
+    <textarea data-k="w4-b5" aria-label="board"></textarea>
+  </section>
+
+  <!-- 12 · OWN vs RENT (defs + ask) -->
+  <section class="panel">
+    <div class="kick">Douglass's lesson in 2020s terms</div>
+    <div class="defs">
+      <div class="def gold"><h3>Rent</h3><p>Your audience lives on a platform someone else owns. They can change the rules, bury you, or ban you overnight, and your followers vanish with the account. (TikTok, Instagram, X.)</p></div>
+      <div class="def"><h3>Own</h3><p>An audience you can reach directly no matter what. An email list you can export, your own website, a printed thing in someone's hands. Slower to build, yours to keep.</p></div>
+    </div>
+    <h2 class="q" style="font-size:clamp(1.8rem,3.8vw,2.9rem)">Your cause lives on Instagram or TikTok. Do you own that audience, or are you renting it?</h2>
+    <textarea data-k="w4-b6" aria-label="board"></textarea>
+  </section>
+
+  <!-- 13 · WORKSHOP -->
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; in your pods</div>
+    <h2 class="q">Found your own paper.</h2>
+    <p class="sub">Take one pod member's real cause, or pick one: <span class="pill">campus housing</span><span class="pill">a local river</span><span class="pill">workers at one job</span><span class="pill">a school policy</span>. You're launching a paper that cause controls. Fill all four boxes, then pick a spokesperson to report back.</p>
+    <div class="work">
+      <div class="cell"><span class="lab">Your masthead</span><p>One line that says what your paper stands for, the way "Right is of no Sex, Truth is of no Color" said it for Douglass.</p></div>
+      <div class="cell g"><span class="lab">The framing fight</span><p>Write the hostile headline your opponents would run about one event, then the headline your own paper runs about the exact same event.</p></div>
+      <div class="cell s"><span class="lab">Your moral-suasion line</span><p>Which value does your town or country already claim to hold? Write the one sentence that holds them to it.</p></div>
+      <div class="cell"><span class="lab">Own the ground</span><p>Name the one channel you'd build and actually own first (list, site, printed thing), and why that one.</p></div>
+    </div>
+    <textarea data-k="w4-b7" aria-label="board"></textarea>
+  </section>
+
+  <!-- 14 · FIELD NOTEBOOK -->
+  <section class="panel">
+    <div class="kick">Your cause &middot; Field Notebook</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">Open your Field Notebook. Own it, or rent it?</h2>
+    <p class="sub">Work these three on your own, then we'll hear a few.</p>
+    <div class="prompts">
+      <div class="p">Right now, who tells your cause's story to the public: you, or someone else (a reporter, a platform's algorithm, no one)? Be specific.</div>
+      <div class="p">Audit your channels. Which does your cause OWN (email list, website, a printed thing) and which does it RENT (Instagram, TikTok, someone else's coverage)? Which is it leaning on most?</div>
+      <div class="p">Write your cause's one-sentence moral-suasion argument: the shared value you're holding people to, the way Douglass held the country to the Fourth of July.</div>
+    </div>
+  </section>
+
+  <!-- 15 · CLOSE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Where we go from here</div>
+    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">A rented platform is a landlord. It can evict you.</h1>
+    <div class="idea"><b>Thursday's module:</b> Douglass in his own words (the founding statement of The North Star, and "What to the Slave Is the Fourth of July?"), an own-it-or-rent-it diagnostic, and the ethics thread this course keeps circling back to. Bring the notebook. We'll reconvene at the end to share.</div>
+  </section>
+
+  <button class="clear" id="clear">Clear the boards</button>
+  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+    var key = 'e4_instr_' + ta.dataset.k;
+    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
+    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
+  });
+  document.getElementById('clear').addEventListener('click', function(){
+    if(!confirm('Clear everything typed on the boards?')) return;
+    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
+    });
+  });
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
+</script>
+</body>
+</html>

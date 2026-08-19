@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 14 · What Actually Counts</title>
+<style>
+  :root{
+    --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
+    --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
+    --accent:#eb8f99; --accent-deep:#8c2f39; --gold:#e8b567; --sage:#9ec6a6;
+    --field:#140d0f;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  html{scroll-snap-type:y proximity; scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1300px 850px at 72% -12%, #33202a 0%, var(--bg) 58%) fixed, var(--bg);
+    color:var(--ink); font:18px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .panel{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:62px 6vw 46px; border-bottom:1px solid var(--line)}
+  /* kicker with accent bar */
+  .kick{display:inline-flex; align-items:center; gap:13px; font-size:clamp(.95rem,1.4vw,1.1rem); letter-spacing:.22em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:18px}
+  .kick::before{content:""; width:36px; height:3px; background:var(--accent); border-radius:2px}
+  .kick.gold{color:var(--gold)} .kick.gold::before{background:var(--gold)}
+  /* title */
+  .title h1{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2.8rem,7.6vw,6rem); line-height:1.02; margin:0 0 16px; text-wrap:balance; letter-spacing:-.01em}
+  .title .idea{font-size:clamp(1.4rem,3vw,2.3rem); color:var(--soft); max-width:24ch; line-height:1.25}
+  .title .rule{width:120px; height:5px; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:3px; margin:0 0 26px}
+  /* questions */
+  .q{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2rem,4.6vw,3.5rem); line-height:1.12; margin:0 0 12px; text-wrap:balance}
+  .sub{color:var(--soft); font-size:clamp(1.1rem,1.8vw,1.4rem); margin:0 0 24px; line-height:1.45}
+  .hl{color:var(--accent); font-weight:700} .hl.g{color:var(--gold)}
+  /* teach card (explanation) */
+  .teach{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:16px; padding:26px 30px; box-shadow:0 16px 44px rgba(0,0,0,.4); font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.5}
+  .teach b{color:var(--accent)}
+  .teach.gold{border-left-color:var(--gold)} .teach.gold b{color:var(--gold)}
+  /* scene: image + prompt */
+  .scene{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:42px; align-items:center}
+  @media (max-width:900px){ .scene{grid-template-columns:1fr; gap:24px} }
+  figure{margin:0}
+  figure img{width:100%; max-height:80vh; object-fit:contain; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); cursor:zoom-in; background:#0d0809}
+  figcaption{color:var(--soft); font-size:.98rem; margin-top:10px; font-style:italic}
+  /* board textarea */
+  textarea{width:100%; min-height:34vh; background:var(--field); color:var(--ink); border:2px solid var(--line); border-radius:16px; padding:18px 20px; font:600 clamp(1.3rem,2.1vw,1.9rem)/1.5 -apple-system,system-ui,sans-serif; resize:vertical}
+  textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(235,143,153,.16)}
+  .scene textarea{min-height:44vh}
+  /* definition cards */
+  .defs{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:6px 0 28px}
+  @media (max-width:760px){ .defs{grid-template-columns:1fr} }
+  .def{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:16px; padding:22px 26px; box-shadow:0 12px 34px rgba(0,0,0,.36)}
+  .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent); font-family:Georgia,serif}
+  .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem); line-height:1.45}
+  .def.gold{border-top-color:var(--gold)} .def.gold h3{color:var(--gold)}
+  /* side-by-side comparison */
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:6px 0 20px}
+  @media (max-width:760px){ .pair{grid-template-columns:1fr} }
+  .pair figure img{max-height:54vh}
+  /* board callout */
+  .board{background:linear-gradient(180deg,#301f24,#261a1e); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px; padding:24px 30px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5; box-shadow:0 14px 40px rgba(0,0,0,.38)}
+  .board>b{color:var(--gold)}
+  .board .big{font-family:Georgia,serif; font-size:1.3em; color:var(--accent); display:block; margin:14px 0}
+  .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
+  /* numbered prompts */
+  .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
+  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  /* workshop grid */
+  .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
+  @media (max-width:760px){ .work{grid-template-columns:1fr} }
+  .work .cell{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  .work .cell .lab{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  .work .cell.g .lab{color:var(--gold)} .work .cell.s .lab{color:var(--sage)}
+  .work .cell p{margin:6px 0 0; font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink); line-height:1.4}
+  .pill{display:inline-block; background:rgba(235,143,153,.14); border:1px solid var(--accent); color:var(--accent); font-weight:700; font-size:clamp(1rem,1.5vw,1.25rem); border-radius:999px; padding:6px 16px; margin:4px 8px 4px 0}
+  /* controls */
+  .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.9); border:1px solid var(--line); color:var(--soft); border-radius:9px; padding:7px 13px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
+  .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
+  .lb{position:fixed; inset:0; background:rgba(10,6,7,.95); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
+  .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
+  .lb.on{display:flex}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+  <!-- 1 · TITLE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Week 14 · Tuesday</div>
+    <h1>What actually counts.</h1>
+    <div class="idea">A number that feels like <span class="hl">winning</span> is usually measuring the <span class="hl g">wrong thing</span>.</div>
+  </section>
+
+  <!-- 2 · DEBATE OPENER -->
+  <section class="panel">
+    <div class="kick gold">Debate this &middot; in your pods</div>
+    <h2 class="q">"A cause with a million followers is doing more good than one with a hundred committed people."</h2>
+    <p class="sub">Pick a side and defend it to your pod. Two minutes, then we fight it out as a room. No fence-sitting.</p>
+    <textarea data-k="w14-debate" aria-label="board"></textarea>
+  </section>
+
+  <!-- 3 · GOAL -->
+  <section class="panel">
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="teach"><p>By the end of class you'll be able to tell a <b>vanity metric</b> from <b>real impact</b>, and you'll have a tool for it: an <b>impact ladder</b> that runs from reach at the bottom up to power at the top. We'll bring back <b>Jodi Dean</b> from Week 11 and her line that circulation is not change. Then you'll name the metrics that actually count for your own campaign. Thursday's module builds the framework out; today we argue it into shape together.</p></div>
+  </section>
+
+  <!-- 4 · OPENER -->
+  <section class="panel">
+    <div class="kick">All semester you built a campaign</div>
+    <h2 class="q">How would you know if it actually worked?</h2>
+    <p class="sub">The uncomfortable question every organizer runs into sooner or later.</p>
+    <textarea data-k="w14-b1" aria-label="board"></textarea>
+  </section>
+
+  <!-- 5 · TWO CAMPAIGNS -->
+  <section class="panel">
+    <div class="kick">Two campaigns, on the table</div>
+    <div class="defs">
+      <div class="def">
+        <h3>Campaign A &middot; KONY 2012</h3>
+        <p>A 30-minute video made to make a Ugandan warlord famous enough to get him arrested by year's end. Around 100 million views in six days, the fastest a video had ever spread. Celebrities shared it. It was everywhere for about two weeks.</p>
+      </div>
+      <div class="def gold">
+        <h3>Campaign B &middot; The crosswalk</h3>
+        <p>A neighborhood wanted a crosswalk where a kid had been hit. Forty neighbors signed a letter. Twelve showed up to two city council meetings and told the story out loud. A reporter wrote 200 words. The city built the crosswalk. Almost no one outside the neighborhood ever heard about it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · VOTE -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week14-crosswalk.jpg" alt="A painted pedestrian crosswalk across a street">
+        <figcaption>A neighborhood crosswalk (Wikimedia Commons, public domain / CC0).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">Call it</div>
+        <h2 class="q">Which one succeeded, A or B?</h2>
+        <p class="sub">Hands up, then defend your vote to the room. What did each one actually change?</p>
+        <textarea data-k="w14-b2" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · SCOREBOARD reveal -->
+  <section class="panel">
+    <div class="kick gold">The scoreboard</div>
+    <div class="defs">
+      <div class="def">
+        <h3>KONY 2012</h3>
+        <p>Reach: about 100 million views.<br>Felt like: the biggest thing ever.<br>What changed: Kony was never caught, and the group behind it folded within months.</p>
+      </div>
+      <div class="def gold">
+        <h3>The crosswalk</h3>
+        <p>Reach: about 40 people.<br>Felt like: a slow Tuesday.<br>What changed: the crosswalk got built and is still there.</p>
+      </div>
+    </div>
+    <div class="board"><span class="big" style="margin:6px 0 0">The bigger number changed less.</span></div>
+  </section>
+
+  <!-- 8 · NAME IT -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week14-iceberg.jpg" alt="An iceberg showing the small tip above the water and the huge mass below">
+        <figcaption>Iceberg, above and below the waterline (Wikimedia Commons, AWeith, CC BY-SA 4.0).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">Two words for it</div>
+        <div class="def" style="margin-bottom:18px">
+          <h3>Vanity metric</h3>
+          <p>A number that goes up and feels great but tells you nothing about whether anything changed. Likes, views, impressions, raw follower count.</p>
+        </div>
+        <div class="def gold">
+          <h3>Real impact</h3>
+          <p>For a cause it tends to be one of three things: <b style="color:var(--gold)">behavior</b> (someone did something), <b style="color:var(--gold)">relationships</b> (people you can reach again), <b style="color:var(--gold)">power</b> (a decision you can now affect).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · WHICH KIND -->
+  <section class="panel">
+    <div class="kick">Apply it</div>
+    <h2 class="q">So which kind of number did KONY 2012 rack up, and which kind did it never touch?</h2>
+    <textarea data-k="w14-b3" aria-label="board"></textarea>
+  </section>
+
+  <!-- 10 · DEAN CALLBACK -->
+  <section class="panel">
+    <div class="kick">Week 11 &middot; Jodi Dean</div>
+    <h2 class="q">Remind the room: what did "communicative capitalism" mean?</h2>
+    <p class="sub">Think back to the loop where posting can feel like doing something.</p>
+    <textarea data-k="w14-b4" aria-label="board"></textarea>
+  </section>
+
+  <!-- 11 · CIRCULATION IS NOT CHANGE reveal -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="board">
+      <b>Jodi Dean:</b> a post that circulates is not the same as a thing that changed.
+      <span class="big">Circulation is not change.</span>
+      A message can be shared, liked, and quoted forever and never once require a response from anyone in power. Watching your reach climb can feel exactly like organizing, and be nothing like it.
+    </div>
+  </section>
+
+  <!-- 12 · BUILD THE LADDER -->
+  <section class="panel">
+    <div class="kick">Build it with me, bottom to top</div>
+    <h2 class="q">A metric isn't good or bad on its own. It's worth whatever it can reach.</h2>
+    <p class="sub">Start at the bottom rung. What can a platform hand you for free, the number that costs your audience nothing?</p>
+    <textarea data-k="w14-b5" aria-label="board"></textarea>
+  </section>
+
+  <!-- 13 · THE LADDER reveal -->
+  <section class="panel">
+    <div class="kick gold">The impact ladder</div>
+    <div style="display:flex; flex-direction:column; gap:11px; margin:6px 0 22px; font-size:clamp(1.1rem,1.9vw,1.5rem)">
+      <div style="display:flex; gap:16px; align-items:baseline; background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--sage); border-radius:12px; padding:15px 22px"><b style="font-family:Georgia,serif; color:var(--sage); font-size:1.25em; min-width:1.2ch">5</b><b style="color:var(--sage); min-width:9ch">Power</b><span>a decision changed, access you didn't have before</span></div>
+      <div style="display:flex; gap:16px; align-items:baseline; background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--sage); border-radius:12px; padding:15px 22px"><b style="font-family:Georgia,serif; color:var(--sage); font-size:1.25em; min-width:1.2ch">4</b><b style="color:var(--sage); min-width:9ch">Relationship</b><span>people you can reach again, volunteers who stay</span></div>
+      <div style="display:flex; gap:16px; align-items:baseline; background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--sage); border-radius:12px; padding:15px 22px"><b style="font-family:Georgia,serif; color:var(--sage); font-size:1.25em; min-width:1.2ch">3</b><b style="color:var(--sage); min-width:9ch">Action</b><span>someone did the thing: showed up, signed, called</span></div>
+      <div style="display:flex; gap:16px; align-items:baseline; background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--gold); border-radius:12px; padding:15px 22px"><b style="font-family:Georgia,serif; color:var(--gold); font-size:1.25em; min-width:1.2ch">2</b><b style="color:var(--gold); min-width:9ch">Engagement</b><span>likes, comments, shares, saves</span></div>
+      <div style="display:flex; gap:16px; align-items:baseline; background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--gold); border-radius:12px; padding:15px 22px"><b style="font-family:Georgia,serif; color:var(--gold); font-size:1.25em; min-width:1.2ch">1</b><b style="color:var(--gold); min-width:9ch">Reach</b><span>views, impressions, how many were shown it</span></div>
+    </div>
+    <div class="board"><span class="big" style="margin:0">Vanity lives on rungs 1&ndash;2. Impact lives on 3&ndash;5.</span>Higher up is harder to get, harder to fake, and worth more.</div>
+  </section>
+
+  <!-- 14 · WHEN DOES REACH MATTER -->
+  <section class="panel">
+    <div class="kick">Complicate it</div>
+    <h2 class="q">Rungs 1 and 2 aren't worthless. When does reach actually earn its keep for a cause?</h2>
+    <p class="sub">Push back on your own ladder. Where would a big view count genuinely matter?</p>
+    <textarea data-k="w14-b6" aria-label="board"></textarea>
+  </section>
+
+  <!-- 15 · WORKSHOP -->
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; in your pods</div>
+    <h2 class="q">Run the numbers on one campaign, then call its bluff.</h2>
+    <p class="sub">Each pod takes one campaign, <span class="pill">a viral petition</span><span class="pill">a local mutual-aid group</span><span class="pill">a national climate march</span><span class="pill">a small nonprofit's Instagram</span><span class="pill">a campus walkout</span> and fills all four boxes. Pick a spokesperson to report back.</p>
+    <div class="work">
+      <div class="cell"><span class="lab">The brag number</span><p>What number would this campaign be most tempted to lead with, the one that looks huge?</p></div>
+      <div class="cell g"><span class="lab">What actually moved</span><p>Out in the real world, what changed because of it? Be specific, and be honest if the answer is "not much."</p></div>
+      <div class="cell s"><span class="lab">Put it on the ladder</span><p>Which rung does that brag number really sit on, 1 through 5, and how do you know?</p></div>
+      <div class="cell"><span class="lab">The metric it should report</span><p>Name the one honest number this campaign should track instead, and say exactly how you'd count it.</p></div>
+    </div>
+    <textarea data-k="w14-b7" aria-label="board"></textarea>
+  </section>
+
+  <!-- 16 · FIELD NOTEBOOK -->
+  <section class="panel">
+    <div class="kick">Your cause &middot; Field Notebook</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">Open your Field Notebook. Name what actually counts for YOUR campaign.</h2>
+    <p class="sub">Work these on your own, then we'll hear a few. This feeds straight into your P3 impact report.</p>
+    <div class="prompts">
+      <div class="p">Name the vanity metric you'll be most tempted to brag about for your campaign. Be honest about why it's tempting.</div>
+      <div class="p">Define three real success metrics, one each from ACTION, RELATIONSHIP, and POWER. For each, write what you'd count and how you'd count it.</div>
+      <div class="p">One sentence: if your campaign works, who does what differently? That's your success, in plain words.</div>
+    </div>
+  </section>
+
+  <!-- 17 · CLOSE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Where we go from here</div>
+    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">Circulation is not change.</h1>
+    <div class="idea"><b>Thursday's module:</b> build the framework out, sort the cases that split the room, and draft your P3 impact report. Bring the three metrics you named today.</div>
+  </section>
+
+  <button class="clear" id="clear">Clear the boards</button>
+  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+    var key = 'e4_instr_' + ta.dataset.k;
+    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
+    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
+  });
+  document.getElementById('clear').addEventListener('click', function(){
+    if(!confirm('Clear everything typed on the boards?')) return;
+    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
+    });
+  });
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
+</script>
+</body>
+</html>

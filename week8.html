@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 8 · Design as a Weapon</title>
+<style>
+  :root{
+    --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
+    --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
+    --accent:#eb8f99; --accent-deep:#8c2f39; --gold:#e8b567; --sage:#9ec6a6;
+    --field:#140d0f;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  html{scroll-snap-type:y proximity; scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1300px 850px at 72% -12%, #33202a 0%, var(--bg) 58%) fixed, var(--bg);
+    color:var(--ink); font:18px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .panel{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:62px 6vw 46px; border-bottom:1px solid var(--line)}
+  /* kicker with accent bar */
+  .kick{display:inline-flex; align-items:center; gap:13px; font-size:clamp(.95rem,1.4vw,1.1rem); letter-spacing:.22em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:18px}
+  .kick::before{content:""; width:36px; height:3px; background:var(--accent); border-radius:2px}
+  .kick.gold{color:var(--gold)} .kick.gold::before{background:var(--gold)}
+  /* title */
+  .title h1{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2.8rem,7.6vw,6rem); line-height:1.02; margin:0 0 16px; text-wrap:balance; letter-spacing:-.01em}
+  .title .idea{font-size:clamp(1.4rem,3vw,2.3rem); color:var(--soft); max-width:24ch; line-height:1.25}
+  .title .rule{width:120px; height:5px; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:3px; margin:0 0 26px}
+  /* questions */
+  .q{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2rem,4.6vw,3.5rem); line-height:1.12; margin:0 0 12px; text-wrap:balance}
+  .sub{color:var(--soft); font-size:clamp(1.1rem,1.8vw,1.4rem); margin:0 0 24px; line-height:1.45}
+  .hl{color:var(--accent); font-weight:700} .hl.g{color:var(--gold)}
+  /* teach card (explanation) */
+  .teach{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:16px; padding:26px 30px; box-shadow:0 16px 44px rgba(0,0,0,.4); font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.5}
+  .teach b{color:var(--accent)}
+  .teach.gold{border-left-color:var(--gold)} .teach.gold b{color:var(--gold)}
+  /* scene: image + prompt */
+  .scene{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:42px; align-items:center}
+  @media (max-width:900px){ .scene{grid-template-columns:1fr; gap:24px} }
+  figure{margin:0}
+  figure img{width:100%; max-height:80vh; object-fit:contain; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); cursor:zoom-in; background:#0d0809}
+  figcaption{color:var(--soft); font-size:.98rem; margin-top:10px; font-style:italic}
+  /* board textarea */
+  textarea{width:100%; min-height:34vh; background:var(--field); color:var(--ink); border:2px solid var(--line); border-radius:16px; padding:18px 20px; font:600 clamp(1.3rem,2.1vw,1.9rem)/1.5 -apple-system,system-ui,sans-serif; resize:vertical}
+  textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(235,143,153,.16)}
+  .scene textarea{min-height:44vh}
+  /* definition cards */
+  .defs{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:6px 0 28px}
+  @media (max-width:760px){ .defs{grid-template-columns:1fr} }
+  .def{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:16px; padding:22px 26px; box-shadow:0 12px 34px rgba(0,0,0,.36)}
+  .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent); font-family:Georgia,serif}
+  .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem); line-height:1.45}
+  .def.gold{border-top-color:var(--gold)} .def.gold h3{color:var(--gold)}
+  /* side-by-side comparison */
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:6px 0 20px}
+  @media (max-width:760px){ .pair{grid-template-columns:1fr} }
+  .pair figure img{max-height:54vh}
+  /* board callout */
+  .board{background:linear-gradient(180deg,#301f24,#261a1e); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px; padding:24px 30px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5; box-shadow:0 14px 40px rgba(0,0,0,.38)}
+  .board>b{color:var(--gold)}
+  .board .big{font-family:Georgia,serif; font-size:1.3em; color:var(--accent); display:block; margin:14px 0}
+  .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
+  /* numbered prompts */
+  .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
+  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  /* workshop grid */
+  .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
+  @media (max-width:760px){ .work{grid-template-columns:1fr} }
+  .work .cell{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  .work .cell .lab{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  .work .cell.g .lab{color:var(--gold)} .work .cell.s .lab{color:var(--sage)}
+  .work .cell p{margin:6px 0 0; font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink); line-height:1.4}
+  .pill{display:inline-block; background:rgba(235,143,153,.14); border:1px solid var(--accent); color:var(--accent); font-weight:700; font-size:clamp(1rem,1.5vw,1.25rem); border-radius:999px; padding:6px 16px; margin:4px 8px 4px 0}
+  /* controls */
+  .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.9); border:1px solid var(--line); color:var(--soft); border-radius:9px; padding:7px 13px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
+  .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
+  .lb{position:fixed; inset:0; background:rgba(10,6,7,.95); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
+  .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
+  .lb.on{display:flex}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+  <!-- 1 · TITLE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Week 8 · Tuesday</div>
+    <h1>Design as a weapon.</h1>
+    <div class="idea">When the press looks away and the government stays quiet, you build an event too well made to ignore.</div>
+  </section>
+
+  <!-- 2 · DEBATE OPENER -->
+  <section class="panel">
+    <div class="kick gold">Debate this &middot; in your pods</div>
+    <h2 class="q">"No one in power has ever been moved by politeness."</h2>
+    <p class="sub">Pick a side and defend it to your pod. Two minutes, then we fight it out as a room. No fence-sitting.</p>
+    <textarea data-k="w8-debate" aria-label="board"></textarea>
+  </section>
+
+  <!-- 3 · GOAL -->
+  <section class="panel">
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="teach"><p>Today we watch a movement invent attention out of almost nothing. You'll pick up four ideas: <b>design activism</b> (making the argument with an image), <b>reclaiming your oppressor's symbol</b> (SILENCE=DEATH and Gran Fury), <b>direct action engineered for the camera</b> (the zap and the die-in), and the <b>affinity group</b> that holds it all together. You'll go deeper Thursday; today we dig in together.</p></div>
+  </section>
+
+  <!-- 4 · THE SILENCE (ASK) -->
+  <section class="panel">
+    <div class="kick">Early 1980s &middot; a new plague</div>
+    <h2 class="q">If the people in power will not even say the name of the thing killing you, what does that silence tell you?</h2>
+    <p class="sub">A new disease was spreading through gay men, drug users, and other people the country was already happy to ignore. The President gave no major public speech about it until 1987, years in, after tens of thousands of Americans were already dead.</p>
+    <textarea data-k="w8-b1" aria-label="board"></textarea>
+  </section>
+
+  <!-- 5 · SILENCE=DEATH scene (ASK) -->
+  <section class="panel">
+    <div class="scene">
+      <figure data-note="add-image: the SILENCE=DEATH poster (copyrighted, Gran Fury / Silence=Death Project). Solid black field, small upward-pointing pink triangle, three words. Drop in a licensed copy here as images/week8-silence-death.jpg.">
+        <div style="width:100%; aspect-ratio:4/5; background:#000; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px; padding:8%">
+          <div style="width:0; height:0; border-left:46px solid transparent; border-right:46px solid transparent; border-bottom:80px solid #ef4f86"></div>
+          <div style="font-family:Georgia,serif; color:#fff; font-weight:700; letter-spacing:.14em; font-size:clamp(1.7rem,4vw,3rem)">SILENCE = DEATH</div>
+        </div>
+        <figcaption>The 1987 emblem that launched ACT UP. The poster is under copyright, so it is rendered here as a plain description.</figcaption>
+      </figure>
+      <div>
+        <div class="kick">Name it</div>
+        <h2 class="q">Why is reclaiming your oppressor's own symbol so powerful?</h2>
+        <p class="sub">That pink triangle is borrowed. In the Nazi camps, gay men were forced to wear a downward-pointing pink triangle to mark them for death. These activists flipped it to point up.</p>
+        <textarea data-k="w8-b2" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · REVEAL: design activism + Gran Fury -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="defs">
+      <div class="def"><h3>Design activism</h3><p>Making your argument with an image, a color, or a symbol instead of a paragraph. The picture does the arguing.</p></div>
+      <div class="def gold"><h3>Gran Fury</h3><p>ACT UP's design cell, named for the Plymouth the NYPD drove. Rage and a police car in one name. They dressed protest in the look of advertising so it traveled the same rails everyone already scrolls.</p></div>
+    </div>
+    <div class="board">
+      <b>Why SILENCE=DEATH works as design</b>
+      <ul style="margin:10px 0 0; padding-left:1.1em; font-size:.92em; line-height:1.5">
+        <li>black reads as mourning and a void</li>
+        <li>the pink triangle is a Nazi death-badge, reclaimed and flipped point-up</li>
+        <li>three words, huge contrast, no logo, no explanation</li>
+        <li>it does not argue, it makes you finish the equation yourself</li>
+        <li>it looks like an ad, so it travels like one</li>
+      </ul>
+      <span class="also">One image, basically no budget, still legible on a t-shirt forty years later.</span>
+    </div>
+  </section>
+
+  <!-- 7 · AFFINITY GROUPS (defs + ASK) -->
+  <section class="panel">
+    <div class="defs">
+      <div class="def"><h3>The scaling problem</h3><p>Small groups trust each other but can't reach anyone. Big crowds have reach, but strangers don't trust each other or move fast together.</p></div>
+      <div class="def gold"><h3>Affinity group</h3><p>Five to fifteen people who know and trust each other, plan their own piece of an action, and look after their own members. Many groups plug into one big demonstration.</p></div>
+    </div>
+    <h2 class="q">Why is a crowd built from small bonded cells harder to stop than one giant leaderless mob?</h2>
+    <textarea data-k="w8-b3" aria-label="board"></textarea>
+  </section>
+
+  <!-- 8 · DIE-IN scene (ASK) -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week8-die-in.jpg" alt="ACT UP activists staging a die-in, lying on the ground during a demonstration">
+        <figcaption>An ACT UP "die-in" demonstration. Photo: U.S. National Institutes of Health (public domain).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">Drama on purpose</div>
+        <h2 class="q">They lay down and played dead while the cameras rolled. Why stage your own death for a photograph?</h2>
+        <p class="sub">Fake tombstones, blood-spattered lab coats, hundreds of bodies still on the pavement. All of it built for one viewer.</p>
+        <textarea data-k="w8-b4" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · REVEAL: drama as strategy -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="board">
+      <b>Drama as strategy</b>
+      <ul style="margin:10px 0 0; padding-left:1.1em; font-size:.92em; line-height:1.5">
+        <li>a zap is fast, surprise, one target, embarrass them today</li>
+        <li>an action is big, planned, staged for the camera</li>
+        <li>the die-in gives the news a picture it can't resist</li>
+        <li>the bonded cells make the crowd hard to behead: no single leader to arrest, trust lives in the group</li>
+      </ul>
+      <span class="big">FDA action, 1988. About 1,500 activists, roughly 180 arrests, on camera, on purpose.</span>
+      <span class="also">Within months the FDA changed its rules to release experimental drugs faster. The image did what a press release never could.</span>
+    </div>
+  </section>
+
+  <!-- 10 · THE QUILT (slow counterpart, teaching context) -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week8-quilt.jpg" alt="The AIDS Memorial Quilt laid out in panels on the ground in Washington, D.C.">
+        <figcaption>The AIDS Memorial Quilt on display in Washington, D.C. Photo: Elvert Barnes (CC BY 2.0).</figcaption>
+      </figure>
+      <div class="board">
+        <b>The AIDS Memorial Quilt</b> (1987 on)
+        <ul style="margin:10px 0 0; padding-left:1.1em; font-size:.92em; line-height:1.5">
+          <li>each panel is 3 by 6 feet, the size of a grave</li>
+          <li>one panel per person lost, sewn by the people who loved them</li>
+          <li>first laid on the National Mall in 1987: 1,920 panels</li>
+          <li>now the largest piece of community folk art on earth</li>
+        </ul>
+        <span class="also">Quilting is one of the oldest folk media there is, and it runs deep here in Appalachia: memorial quilts, and the quilting bee, where a community gathers to sew and to grieve together.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · FAST vs SLOW (ASK) -->
+  <section class="panel">
+    <div class="kick">Two speeds, one silence</div>
+    <h2 class="q">The die-in and the Quilt fought the same silence. What did the slow Quilt do that a fast zap never could, and what did the zap do that the Quilt couldn't?</h2>
+    <textarea data-k="w8-b5" aria-label="board"></textarea>
+  </section>
+
+  <!-- 12 · WORKSHOP -->
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; in your pods</div>
+    <h2 class="q">Engineer one attention action the camera can't walk away from.</h2>
+    <p class="sub">Each pod takes one silence, <span class="pill">a campus issue no one names</span><span class="pill">a local closure or cut</span><span class="pill">a workplace people won't talk about</span><span class="pill">an environmental harm nearby</span> and fills all four boxes. Pick a spokesperson to report back.</p>
+    <div class="work">
+      <div class="cell"><span class="lab">The silence</span><p>Who is staying quiet, and what does that silence cost the people you're fighting for?</p></div>
+      <div class="cell g"><span class="lab">The single image</span><p>Design one legal, doable action. What is the one picture the camera carries away, and what do you leave out so the viewer finishes the thought?</p></div>
+      <div class="cell s"><span class="lab">The affinity group</span><p>Name five to fifteen real people who'd pull it off, and one job each owns (permit, photos, safety, press).</p></div>
+      <div class="cell"><span class="lab">The line</span><p>Name the ethical line you would not cross to get attention. Where does the drama go too far?</p></div>
+    </div>
+    <textarea data-k="w8-b6" aria-label="board"></textarea>
+  </section>
+
+  <!-- 13 · FIELD NOTEBOOK -->
+  <section class="panel">
+    <div class="kick">Your cause &middot; Field Notebook</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">Open your Field Notebook. Turn your cause's silence into an image.</h2>
+    <p class="sub">Work these on your own, then we'll hear a few.</p>
+    <div class="prompts">
+      <div class="p">What silence is your cause up against? Who is staying quiet, and what does that quiet cost the people you care about?</div>
+      <div class="p">Design one ethical, legal, doable attention action. What is the single image the camera would carry away, and what do you leave out so the viewer finishes the thought?</div>
+      <div class="p">Who is your affinity group? Name five to fifteen real people who would actually help, and the ethical line you won't cross for attention.</div>
+    </div>
+  </section>
+
+  <!-- 14 · CLOSE / looking ahead -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Where we go from here</div>
+    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">Engineer an image they can't look away from.</h1>
+    <div class="idea"><b>Thursday's module:</b> Gran Fury's design up close, then the harder question. If you build an image to grab everyone, can everyone actually receive it? Accessible, inclusive design. Bring the notebook.</div>
+  </section>
+
+  <button class="clear" id="clear">Clear the boards</button>
+  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+    var key = 'e4_instr_' + ta.dataset.k;
+    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
+    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
+  });
+  document.getElementById('clear').addEventListener('click', function(){
+    if(!confirm('Clear everything typed on the boards?')) return;
+    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
+    });
+  });
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
+</script>
+</body>
+</html>

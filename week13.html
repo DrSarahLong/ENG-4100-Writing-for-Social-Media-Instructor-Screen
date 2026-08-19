@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 13 · Small Is All</title>
+<style>
+  :root{
+    --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
+    --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
+    --accent:#eb8f99; --accent-deep:#8c2f39; --gold:#e8b567; --sage:#9ec6a6;
+    --field:#140d0f;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  html{scroll-snap-type:y proximity; scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1300px 850px at 72% -12%, #33202a 0%, var(--bg) 58%) fixed, var(--bg);
+    color:var(--ink); font:18px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .panel{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:62px 6vw 46px; border-bottom:1px solid var(--line)}
+  /* kicker with accent bar */
+  .kick{display:inline-flex; align-items:center; gap:13px; font-size:clamp(.95rem,1.4vw,1.1rem); letter-spacing:.22em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:18px}
+  .kick::before{content:""; width:36px; height:3px; background:var(--accent); border-radius:2px}
+  .kick.gold{color:var(--gold)} .kick.gold::before{background:var(--gold)}
+  /* title */
+  .title h1{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2.8rem,7.6vw,6rem); line-height:1.02; margin:0 0 16px; text-wrap:balance; letter-spacing:-.01em}
+  .title .idea{font-size:clamp(1.4rem,3vw,2.3rem); color:var(--soft); max-width:24ch; line-height:1.25}
+  .title .rule{width:120px; height:5px; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:3px; margin:0 0 26px}
+  /* questions */
+  .q{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2rem,4.6vw,3.5rem); line-height:1.12; margin:0 0 12px; text-wrap:balance}
+  .sub{color:var(--soft); font-size:clamp(1.1rem,1.8vw,1.4rem); margin:0 0 24px; line-height:1.45}
+  .hl{color:var(--accent); font-weight:700} .hl.g{color:var(--gold)}
+  /* teach card (explanation) */
+  .teach{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:16px; padding:26px 30px; box-shadow:0 16px 44px rgba(0,0,0,.4); font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.5}
+  .teach b{color:var(--accent)}
+  .teach.gold{border-left-color:var(--gold)} .teach.gold b{color:var(--gold)}
+  /* scene: image + prompt */
+  .scene{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:42px; align-items:center}
+  @media (max-width:900px){ .scene{grid-template-columns:1fr; gap:24px} }
+  figure{margin:0}
+  figure img{width:100%; max-height:80vh; object-fit:contain; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); cursor:zoom-in; background:#0d0809}
+  figcaption{color:var(--soft); font-size:.98rem; margin-top:10px; font-style:italic}
+  /* board textarea */
+  textarea{width:100%; min-height:34vh; background:var(--field); color:var(--ink); border:2px solid var(--line); border-radius:16px; padding:18px 20px; font:600 clamp(1.3rem,2.1vw,1.9rem)/1.5 -apple-system,system-ui,sans-serif; resize:vertical}
+  textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(235,143,153,.16)}
+  .scene textarea{min-height:44vh}
+  /* definition cards */
+  .defs{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:6px 0 28px}
+  @media (max-width:760px){ .defs{grid-template-columns:1fr} }
+  .def{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:16px; padding:22px 26px; box-shadow:0 12px 34px rgba(0,0,0,.36)}
+  .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent); font-family:Georgia,serif}
+  .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem); line-height:1.45}
+  .def.gold{border-top-color:var(--gold)} .def.gold h3{color:var(--gold)}
+  /* side-by-side comparison */
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:6px 0 20px}
+  @media (max-width:760px){ .pair{grid-template-columns:1fr} }
+  .pair figure img{max-height:54vh}
+  /* board callout */
+  .board{background:linear-gradient(180deg,#301f24,#261a1e); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px; padding:24px 30px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5; box-shadow:0 14px 40px rgba(0,0,0,.38)}
+  .board>b{color:var(--gold)}
+  .board .big{font-family:Georgia,serif; font-size:1.3em; color:var(--accent); display:block; margin:14px 0}
+  .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
+  /* numbered prompts */
+  .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
+  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  /* workshop grid */
+  .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
+  @media (max-width:760px){ .work{grid-template-columns:1fr} }
+  .work .cell{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  .work .cell .lab{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  .work .cell.g .lab{color:var(--gold)} .work .cell.s .lab{color:var(--sage)}
+  .work .cell p{margin:6px 0 0; font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink); line-height:1.4}
+  .pill{display:inline-block; background:rgba(235,143,153,.14); border:1px solid var(--accent); color:var(--accent); font-weight:700; font-size:clamp(1rem,1.5vw,1.25rem); border-radius:999px; padding:6px 16px; margin:4px 8px 4px 0}
+  /* controls */
+  .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.9); border:1px solid var(--line); color:var(--soft); border-radius:9px; padding:7px 13px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
+  .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
+  .lb{position:fixed; inset:0; background:rgba(10,6,7,.95); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
+  .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
+  .lb.on{display:flex}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+  <!-- 1 · TITLE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Week 13 · Tuesday</div>
+    <h1>Small is all.</h1>
+    <div class="idea">The movements that lasted got big by getting the <span class="hl">small</span> right, and letting the big take care of itself.</div>
+  </section>
+
+  <!-- 2 · DEBATE OPENER -->
+  <section class="panel">
+    <div class="kick gold">Debate this &middot; in your pods</div>
+    <h2 class="q">"Changing one person at a time is how you guarantee you change nothing."</h2>
+    <p class="sub">Pick a side and defend it to your pod. Two minutes, then we fight it out as a room. No fence-sitting.</p>
+    <textarea data-k="w13-debate" aria-label="board"></textarea>
+  </section>
+
+  <!-- 3 · GOAL -->
+  <section class="panel">
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="teach"><p>All semester you tried to get bigger. Today we flip it. You'll wrestle with a set of ideas from the organizer <b>adrienne maree brown</b> that change how you read every movement: <b>small is all</b>, <b>the fractal</b>, <b>move at the speed of trust</b>, and <b>critical connections over critical mass</b>. Then you'll start reading your own cause through <b>emergence</b>, the way big patterns grow up out of small ones. You'll go deeper in Thursday's module; today we dig in together.</p></div>
+  </section>
+
+  <!-- 4 · SCENE: murmuration (ASK) -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week13-murmuration.jpg" alt="Tens of thousands of starlings forming a murmuration at dusk">
+        <figcaption>A starling murmuration, tens of thousands of birds moving as one (Wikimedia Commons, CC BY-SA 2.0, Airwolfhound).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">Feel it</div>
+        <h2 class="q">A hundred thousand birds turning in perfect sync. Who is giving the orders? Who is the lead bird?</h2>
+        <p class="sub">It swells, splits, pours back together, all in the same second.</p>
+        <textarea data-k="w13-b1" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · EMERGENCE (REVEAL) -->
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <div class="board">
+      <b>No lead bird. No plan. No one can see the whole flock.</b>
+      <span class="big">Each starling tracks only about seven of its nearest neighbors, matching their speed and spacing, moment to moment.</span>
+      Out of nothing but that, a vast coordinated whole appears that no single bird intended.
+      <span class="also">EMERGENCE: a big pattern grows upward out of small relationships. No headquarters. The whole comes from the small.</span>
+    </div>
+  </section>
+
+  <!-- 6 · NAME IT (ASK) -->
+  <section class="panel">
+    <div class="kick">Name it</div>
+    <div class="board" style="max-width:34ch; margin:0 auto 30px; text-align:center">
+      <span class="big" style="margin:6px 0">"Small is good, small is all. The large is a reflection of the small."</span>
+      <span class="also">adrienne maree brown, <em>Emergent Strategy</em>, 2017. She lowercases her name.</span>
+    </div>
+    <h2 class="q">What does she mean by "the large is a reflection of the small"?</h2>
+    <textarea data-k="w13-b2" aria-label="board"></textarea>
+  </section>
+
+  <!-- 7 · BROWN (REVEAL) -->
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <div class="teach"><p><b>adrienne maree brown</b> is an organizer and writer. Her 2017 book <em>Emergent Strategy</em> makes one core move: stop borrowing your strategy from war and advertising (conquer, scale, dominate), and start borrowing it from living systems (adapt, connect, grow from the small). Much of it she draws from the science-fiction writer <b>Octavia Butler</b>, who imagined communities that survive collapse by bending instead of breaking. Her claim about the large reflecting the small is simple and hard to dodge. A big thing carries the character of its smallest parts. You cannot fake healthy soil at scale. You build it in one handful of compost, and the whole farm becomes a reflection of that. Movements work the same way, for better or worse.</p></div>
+  </section>
+
+  <!-- 8 · FRACTAL (teach card + ASK application) -->
+  <section class="panel">
+    <div class="defs" style="grid-template-columns:1fr">
+      <div class="def"><h3>Fractal</h3><p>A shape that repeats at every scale. A fern where each tiny frond is the same shape as the whole fern. A coastline equally jagged from a plane or from a footpath. brown's version for people: how we are at the small scale is how we are at the large scale.</p></div>
+    </div>
+    <h2 class="q" style="font-size:clamp(1.8rem,4vw,3rem)">Think of a group you were part of that fell apart or turned toxic. Was the bad feeling already there in the small, in how two people talked to each other, long before it was ever big?</h2>
+    <textarea data-k="w13-b3" aria-label="board"></textarea>
+  </section>
+
+  <!-- 9 · SPEED OF TRUST + CRITICAL CONNECTIONS (teach cards + ASK) -->
+  <section class="panel">
+    <div class="defs">
+      <div class="def"><h3>Move at the speed of trust</h3><p>Trust cannot be rushed. Outrun it and the thing tears. A stranger asks you for a huge favor on day one, and you say no. The relationship is not there yet to carry the ask.</p></div>
+      <div class="def gold"><h3>Critical connections over critical mass</h3><p>You do not need a huge crowd. You need a few real, strong relationships that can actually bear weight. Build resilience by building relationships, not follower counts.</p></div>
+    </div>
+    <h2 class="q">Which is stronger: ten thousand followers who like your posts and do nothing, or twelve people who will show up at 6am when you call?</h2>
+    <textarea data-k="w13-b4" aria-label="board"></textarea>
+  </section>
+
+  <!-- 10 · SCENE: mycelium (ASK) -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week13-mycelium.jpg" alt="Branching white mycelium threads spreading across the forest floor">
+        <figcaption>The branching mycelium of a fungus, reaching across the forest floor (Wikimedia Commons, CC BY-SA 4.0, FungiFriendly).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">A different way to grow</div>
+        <h2 class="q">An ad campaign is one big loud push, then it stops when the money stops. This fungus grows the other way. What is different about how it grows, and why might a movement want to grow like this?</h2>
+        <textarea data-k="w13-b5" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · MYCELIUM (REVEAL) -->
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <div class="board">
+      <b>Mycelium is the real organism. The mushroom you see is just the small fruit.</b>
+      <span class="big">It grows mostly invisible, relational, decentralized, and patient, a vast web of threads under the forest floor.</span>
+      Cut one thread and the network survives. There is no headquarters to shut down. Lasting movements grow like this. The visible part is small on purpose. The strength is underground.
+    </div>
+  </section>
+
+  <!-- 12 · CASE (story setup + ASK) -->
+  <section class="panel">
+    <div class="kick">A movement with no headquarters</div>
+    <div class="board" style="border-left-color:var(--sage)">
+      <b>Fayetteville, Arkansas, 2016.</b>
+      A woman named Jessica McClard built one small wooden box on a post outside a church, stocked it with food, and painted three words on it: take what you need, leave what you can. She called it a little free pantry. No nonprofit, no campaign, no staff. She built one good small thing and posted a photo of it.
+      <span class="also">People copied it. Not her organization, because there was none. They copied the pattern. One pantry, then a hundred, then thousands, each built and stocked and watched over by whoever lives nearby, in whatever wood and paint they had.</span>
+    </div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem); margin-top:26px">Growing by copying a small pattern, with no central plan, gave this movement something a single big national campaign never could. Name it.</h2>
+    <textarea data-k="w13-b6" aria-label="board"></textarea>
+  </section>
+
+  <!-- 13 · WORKSHOP -->
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; in your pods</div>
+    <h2 class="q">Shrink one cause down until it is strong.</h2>
+    <p class="sub">Take one pod member's cause, or pick one: <span class="pill">a campus food pantry</span><span class="pill">a local trail cleanup</span><span class="pill">a tenants' group</span><span class="pill">a mutual-aid fund</span><span class="pill">a mental-health push</span>. Work all four boxes for that one cause, then pick a spokesperson to report back.</p>
+    <div class="work">
+      <div class="cell"><span class="lab">The 12-person version</span><p>What is the smallest version of this campaign that would still be genuinely good if only twelve people ever touched it? Describe it.</p></div>
+      <div class="cell g"><span class="lab">The mass trap</span><p>Where is this cause chasing raw numbers (reach, followers, impressions) when it should be building a few real relationships?</p></div>
+      <div class="cell s"><span class="lab">Speed of trust</span><p>Name one ask it makes too fast, before the relationship can hold it. What is a smaller first ask that trust could actually carry?</p></div>
+      <div class="cell"><span class="lab">The fractal check</span><p>If the small version got copied a hundred times, would the big version carry the character you want? What in the small piece do you protect as it grows?</p></div>
+    </div>
+    <textarea data-k="w13-b7" aria-label="board"></textarea>
+  </section>
+
+  <!-- 14 · FIELD NOTEBOOK -->
+  <section class="panel">
+    <div class="kick">Your cause &middot; Field Notebook</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">Open your Field Notebook. Today the question runs the other way: how small can your cause go and still be strong?</h2>
+    <p class="sub">Work these three on your own, then we'll hear a few.</p>
+    <div class="prompts">
+      <div class="p">What is the SMALLEST version of your campaign that would still be genuinely good, even if only twelve people ever touched it?</div>
+      <div class="p">Where are you chasing MASS (raw numbers, reach, followers) when you should be building CONNECTION (a few real relationships)?</div>
+      <div class="p">Name one small, strong thing you could do THIS week that could fractal outward, grow the same shape at a bigger scale.</div>
+    </div>
+  </section>
+
+  <!-- 15 · CLOSE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Where we go from here</div>
+    <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">The strength is underground.</h1>
+    <div class="idea"><b>Thursday's module:</b> read a little real adrienne maree brown, run the emergent read on six real cases, then build the smallest strong version of your own campaign in words, image, sound, and design. Bring the notebook. We'll reconvene at the end to share.</div>
+  </section>
+
+  <button class="clear" id="clear">Clear the boards</button>
+  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+    var key = 'e4_instr_' + ta.dataset.k;
+    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
+    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
+  });
+  document.getElementById('clear').addEventListener('click', function(){
+    if(!confirm('Clear everything typed on the boards?')) return;
+    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
+    });
+  });
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
+</script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 10 · Fast, Huge, and Fragile</title>
+<style>
+  :root{
+    --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
+    --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
+    --accent:#eb8f99; --accent-deep:#8c2f39; --gold:#e8b567; --sage:#9ec6a6;
+    --field:#140d0f;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  html{scroll-snap-type:y proximity; scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1300px 850px at 72% -12%, #33202a 0%, var(--bg) 58%) fixed, var(--bg);
+    color:var(--ink); font:18px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .panel{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:62px 6vw 46px; border-bottom:1px solid var(--line)}
+  /* kicker with accent bar */
+  .kick{display:inline-flex; align-items:center; gap:13px; font-size:clamp(.95rem,1.4vw,1.1rem); letter-spacing:.22em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:18px}
+  .kick::before{content:""; width:36px; height:3px; background:var(--accent); border-radius:2px}
+  .kick.gold{color:var(--gold)} .kick.gold::before{background:var(--gold)}
+  /* title */
+  .title h1{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2.8rem,7.6vw,6rem); line-height:1.02; margin:0 0 16px; text-wrap:balance; letter-spacing:-.01em}
+  .title .idea{font-size:clamp(1.4rem,3vw,2.3rem); color:var(--soft); max-width:24ch; line-height:1.25}
+  .title .rule{width:120px; height:5px; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:3px; margin:0 0 26px}
+  /* questions */
+  .q{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2rem,4.6vw,3.5rem); line-height:1.12; margin:0 0 12px; text-wrap:balance}
+  .sub{color:var(--soft); font-size:clamp(1.1rem,1.8vw,1.4rem); margin:0 0 24px; line-height:1.45}
+  .hl{color:var(--accent); font-weight:700} .hl.g{color:var(--gold)}
+  /* teach card (explanation) */
+  .teach{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:16px; padding:26px 30px; box-shadow:0 16px 44px rgba(0,0,0,.4); font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.5}
+  .teach b{color:var(--accent)}
+  .teach.gold{border-left-color:var(--gold)} .teach.gold b{color:var(--gold)}
+  /* scene: image + prompt */
+  .scene{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:42px; align-items:center}
+  @media (max-width:900px){ .scene{grid-template-columns:1fr; gap:24px} }
+  figure{margin:0}
+  figure img{width:100%; max-height:80vh; object-fit:contain; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); cursor:zoom-in; background:#0d0809}
+  figcaption{color:var(--soft); font-size:.98rem; margin-top:10px; font-style:italic}
+  /* board textarea */
+  textarea{width:100%; min-height:34vh; background:var(--field); color:var(--ink); border:2px solid var(--line); border-radius:16px; padding:18px 20px; font:600 clamp(1.3rem,2.1vw,1.9rem)/1.5 -apple-system,system-ui,sans-serif; resize:vertical}
+  textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(235,143,153,.16)}
+  .scene textarea{min-height:44vh}
+  /* definition cards */
+  .defs{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:6px 0 28px}
+  @media (max-width:760px){ .defs{grid-template-columns:1fr} }
+  .def{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:16px; padding:22px 26px; box-shadow:0 12px 34px rgba(0,0,0,.36)}
+  .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent); font-family:Georgia,serif}
+  .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem); line-height:1.45}
+  .def.gold{border-top-color:var(--gold)} .def.gold h3{color:var(--gold)}
+  /* side-by-side comparison */
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:6px 0 20px}
+  @media (max-width:760px){ .pair{grid-template-columns:1fr} }
+  .pair figure img{max-height:54vh}
+  /* board callout */
+  .board{background:linear-gradient(180deg,#301f24,#261a1e); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px; padding:24px 30px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5; box-shadow:0 14px 40px rgba(0,0,0,.38)}
+  .board>b{color:var(--gold)}
+  .board .big{font-family:Georgia,serif; font-size:1.3em; color:var(--accent); display:block; margin:14px 0}
+  .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
+  .board ul{margin:10px 0 0; padding-left:1.2em}
+  .board li{margin:8px 0}
+  /* numbered prompts */
+  .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
+  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  /* workshop grid */
+  .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
+  @media (max-width:760px){ .work{grid-template-columns:1fr} }
+  .work .cell{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  .work .cell .lab{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  .work .cell.g .lab{color:var(--gold)} .work .cell.s .lab{color:var(--sage)}
+  .work .cell p{margin:6px 0 0; font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink); line-height:1.4}
+  .pill{display:inline-block; background:rgba(235,143,153,.14); border:1px solid var(--accent); color:var(--accent); font-weight:700; font-size:clamp(1rem,1.5vw,1.25rem); border-radius:999px; padding:6px 16px; margin:4px 8px 4px 0}
+  /* controls */
+  .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.9); border:1px solid var(--line); color:var(--soft); border-radius:9px; padding:7px 13px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
+  .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
+  .lb{position:fixed; inset:0; background:rgba(10,6,7,.95); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
+  .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
+  .lb.on{display:flex}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+  <!-- 1 · TITLE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Week 10 · Tuesday</div>
+    <h1>Fast, huge, and fragile.</h1>
+    <div class="idea">A phone can put a giant crowd in the street in <span class="hl">days</span>. Then <span class="hl g">what</span>?</div>
+  </section>
+
+  <!-- 2 · DEBATE OPENER -->
+  <section class="panel">
+    <div class="kick gold">Debate this &middot; in your pods</div>
+    <h2 class="q">"If you can put a million people in the street in a week, you've basically already won."</h2>
+    <p class="sub">Pick a side and defend it to your pod. Two minutes, then we fight it out as a room. No fence-sitting.</p>
+    <textarea data-k="w10-debate" aria-label="board"></textarea>
+  </section>
+
+  <!-- 3 · GOAL -->
+  <section class="panel">
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="teach"><p>Today you'll wrestle with the gap between a <b>crowd</b> and <b>capacity</b>, meet the trap that sociologist Zeynep Tufekci calls the <b>tactical freeze</b>, and start seeing why a movement can get enormous fast and still stall out. Then you'll spot where your own cause is fast-but-fragile. You'll read the full theory in Thursday's module. Today we dig in together.</p></div>
+  </section>
+
+  <!-- 4 · HOOK -->
+  <section class="panel">
+    <div class="kick">Feel it</div>
+    <h2 class="q">One post. A hashtag. A time and a place. By Friday, 800 students are on Sanford Mall.</h2>
+    <p class="sub">Now rewind to 1963, before any of the tech. What would you have had to do to get those same 800 people in one place, and how long would it have taken?</p>
+    <textarea data-k="w10-b1" aria-label="board"></textarea>
+  </section>
+
+  <!-- 5 · THE CATCH -->
+  <section class="panel">
+    <div class="kick">The crowd is here</div>
+    <p class="sub" style="margin-bottom:16px">A reporter walks up to your hashtag crowd and asks three plain questions.</p>
+    <div class="board">
+      <ul>
+        <li>Who speaks for this group?</li>
+        <li>What, specifically, do you want?</li>
+        <li>The Chancellor offers you a meeting and half of what you're asking. Deal or no deal, and who decides?</li>
+      </ul>
+    </div>
+    <h2 class="q" style="margin-top:26px">No agreed leader. No single demand. No way to decide together. So what happens next?</h2>
+    <textarea data-k="w10-b2" aria-label="board"></textarea>
+  </section>
+
+  <!-- 6 · SCENE: TAHRIR + question -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week10-tahrir.png" alt="Over a million people fill Tahrir Square in Cairo during the 2011 Egyptian uprising">
+        <figcaption>Tahrir Square, Cairo, February 9, 2011. A leaderless, internet-coordinated occupation forced out a president in 18 days. Photo: Jonathan Rashad (CC BY 2.0), via Wikimedia Commons.</figcaption>
+      </figure>
+      <div>
+        <div class="kick">Name it</div>
+        <h2 class="q">Being leaderless sounds free and democratic. Why would it be the exact thing that freezes a movement?</h2>
+        <textarea data-k="w10-b3" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · REVEAL: the tactical freeze -->
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <div class="defs">
+      <div class="def"><h3>The tactical freeze</h3><p>A movement gets enormous fast, then finds it can't switch tactics, authorize anyone to negotiate, or accept a partial win. Zeynep Tufekci, <i>Twitter and Tear Gas</i> (2017).</p></div>
+      <div class="def gold"><h3>Why it happens</h3><p>The crowd scaled up overnight without ever building the muscle to decide together. So it defaults to the one move everyone recognizes. At Tahrir, that meant going back to the square. Tufekci's phrase: "Tahrir or bust."</p></div>
+    </div>
+    <div class="teach"><p>Leaderless has a real upside. No single person can be arrested, bought off, or discredited to kill the movement. The cost shows up later, when the moment calls for a new move and there is no agreed way to choose one.</p></div>
+  </section>
+
+  <!-- 8 · SCENE: MARCH ON WASHINGTON + question -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week10-march.jpg" alt="Civil rights and labor leaders marching arm in arm at the 1963 March on Washington">
+        <figcaption>March on Washington, August 28, 1963. It looked spontaneous. Bayard Rustin built it in about eight weeks: 2,000+ buses, 21 trains, trained marshals, sound, water, 80,000 lunches. U.S. Information Agency / National Archives (public domain).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">A harder case</div>
+        <h2 class="q">A quarter-million people arrived and left in one day without incident. What did that flawless march signal to those in power, and why did it scare them more than the size of the crowd?</h2>
+        <textarea data-k="w10-b4" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · REVEAL: the real lesson -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="board">
+      The slow work built the crowd AND built the muscle:
+      <ul>
+        <li>the meetings taught the group how to decide together</li>
+        <li>the roles taught them who could speak for whom</li>
+        <li>the shared labor built trust that survives a bad day</li>
+      </ul>
+      <span class="big">Skip the slow work and you get the crowd without the muscle.</span>
+      <span class="also">A flawless march advertised a hidden machine: "we can coordinate a quarter-million people, so imagine what else we can coordinate." A hashtag can now produce a bigger crowd overnight and prove none of that, which is part of why sheer size means less than it used to.</span>
+    </div>
+  </section>
+
+  <!-- 10 · BRIDGE QUESTION -->
+  <section class="panel">
+    <div class="kick">Bring it home</div>
+    <h2 class="q">We love the speed of the hashtag and we don't want the freeze. So what do we now have to do on purpose that used to happen by accident?</h2>
+    <p class="sub">Think about what an old movement was forced to build before it could gather anyone, and what a phone now lets us skip.</p>
+    <textarea data-k="w10-b5" aria-label="board"></textarea>
+  </section>
+
+  <!-- 11 · WORKSHOP -->
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; in your pods</div>
+    <h2 class="q">Build the muscle before the crowd shows up.</h2>
+    <p class="sub">Your pod is behind the post that will put those 800 students on Sanford Mall Friday. Pick one cause to organize around, <span class="pill">campus safety</span><span class="pill">housing costs</span><span class="pill">a dining-hall change</span><span class="pill">climate</span><span class="pill">something your pod actually cares about</span>, then fill all four boxes so the crowd doesn't freeze. Choose a spokesperson to report back.</p>
+    <div class="work">
+      <div class="cell"><span class="lab">The one demand</span><p>What specifically do you want? Something a person in power could actually say yes or no to, not "raise awareness."</p></div>
+      <div class="cell g"><span class="lab">Who decides</span><p>Name the two or three people allowed to speak for the group and the rule they use to say yes to an offer. Be concrete.</p></div>
+      <div class="cell s"><span class="lab">The floor</span><p>What survives Saturday, after the crowd goes home? A sign-up list, a group chat, a standing meeting. How do you reach these people again?</p></div>
+      <div class="cell"><span class="lab">The next move</span><p>The Chancellor offers half. Walk through what your group does in the next 24 hours. Where could you freeze, and how do you avoid it?</p></div>
+    </div>
+    <textarea data-k="w10-b6" aria-label="board"></textarea>
+  </section>
+
+  <!-- 12 · FIELD NOTEBOOK -->
+  <section class="panel">
+    <div class="kick">Your cause &middot; Field Notebook</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">Open your Field Notebook. Find where your cause is fast-but-fragile.</h2>
+    <p class="sub">Work these on your own, then we'll hear a few.</p>
+    <div class="prompts">
+      <div class="p">Name a moment where your cause could get a burst of attention but couldn't hold it, direct it, or use it.</div>
+      <div class="p">If a reporter walked up during your best moment and asked "what do you want, and who decides?", could your cause answer? Realistically, what would happen?</div>
+      <div class="p">Name ONE piece of slow capacity you could build this semester (a short list of committed people, a clear demand, a steady posting rhythm, an agreed way to decide) that would keep a burst of attention from leaking away.</div>
+    </div>
+  </section>
+
+  <!-- 13 · CLOSE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Where we go from here</div>
+    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">Reach is cheap. Capacity is expensive. The expensive thing is what keeps a movement from freezing.</h1>
+    <div class="idea"><b>Thursday's module:</b> the real Tufekci, then you build the four pieces of capacity that keep a cause from freezing, audience, goal, an editorial calendar, and a platform voice. That work is the engine of Project 2. Bring the notebook. We'll reconvene at the end to share.</div>
+  </section>
+
+  <button class="clear" id="clear">Clear the boards</button>
+  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+    var key = 'e4_instr_' + ta.dataset.k;
+    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
+    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
+  });
+  document.getElementById('clear').addEventListener('click', function(){
+    if(!confirm('Clear everything typed on the boards?')) return;
+    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
+    });
+  });
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
+</script>
+</body>
+</html>

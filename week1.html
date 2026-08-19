@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 1 · Social Media Is Older Than Your Phone</title>
+<style>
+  :root{
+    --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
+    --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
+    --accent:#eb8f99; --accent-deep:#8c2f39; --gold:#e8b567; --sage:#9ec6a6;
+    --field:#140d0f;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  html{scroll-snap-type:y proximity; scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1300px 850px at 72% -12%, #33202a 0%, var(--bg) 58%) fixed, var(--bg);
+    color:var(--ink); font:18px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .panel{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:62px 6vw 46px; border-bottom:1px solid var(--line)}
+  /* kicker with accent bar */
+  .kick{display:inline-flex; align-items:center; gap:13px; font-size:clamp(.95rem,1.4vw,1.1rem); letter-spacing:.22em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:18px}
+  .kick::before{content:""; width:36px; height:3px; background:var(--accent); border-radius:2px}
+  .kick.gold{color:var(--gold)} .kick.gold::before{background:var(--gold)}
+  /* title */
+  .title h1{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2.8rem,7.6vw,6rem); line-height:1.02; margin:0 0 16px; text-wrap:balance; letter-spacing:-.01em}
+  .title .idea{font-size:clamp(1.4rem,3vw,2.3rem); color:var(--soft); max-width:24ch; line-height:1.25}
+  .title .rule{width:120px; height:5px; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:3px; margin:0 0 26px}
+  /* questions */
+  .q{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2rem,4.6vw,3.5rem); line-height:1.12; margin:0 0 12px; text-wrap:balance}
+  .sub{color:var(--soft); font-size:clamp(1.1rem,1.8vw,1.4rem); margin:0 0 24px; line-height:1.45}
+  .hl{color:var(--accent); font-weight:700} .hl.g{color:var(--gold)}
+  /* teach card (explanation) */
+  .teach{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:16px; padding:26px 30px; box-shadow:0 16px 44px rgba(0,0,0,.4); font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.5}
+  .teach b{color:var(--accent)}
+  .teach.gold{border-left-color:var(--gold)} .teach.gold b{color:var(--gold)}
+  /* scene: image + prompt */
+  .scene{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:42px; align-items:center}
+  @media (max-width:900px){ .scene{grid-template-columns:1fr; gap:24px} }
+  figure{margin:0}
+  figure img{width:100%; max-height:80vh; object-fit:contain; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); cursor:zoom-in; background:#0d0809}
+  figcaption{color:var(--soft); font-size:.98rem; margin-top:10px; font-style:italic}
+  /* board textarea */
+  textarea{width:100%; min-height:34vh; background:var(--field); color:var(--ink); border:2px solid var(--line); border-radius:16px; padding:18px 20px; font:600 clamp(1.3rem,2.1vw,1.9rem)/1.5 -apple-system,system-ui,sans-serif; resize:vertical}
+  textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(235,143,153,.16)}
+  .scene textarea{min-height:44vh}
+  /* definition cards */
+  .defs{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:6px 0 28px}
+  @media (max-width:760px){ .defs{grid-template-columns:1fr} }
+  .def{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:16px; padding:22px 26px; box-shadow:0 12px 34px rgba(0,0,0,.36)}
+  .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent); font-family:Georgia,serif}
+  .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem); line-height:1.45}
+  .def.gold{border-top-color:var(--gold)} .def.gold h3{color:var(--gold)}
+  /* side-by-side comparison */
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:6px 0 20px}
+  @media (max-width:760px){ .pair{grid-template-columns:1fr} }
+  .pair figure img{max-height:54vh}
+  /* board callout */
+  .board{background:linear-gradient(180deg,#301f24,#261a1e); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px; padding:24px 30px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5; box-shadow:0 14px 40px rgba(0,0,0,.38)}
+  .board>b{color:var(--gold)}
+  .board .big{font-family:Georgia,serif; font-size:1.3em; color:var(--accent); display:block; margin:14px 0}
+  .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
+  /* numbered prompts */
+  .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
+  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  /* workshop grid */
+  .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
+  @media (max-width:760px){ .work{grid-template-columns:1fr} }
+  .work .cell{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  .work .cell .lab{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  .work .cell.g .lab{color:var(--gold)} .work .cell.s .lab{color:var(--sage)}
+  .work .cell p{margin:6px 0 0; font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink); line-height:1.4}
+  .pill{display:inline-block; background:rgba(235,143,153,.14); border:1px solid var(--accent); color:var(--accent); font-weight:700; font-size:clamp(1rem,1.5vw,1.25rem); border-radius:999px; padding:6px 16px; margin:4px 8px 4px 0}
+  /* controls */
+  .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.9); border:1px solid var(--line); color:var(--soft); border-radius:9px; padding:7px 13px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
+  .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
+  .lb{position:fixed; inset:0; background:rgba(10,6,7,.95); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
+  .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
+  .lb.on{display:flex}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+  <!-- 1 · TITLE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Week 1 · Thursday</div>
+    <h1>Social media is older than your phone.</h1>
+    <div class="idea">You do a staggering amount of communicating and a surprisingly small amount of connecting.</div>
+  </section>
+
+  <!-- GOAL -->
+  <section class="panel">
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="teach"><p>Today you'll dig into a claim that sounds wrong at first, that "social media" is far older than your phone, and wrestle with what real connection actually takes. You'll leave having started to name the one cause you'll carry all semester, then take it deeper in the module and lock it in.</p></div>
+  </section>
+
+  <!-- 2 · THE AUDIT -->
+  <section class="panel">
+    <h2 class="q">List every way you sent or received a message in the last 24 hours.</h2>
+    <p class="sub">All of them, beyond the apps: texts, DMs, a like, a Snap, a call, a wave to a neighbor, a note on the counter, a meal shared with someone. Then star the ones that made you feel closer to another human being.</p>
+    <textarea data-k="w1-b1" aria-label="board"></textarea>
+  </section>
+
+  <!-- 3 · SCENE: OLD SOCIAL MEDIA -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week1-dinner-grounds.jpg" alt="People serving plates at an all-day community sing and dinner on the grounds, Pie Town, New Mexico, 1940">
+        <figcaption>Dinner on the grounds at an all-day community sing, Pie Town, New Mexico, 1940. Russell Lee (Library of Congress, FSA).</figcaption>
+      </figure>
+      <div>
+        <h2 class="q">Before phones, before the internet, how did people build community and move ideas around?</h2>
+        <p class="sub">Give me the old technologies of gathering.</p>
+        <textarea data-k="w1-b2" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · NAME IT: CAREY -->
+  <section class="panel">
+    <div class="defs">
+      <div class="def"><h3>Transmission</h3><p>Sending. Moving information across space to reach people: a text, a news bulletin, an ad, a viral post. Good at REACH.</p></div>
+      <div class="def"><h3>Ritual</h3><p>Gathering. Drawing people into a shared world and shared meaning: a potluck, a church service, a singing, a shared meal, a march. Good at TRUST and belonging.</p></div>
+    </div>
+    <h2 class="q">Look at the word itself. What other words hide inside "communication"?</h2>
+    <p class="sub">James Carey named these two views in 1975. Every medium does some of both, but your phone trained you hard in transmission and barely at all in ritual. That gap is what this whole course is about. You'll go deeper on it in today's module.</p>
+    <textarea data-k="w1-b3" aria-label="board"></textarea>
+  </section>
+
+  <!-- 5 · SCENE: WHAT THINNED OUT -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week1-bowling.jpg" alt="A pin boy setting pins in a small-town bowling alley, 1940">
+        <figcaption>Bowling alley, 1940. Arthur Rothstein (Library of Congress).</figcaption>
+      </figure>
+      <div>
+        <h2 class="q">For decades, we have done more and more "bowling alone." What else have we stopped doing together?</h2>
+        <p class="sub">Robert Putnam's phrase: we still bowl, but hardly ever in leagues, and the leagues, clubs, and standing weekly gatherings are what built trust and belonging. None of them had reach. All of them had trust. More on this in the module.</p>
+        <textarea data-k="w1-b4" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · FIND YOUR THREAD -->
+  <section class="panel">
+    <div class="kick">Your turn</div>
+    <h2 class="q">What is one thing that has been quietly bugging you about the world lately, big or small?</h2>
+    <p class="sub">Something small and real is fine, the thing you'd actually want to fix. This is the seed of the cause you'll carry all semester.</p>
+    <textarea data-k="w1-b5" aria-label="board"></textarea>
+  </section>
+
+  <!-- 7 · SIX BARS -->
+  <section class="panel">
+    <div class="kick">Your cause · the spine of this course</div>
+    <h2 class="q" style="font-size:clamp(1.9rem,4vw,3rem)">A good cause for this course clears six bars.</h2>
+    <p class="sub">Small, real, nameable, yours. Specific beats vast, every time.</p>
+    <div class="defs" style="grid-template-columns:1fr 1fr 1fr">
+      <div class="def"><h3>1 · You care</h3><p>A real personal stake, not a cause you "should" care about.</p></div>
+      <div class="def"><h3>2 · Real &amp; specific</h3><p>A nameable thing, not a vast abstraction.</p></div>
+      <div class="def"><h3>3 · Low-traction</h3><p>Under-covered, so your work can actually matter.</p></div>
+      <div class="def"><h3>4 · A media job</h3><p>People to reach, a story to tell.</p></div>
+      <div class="def"><h3>5 · Lasts a semester</h3><p>Enough there to carry for fourteen weeks.</p></div>
+      <div class="def"><h3>6 · Safe &amp; ethical</h3><p>No danger to you or anyone else.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 · HAND OFF TO THE MODULE -->
+  <section class="panel">
+    <div class="kick">Now: your module</div>
+    <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">Open the course website, go to the Week 1 Thursday module, then open your Field Notebook.</h2>
+    <p class="sub">Work through it at your own pace and do the writing. We'll reconvene at the end of class to share what you found. Here's what the module covers:</p>
+    <div class="prompts">
+      <div class="p">Transmission vs. ritual, the Carey idea, in more depth.</div>
+      <div class="p">Why community has "thinned out" over the decades (Putnam's <i>Bowling Alone</i>).</div>
+      <div class="p">A quick diagnostic: is a given act transmission, ritual, or a real mix?</div>
+      <div class="p">The cause-vetting tool: pressure-test your candidate causes and lock the one you'll carry all semester.</div>
+    </div>
+  </section>
+
+  <button class="clear" id="clear">Clear the boards</button>
+  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+    var key = 'e4_instr_' + ta.dataset.k;
+    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
+    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
+  });
+  document.getElementById('clear').addEventListener('click', function(){
+    if(!confirm('Clear everything typed on the boards?')) return;
+    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
+    });
+  });
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
+</script>
+</body>
+</html>

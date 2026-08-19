@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 7 · Who Gets to Tell Your Story</title>
+<style>
+  :root{
+    --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
+    --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
+    --accent:#eb8f99; --accent-deep:#8c2f39; --gold:#e8b567; --sage:#9ec6a6;
+    --field:#140d0f;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  html{scroll-snap-type:y proximity; scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1300px 850px at 72% -12%, #33202a 0%, var(--bg) 58%) fixed, var(--bg);
+    color:var(--ink); font:18px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .panel{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:62px 6vw 46px; border-bottom:1px solid var(--line)}
+  /* kicker with accent bar */
+  .kick{display:inline-flex; align-items:center; gap:13px; font-size:clamp(.95rem,1.4vw,1.1rem); letter-spacing:.22em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:18px}
+  .kick::before{content:""; width:36px; height:3px; background:var(--accent); border-radius:2px}
+  .kick.gold{color:var(--gold)} .kick.gold::before{background:var(--gold)}
+  /* title */
+  .title h1{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2.8rem,7.6vw,6rem); line-height:1.02; margin:0 0 16px; text-wrap:balance; letter-spacing:-.01em}
+  .title .idea{font-size:clamp(1.4rem,3vw,2.3rem); color:var(--soft); max-width:24ch; line-height:1.25}
+  .title .rule{width:120px; height:5px; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:3px; margin:0 0 26px}
+  /* questions */
+  .q{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2rem,4.6vw,3.5rem); line-height:1.12; margin:0 0 12px; text-wrap:balance}
+  .sub{color:var(--soft); font-size:clamp(1.1rem,1.8vw,1.4rem); margin:0 0 24px; line-height:1.45}
+  .hl{color:var(--accent); font-weight:700} .hl.g{color:var(--gold)}
+  /* teach card (explanation) */
+  .teach{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:16px; padding:26px 30px; box-shadow:0 16px 44px rgba(0,0,0,.4); font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.5}
+  .teach b{color:var(--accent)}
+  .teach.gold{border-left-color:var(--gold)} .teach.gold b{color:var(--gold)}
+  /* scene: image + prompt */
+  .scene{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:42px; align-items:center}
+  @media (max-width:900px){ .scene{grid-template-columns:1fr; gap:24px} }
+  figure{margin:0}
+  figure img{width:100%; max-height:80vh; object-fit:contain; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); cursor:zoom-in; background:#0d0809}
+  figcaption{color:var(--soft); font-size:.98rem; margin-top:10px; font-style:italic}
+  /* board textarea */
+  textarea{width:100%; min-height:34vh; background:var(--field); color:var(--ink); border:2px solid var(--line); border-radius:16px; padding:18px 20px; font:600 clamp(1.3rem,2.1vw,1.9rem)/1.5 -apple-system,system-ui,sans-serif; resize:vertical}
+  textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(235,143,153,.16)}
+  .scene textarea{min-height:44vh}
+  /* definition cards */
+  .defs{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:6px 0 28px}
+  @media (max-width:760px){ .defs{grid-template-columns:1fr} }
+  .def{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:16px; padding:22px 26px; box-shadow:0 12px 34px rgba(0,0,0,.36)}
+  .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent); font-family:Georgia,serif}
+  .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem); line-height:1.45}
+  .def.gold{border-top-color:var(--gold)} .def.gold h3{color:var(--gold)}
+  /* side-by-side comparison */
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:6px 0 20px}
+  @media (max-width:760px){ .pair{grid-template-columns:1fr} }
+  .pair figure img{max-height:54vh}
+  /* board callout */
+  .board{background:linear-gradient(180deg,#301f24,#261a1e); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px; padding:24px 30px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5; box-shadow:0 14px 40px rgba(0,0,0,.38)}
+  .board>b{color:var(--gold)}
+  .board .big{font-family:Georgia,serif; font-size:1.3em; color:var(--accent); display:block; margin:14px 0}
+  .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
+  /* numbered prompts */
+  .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
+  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  /* workshop grid */
+  .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
+  @media (max-width:760px){ .work{grid-template-columns:1fr} }
+  .work .cell{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  .work .cell .lab{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  .work .cell.g .lab{color:var(--gold)} .work .cell.s .lab{color:var(--sage)}
+  .work .cell p{margin:6px 0 0; font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink); line-height:1.4}
+  .pill{display:inline-block; background:rgba(235,143,153,.14); border:1px solid var(--accent); color:var(--accent); font-weight:700; font-size:clamp(1rem,1.5vw,1.25rem); border-radius:999px; padding:6px 16px; margin:4px 8px 4px 0}
+  /* controls */
+  .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.9); border:1px solid var(--line); color:var(--soft); border-radius:9px; padding:7px 13px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
+  .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
+  .lb{position:fixed; inset:0; background:rgba(10,6,7,.95); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
+  .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
+  .lb.on{display:flex}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+  /* image placeholder (copyrighted Emory Douglas art shown live from the archive) */
+  .ph{border:2px dashed var(--line); border-radius:16px; padding:44px 32px; text-align:center; background:var(--panel)}
+  .ph .cap{color:var(--ink); font-size:clamp(1.2rem,2vw,1.5rem); max-width:42ch; margin:0 auto; line-height:1.4}
+  .ph .cap b{color:var(--accent)}
+  .ph .hint{margin-top:16px; font-size:.9rem; color:var(--soft); font-style:italic; opacity:.75}
+  .board ul{margin:10px 0 0; padding-left:1.1em} .board li{margin:9px 0}
+</style>
+</head>
+<body>
+
+  <!-- 1 · TITLE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Week 7 · Tuesday</div>
+    <h1>Who gets to tell your story.</h1>
+    <div class="idea">Whoever holds the pen holds the <span class="hl">frame</span>. So they took the pen.</div>
+  </section>
+
+  <!-- 2 · DEBATE OPENER -->
+  <section class="panel">
+    <div class="kick gold">Debate this &middot; in your pods</div>
+    <h2 class="q">"You should never tell a story that isn't yours to tell."</h2>
+    <p class="sub">Pick a side and defend it to your pod. Two minutes, then we fight it out as a room. No fence-sitting.</p>
+    <textarea data-k="w7-debate" aria-label="board"></textarea>
+  </section>
+
+  <!-- 3 · GOAL -->
+  <section class="panel">
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="teach"><p>Today you'll wrestle with two ideas that change how you read any coverage of any group: <b>self-representation</b> and <b>whoever holds the pen holds the frame</b>. We'll trace how one movement built its own newspaper and turned even the act of <b>selling it on a corner</b> into organizing. Then you'll ask the hard one about your own cause: who's holding your pen right now? You'll go deeper Thursday. Today we dig in together.</p></div>
+  </section>
+
+  <!-- 4 · HOOK: TWO HEADLINES (ASK) -->
+  <section class="panel">
+    <div class="kick">Feel it</div>
+    <h2 class="q">A group in a poor neighborhood starts feeding hot breakfast to schoolkids. Free. Every weekday before class.</h2>
+    <p class="sub">Write two headlines for the exact same program: one from a TV station suspicious of the group, one from the group's own newspaper.</p>
+    <textarea data-k="w7-b1" aria-label="board"></textarea>
+  </section>
+
+  <!-- 5 · THE REVEAL -->
+  <section class="panel">
+    <div class="kick gold">The reveal</div>
+    <div class="board">
+      This is the <b>Black Panther Party</b>. The <b>Free Breakfast for Children Program</b>, 1969. They fed tens of thousands of kids across the country, and it worked so well that public-school breakfast programs later copied the model. The FBI's director called that breakfast program the single greatest threat to their effort to destroy the Party.
+      <span class="big">Eggs for six-year-olds, ranked a national threat.</span>
+      Mainstream news mostly showed the Panthers as armed criminals. Whoever told the story decided which of those two things the country saw.
+    </div>
+  </section>
+
+  <!-- 6 · NAME IT -->
+  <section class="panel">
+    <div class="kick">Name it</div>
+    <div class="defs">
+      <div class="def"><h3>Self-representation</h3><p>A community authoring its own image, in a medium it controls, instead of being described by outsiders.</p></div>
+      <div class="def gold"><h3>The Black Panther</h3><p>The Party's newspaper, started 1967 in Oakland. At its peak, more than 300,000 copies a week, the most-read Black paper in the country.</p></div>
+    </div>
+    <div class="teach"><p><b>Whoever holds the pen holds the frame.</b> When the papers and stations that reach millions call you a criminal, you can ask them to be fairer, or you can build a channel you control and describe yourself. The Panthers built the channel.</p></div>
+  </section>
+
+  <!-- 7 · WHY A WHOLE NEWSPAPER (ASK) -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week7-panthers-banner.jpg" alt="A Black Panther Party member holding a banner at the Lincoln Memorial, Washington, D.C., 1970">
+        <figcaption>A Black Panther Party member with a banner, Washington, D.C., 1970 (Library of Congress, public domain).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">The choice</div>
+        <p class="sub">They could have kept demanding fairer coverage from the stations that reached millions. Instead they printed their own paper.</p>
+        <h2 class="q">Why build a whole newspaper instead of firing rebuttals at the TV station?</h2>
+        <textarea data-k="w7-b2" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · WHY A NEWSPAPER (REVEAL) -->
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <div class="teach"><p>A rebuttal still lives inside someone else's frame. You're reacting to their story, on their platform, on their schedule, and the correction never travels as far as the accusation did. Owning the medium flips that. You set the subject, the words, and the pictures, and you decide what the country never gets to call you in the first place. That's the move from being described to describing yourself.</p></div>
+  </section>
+
+  <!-- 9 · EMORY DOUGLAS (ASK) -->
+  <section class="panel">
+    <div class="scene">
+      <div class="ph" data-note="add-image: Emory Douglas artwork from The Black Panther is copyrighted; Dr. Long shows a scanned issue from the marxists.org archive live in class">
+        <div class="cap"><b>Emory Douglas</b>, the Party's Minister of Culture and the paper's artist. Thick black outlines. The community drawn large and dignified. Power drawn as the pig. Cheap to print, plain enough that a child could read it.</div>
+        <div class="hint">Shown live in class from the archive.</div>
+      </div>
+      <div>
+        <div class="kick">The mirror</div>
+        <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem)">What does it do to a community to open its own paper every week and see people who look like them drawn as heroes instead of suspects?</h2>
+        <textarea data-k="w7-b3" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · DOUGLAS (REVEAL) -->
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <div class="teach"><p>Douglas understood a picture as a mirror. Advertising showed people a life they couldn't afford. The news showed them people who looked like them in handcuffs. A community that keeps seeing itself as the villain starts to believe it, and a community that sees itself as the hero can begin to act like one. "Art has relevancy," he said. "It's a language, that's the power of it."</p></div>
+  </section>
+
+  <!-- 11 · DISTRIBUTION (ASK) -->
+  <section class="panel">
+    <div class="kick">The corner</div>
+    <p class="sub">The paper wasn't mailed or posted. Members sold it by hand on the corner for 25&cent;, and the seller kept about half.</p>
+    <h2 class="q">How is selling a paper on a corner, every day, different from a post going viral?</h2>
+    <textarea data-k="w7-b4" aria-label="board"></textarea>
+  </section>
+
+  <!-- 12 · DISTRIBUTION (REVEAL) -->
+  <section class="panel">
+    <div class="kick gold">Distribution was the organizing</div>
+    <div class="board">
+      Sold on the corner for 25&cent;. The seller kept about half.
+      <ul>
+        <li>Income for members with no other job.</li>
+        <li>A reason to stand on the corner, visible, every single day. Presence.</li>
+        <li>Every sale is a face-to-face conversation. Recruitment.</li>
+        <li>The paper's money funded the free breakfast and the clinics.</li>
+      </ul>
+      <span class="big">Handing you the paper was the relationship.</span>
+      A viral post reaches more people and leaves none of that behind. No corner, no conversation, no one you'd know tomorrow.
+    </div>
+  </section>
+
+  <!-- 13 · HOLD THE WHOLE OF IT -->
+  <section class="panel">
+    <div class="kick">Hold the whole of it</div>
+    <div class="board">
+      <ul>
+        <li>The paper was community journalism <b>and</b> open persuasion, advocacy, not neutral news. The Party said so plainly.</li>
+        <li>Drawing police as pigs dehumanized a group on purpose. That's a rhetorical weapon. Name it as one, even when you understand why they reached for it.</li>
+        <li>The Party carried real internal contradictions, including sexism. Some surfaced in the paper. Much did not.</li>
+        <li><b>COINTELPRO</b>, a secret FBI program, actively worked to destroy the Party and the paper: raids, forged letters, worse. The threat was real and documented.</li>
+      </ul>
+      <span class="big">They seized the power to frame their own story instead of leaving it to people who wished them harm.</span>
+      So the question for your cause: who's holding your pen?
+    </div>
+  </section>
+
+  <!-- 14 · WORKSHOP -->
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; in your pods</div>
+    <h2 class="q">Design one front page that tells a community's story from the inside.</h2>
+    <p class="sub">Take a community or cause (your own is fine) and pick a format you could actually make, <span class="pill">a one-page paper</span><span class="pill">a zine</span><span class="pill">a photo series</span><span class="pill">a wall mural</span><span class="pill">a printed newsletter</span> then fill all four boxes. Pick a spokesperson to report back.</p>
+    <div class="work">
+      <div class="cell"><span class="lab">The frame to refuse</span><p>What's the outsider headline or image you're up against, the way you'd get shown if you did nothing?</p></div>
+      <div class="cell g"><span class="lab">Your headline</span><p>Same event, told from inside. What do you name it, and what do you refuse to call it?</p></div>
+      <div class="cell s"><span class="lab">Your hero image</span><p>Who gets drawn or photographed large and dignified? Name a real person or role, not a logo or a pity shot.</p></div>
+      <div class="cell"><span class="lab">Distribution as organizing</span><p>Where and how do you hand it out so the act of distributing it builds real relationships, more than views?</p></div>
+    </div>
+    <textarea data-k="w7-b5" aria-label="board"></textarea>
+  </section>
+
+  <!-- 15 · FIELD NOTEBOOK -->
+  <section class="panel">
+    <div class="kick">Your cause &middot; Field Notebook</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">Open your Field Notebook. Ask who's holding your pen.</h2>
+    <p class="sub">Work these three on your own, then we'll hear a few.</p>
+    <div class="prompts">
+      <div class="p">Right now, who tells your cause's story to the public: you, or someone else (the news, a rival, or no one at all)? Be specific.</div>
+      <div class="p">Write the worst-but-plausible headline an unsympathetic outsider would run about your cause. Then write your own headline for the same event, from the inside.</div>
+      <div class="p">Name one channel you could actually own this semester, even a tiny one, so you represent yourselves instead of waiting to be described.</div>
+    </div>
+  </section>
+
+  <!-- 16 · CLOSE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Where we go from here</div>
+    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">Who's holding your pen?</h1>
+    <div class="idea"><b>Thursday's module:</b> you'll build the theory of self-representation, then work the ethics of telling any story, consent, dignity, and who can actually reach it. Bring your cause.</div>
+  </section>
+
+  <button class="clear" id="clear">Clear the boards</button>
+  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+    var key = 'e4_instr_' + ta.dataset.k;
+    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
+    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
+  });
+  document.getElementById('clear').addEventListener('click', function(){
+    if(!confirm('Clear everything typed on the boards?')) return;
+    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
+    });
+  });
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
+</script>
+</body>
+</html>

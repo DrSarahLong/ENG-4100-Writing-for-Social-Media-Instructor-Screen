@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 3 · A Country of Strangers</title>
+<style>
+  :root{
+    --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
+    --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
+    --accent:#eb8f99; --accent-deep:#8c2f39; --gold:#e8b567; --sage:#9ec6a6;
+    --field:#140d0f;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  html{scroll-snap-type:y proximity; scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1300px 850px at 72% -12%, #33202a 0%, var(--bg) 58%) fixed, var(--bg);
+    color:var(--ink); font:18px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .panel{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:62px 6vw 46px; border-bottom:1px solid var(--line)}
+  /* kicker with accent bar */
+  .kick{display:inline-flex; align-items:center; gap:13px; font-size:clamp(.95rem,1.4vw,1.1rem); letter-spacing:.22em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:18px}
+  .kick::before{content:""; width:36px; height:3px; background:var(--accent); border-radius:2px}
+  .kick.gold{color:var(--gold)} .kick.gold::before{background:var(--gold)}
+  /* title */
+  .title h1{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2.8rem,7.6vw,6rem); line-height:1.02; margin:0 0 16px; text-wrap:balance; letter-spacing:-.01em}
+  .title .idea{font-size:clamp(1.4rem,3vw,2.3rem); color:var(--soft); max-width:24ch; line-height:1.25}
+  .title .rule{width:120px; height:5px; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:3px; margin:0 0 26px}
+  /* questions */
+  .q{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2rem,4.6vw,3.5rem); line-height:1.12; margin:0 0 12px; text-wrap:balance}
+  .sub{color:var(--soft); font-size:clamp(1.1rem,1.8vw,1.4rem); margin:0 0 24px; line-height:1.45}
+  .hl{color:var(--accent); font-weight:700} .hl.g{color:var(--gold)}
+  /* teach card (explanation) */
+  .teach{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:16px; padding:26px 30px; box-shadow:0 16px 44px rgba(0,0,0,.4); font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.5}
+  .teach b{color:var(--accent)}
+  .teach.gold{border-left-color:var(--gold)} .teach.gold b{color:var(--gold)}
+  /* scene: image + prompt */
+  .scene{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:42px; align-items:center}
+  @media (max-width:900px){ .scene{grid-template-columns:1fr; gap:24px} }
+  figure{margin:0}
+  figure img{width:100%; max-height:80vh; object-fit:contain; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); cursor:zoom-in; background:#0d0809}
+  figcaption{color:var(--soft); font-size:.98rem; margin-top:10px; font-style:italic}
+  /* board textarea */
+  textarea{width:100%; min-height:34vh; background:var(--field); color:var(--ink); border:2px solid var(--line); border-radius:16px; padding:18px 20px; font:600 clamp(1.3rem,2.1vw,1.9rem)/1.5 -apple-system,system-ui,sans-serif; resize:vertical}
+  textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(235,143,153,.16)}
+  .scene textarea{min-height:44vh}
+  /* definition cards */
+  .defs{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:6px 0 28px}
+  @media (max-width:760px){ .defs{grid-template-columns:1fr} }
+  .def{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:16px; padding:22px 26px; box-shadow:0 12px 34px rgba(0,0,0,.36)}
+  .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent); font-family:Georgia,serif}
+  .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem); line-height:1.45}
+  .def.gold{border-top-color:var(--gold)} .def.gold h3{color:var(--gold)}
+  /* side-by-side comparison */
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:6px 0 20px}
+  @media (max-width:760px){ .pair{grid-template-columns:1fr} }
+  .pair figure img{max-height:54vh}
+  /* board callout */
+  .board{background:linear-gradient(180deg,#301f24,#261a1e); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px; padding:24px 30px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5; box-shadow:0 14px 40px rgba(0,0,0,.38)}
+  .board>b{color:var(--gold)}
+  .board .big{font-family:Georgia,serif; font-size:1.3em; color:var(--accent); display:block; margin:14px 0}
+  .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
+  .board ul{margin:12px 0 0; padding-left:1.1em}
+  .board li{margin:8px 0}
+  /* quote */
+  .quote{background:linear-gradient(180deg,#301f24,#261a1e); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px; padding:24px 30px; font-family:Georgia,serif; font-size:clamp(1.15rem,1.9vw,1.55rem); line-height:1.5; box-shadow:0 14px 40px rgba(0,0,0,.38)}
+  .quote b{color:var(--gold); font-weight:700}
+  /* numbered prompts */
+  .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
+  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  /* workshop grid */
+  .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
+  @media (max-width:760px){ .work{grid-template-columns:1fr} }
+  .work .cell{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  .work .cell .lab{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  .work .cell.g .lab{color:var(--gold)} .work .cell.s .lab{color:var(--sage)}
+  .work .cell p{margin:6px 0 0; font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink); line-height:1.4}
+  .pill{display:inline-block; background:rgba(235,143,153,.14); border:1px solid var(--accent); color:var(--accent); font-weight:700; font-size:clamp(1rem,1.5vw,1.25rem); border-radius:999px; padding:6px 16px; margin:4px 8px 4px 0}
+  /* controls */
+  .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.9); border:1px solid var(--line); color:var(--soft); border-radius:9px; padding:7px 13px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
+  .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
+  .lb{position:fixed; inset:0; background:rgba(10,6,7,.95); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
+  .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
+  .lb.on{display:flex}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+  <!-- 1 · TITLE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Week 3 · Tuesday</div>
+    <h1>A country of strangers.</h1>
+    <div class="idea">In 1788, a few people changed a nation's mind with newspaper essays signed by a <span class="hl">fake name</span>. The same machinery runs a <span class="hl g">viral post</span> today.</div>
+  </section>
+
+  <!-- 2 · DEBATE OPENER -->
+  <section class="panel">
+    <div class="kick gold">Debate this &middot; in your pods</div>
+    <h2 class="q">"Arguing under a fake name is cowardice. If you believe it, sign it."</h2>
+    <p class="sub">Pick a side and defend it to your pod. Two minutes, then we fight it out as a room. No fence-sitting.</p>
+    <textarea data-k="w3-debate" aria-label="board"></textarea>
+  </section>
+
+  <!-- 3 · GOAL -->
+  <section class="panel">
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="teach"><p>By the end of class you'll be able to take apart how any movement spreads an idea, using three tools: <b>circulation</b> (how a message travels and gets repeated), <b>a public</b> (the body of strangers a shared text calls into being), and <b>the mask</b> (the choice to sign your name, hide it, or share one). We'll pull them out of a 1788 newspaper fight, then aim them at your own cause. You'll go deeper Thursday; today we dig in together.</p></div>
+  </section>
+
+  <!-- 4 · THE 1787 PROBLEM (ask) -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week3-first-edition.jpg" alt="Title page of the first edition of The Federalist, 1788">
+        <figcaption>The Federalist, first collected edition, New York, 1788 (public domain).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">The problem</div>
+        <h2 class="q">You have to change the mind of a whole state full of strangers.</h2>
+        <p class="sub">It's 1787. No internet, no TV, no radio, no phones. Most of these people you will never meet. How do you reach them, and how do you get them to act together?</p>
+        <textarea data-k="w3-b1" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · NAME IT (reveal) -->
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <div class="defs">
+      <div class="def"><h3>Circulation</h3><p>How a text moves from person to person and place to place, and how often it gets repeated. A message is only as strong as its ability to travel.</p></div>
+      <div class="def gold"><h3>A public</h3><p>A body of strangers brought into being by a shared text. Reading the same thing, and knowing others are too, turns scattered people into a public that can be moved.</p></div>
+    </div>
+    <div class="teach"><p>Here's the part that flips it around. A public does not sit around waiting for a message. The message <b>creates</b> the public. Tell ten thousand strangers "you are called upon to decide," and let each one know the others are reading the same words, and a scattered crowd becomes one body with a shared job. A hashtag runs the exact same move. Strangers post the same words, see each other doing it, and a public appears that wasn't there the day before.</p></div>
+  </section>
+
+  <!-- 6 · THE PASSAGE -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week3-federalist.jpg" alt="Title page of The Federalist, 1788, from the Library of Congress">
+        <figcaption>The Federalist, 1788 first-edition title page (Library of Congress).</figcaption>
+      </figure>
+      <div>
+        <div class="kick gold">The first essay &middot; New York, 1787</div>
+        <div class="quote">"AFTER an unequivocal experience of the inefficiency of the subsisting federal government, <b>you are called upon</b> to deliberate on a new Constitution for the United States of America&hellip; It has been frequently remarked that it seems to have been reserved to <b>the people of this country</b>, by their conduct and example, to decide the important question, whether societies of men are really capable or not of establishing good government <b>from reflection and choice</b>, or whether they are forever destined to depend for their political constitutions <b>on accident and force</b>."</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · READ LIKE A STRANGER (discussion) -->
+  <section class="panel">
+    <div class="kick">Read it like a stranger</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem)">Four questions. Take them one at a time.</h2>
+    <div class="prompts">
+      <div class="p">What is he literally arguing? Say it in plain modern English.</div>
+      <div class="p">Who is "you" in this? What does the passage turn the reader into?</div>
+      <div class="p">What is he making you feel? Point to the exact words doing it.</div>
+      <div class="p">It's 1787. How does this physically get from his desk into thousands of heads?</div>
+    </div>
+    <textarea data-k="w3-b2" aria-label="board"></textarea>
+  </section>
+
+  <!-- 8 · WHO IS PUBLIUS (ask) -->
+  <section class="panel">
+    <div class="kick">Look at the byline</div>
+    <h2 class="q">It's signed Publius. That's not a person.</h2>
+    <p class="sub">How many people actually wrote it? And why would anyone hide their name on the most important argument of their life?</p>
+    <textarea data-k="w3-b3" aria-label="board"></textarea>
+  </section>
+
+  <!-- 9 · THE MASK (reveal) -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="board">
+      <b>Publius</b> was one shared mask over three men: Alexander Hamilton, James Madison, and John Jay. Eighty-five essays, one fake name, borrowed from a founder of the Roman Republic.
+      <span class="big">A name can argue before the first sentence does.</span>
+      Why wear one mask?
+      <ul>
+        <li>the argument stands on its own, not on who is talking</li>
+        <li>three men speaking as one voice looks like consensus and inevitability</li>
+        <li>safety and cover in a hot, dangerous political fight</li>
+        <li>borrowed credibility from a Roman republican hero</li>
+      </ul>
+      <span class="also">A shared mask amplified the message and shielded the people behind it. Both at once.</span>
+    </div>
+  </section>
+
+  <!-- 10 · BRUTUS ANSWERS BACK (reveal / complicate the debate) -->
+  <section class="panel">
+    <div class="kick">The other side wore a mask too</div>
+    <div class="teach gold">
+      <p>Publius did not write into silence. Weeks earlier, an Anti-Federalist signing himself <b>Brutus</b> (the Roman who helped kill a tyrant) was already in the same New York papers arguing the opposite: a republic this large will swallow liberty. Same medium, same "you decide" move, another borrowed mask. The Federalist essays were written partly to answer him.</p>
+      <p style="margin-top:14px">So the mask was never a good-guy tool or a bad-guy tool. Anonymity shields a whistleblower and it shields a liar. The authorship choice is itself a move, with a real trade attached every time.</p>
+    </div>
+  </section>
+
+  <!-- 11 · PUBLIUS NOW (discussion / bring it home) -->
+  <section class="panel">
+    <div class="kick">Bring it home</div>
+    <h2 class="q">Where is Publius today? And when is a mask the right call, versus just hiding?</h2>
+    <p class="sub">Think of a hashtag, an anonymous org account, a collective, a burner. What does the mask buy the message, and what does it cost?</p>
+    <textarea data-k="w3-b4" aria-label="board"></textarea>
+  </section>
+
+  <!-- 12 · WORKSHOP -->
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; in your pods</div>
+    <h2 class="q">Take one message loose in the world and reverse-engineer how it spreads.</h2>
+    <p class="sub">Each pod picks one, <span class="pill">a protest hashtag</span><span class="pill">an anonymous whistleblower account</span><span class="pill">a campus club's Instagram</span><span class="pill">a neighborhood mutual-aid group</span><span class="pill">a viral petition</span> and fills all four boxes. Pick a spokesperson to report back.</p>
+    <div class="work">
+      <div class="cell"><span class="lab">Circulation</span><p>How does the message actually travel and get repeated? Where does it stall or die?</p></div>
+      <div class="cell g"><span class="lab">The public</span><p>Who does it turn strangers into? Is it an open public, a closed network of people who already know each other, or a mix?</p></div>
+      <div class="cell s"><span class="lab">The mask</span><p>Whose name is on it, named, anonymous, or a shared banner? What does that choice buy, and what does it cost?</p></div>
+      <div class="cell"><span class="lab">The medium</span><p>What channel carries it, and is it fast tech or slow tech? How does that shape who it reaches?</p></div>
+    </div>
+    <textarea data-k="w3-b5" aria-label="board"></textarea>
+  </section>
+
+  <!-- 13 · FIELD NOTEBOOK -->
+  <section class="panel">
+    <div class="kick">Your cause &middot; Field Notebook</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">Open your Field Notebook. Aim these three at your own cause.</h2>
+    <p class="sub">Work them on your own, then we'll hear a few.</p>
+    <div class="prompts">
+      <div class="p">Trace one idea from your cause. Where does it start, and how does it actually move from one person or screen to the next? Where does it stall?</div>
+      <div class="p">Does your cause have a PUBLIC (strangers who could find it and join) or mostly a NETWORK (people who already know each other), or neither yet? Name which, and what that costs you right now.</div>
+      <div class="p">Whose name is on your cause's message right now? Would a shared banner, a named person, or a real face serve it better, and what would each choice trade?</div>
+    </div>
+  </section>
+
+  <!-- 14 · CLOSE / looking ahead -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Where we go from here</div>
+    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">An idea is only as strong as its ability to travel.</h1>
+    <div class="idea"><b>Thursday's module:</b> the real Federalist No. 1, "Brutus" writing back under his own mask, a tool for diagnosing circulation moves, and how your own cause spreads. This is also where Project 1 begins. Bring the notebook. We'll reconvene at the end to share.</div>
+  </section>
+
+  <button class="clear" id="clear">Clear the boards</button>
+  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+    var key = 'e4_instr_' + ta.dataset.k;
+    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
+    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
+  });
+  document.getElementById('clear').addEventListener('click', function(){
+    if(!confirm('Clear everything typed on the boards?')) return;
+    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
+    });
+  });
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
+</script>
+</body>
+</html>

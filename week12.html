@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 12 · The Most Powerful Medium Is a Person You Trust</title>
+<style>
+  :root{
+    --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
+    --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
+    --accent:#eb8f99; --accent-deep:#8c2f39; --gold:#e8b567; --sage:#9ec6a6;
+    --field:#140d0f;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  html{scroll-snap-type:y proximity; scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1300px 850px at 72% -12%, #33202a 0%, var(--bg) 58%) fixed, var(--bg);
+    color:var(--ink); font:18px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .panel{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:62px 6vw 46px; border-bottom:1px solid var(--line)}
+  /* kicker with accent bar */
+  .kick{display:inline-flex; align-items:center; gap:13px; font-size:clamp(.95rem,1.4vw,1.1rem); letter-spacing:.22em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:18px}
+  .kick::before{content:""; width:36px; height:3px; background:var(--accent); border-radius:2px}
+  .kick.gold{color:var(--gold)} .kick.gold::before{background:var(--gold)}
+  /* title */
+  .title h1{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2.8rem,7.6vw,6rem); line-height:1.02; margin:0 0 16px; text-wrap:balance; letter-spacing:-.01em}
+  .title .idea{font-size:clamp(1.4rem,3vw,2.3rem); color:var(--soft); max-width:24ch; line-height:1.25}
+  .title .rule{width:120px; height:5px; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:3px; margin:0 0 26px}
+  /* questions */
+  .q{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2rem,4.6vw,3.5rem); line-height:1.12; margin:0 0 12px; text-wrap:balance}
+  .sub{color:var(--soft); font-size:clamp(1.1rem,1.8vw,1.4rem); margin:0 0 24px; line-height:1.45}
+  .hl{color:var(--accent); font-weight:700} .hl.g{color:var(--gold)}
+  /* teach card (explanation) */
+  .teach{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:16px; padding:26px 30px; box-shadow:0 16px 44px rgba(0,0,0,.4); font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.5}
+  .teach b{color:var(--accent)}
+  .teach.gold{border-left-color:var(--gold)} .teach.gold b{color:var(--gold)}
+  /* scene: image + prompt */
+  .scene{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:42px; align-items:center}
+  @media (max-width:900px){ .scene{grid-template-columns:1fr; gap:24px} }
+  figure{margin:0}
+  figure img{width:100%; max-height:80vh; object-fit:contain; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); cursor:zoom-in; background:#0d0809}
+  figcaption{color:var(--soft); font-size:.98rem; margin-top:10px; font-style:italic}
+  /* board textarea */
+  textarea{width:100%; min-height:34vh; background:var(--field); color:var(--ink); border:2px solid var(--line); border-radius:16px; padding:18px 20px; font:600 clamp(1.3rem,2.1vw,1.9rem)/1.5 -apple-system,system-ui,sans-serif; resize:vertical}
+  textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(235,143,153,.16)}
+  .scene textarea{min-height:44vh}
+  /* definition cards */
+  .defs{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:6px 0 28px}
+  @media (max-width:760px){ .defs{grid-template-columns:1fr} }
+  .def{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:16px; padding:22px 26px; box-shadow:0 12px 34px rgba(0,0,0,.36)}
+  .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent); font-family:Georgia,serif}
+  .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem); line-height:1.45}
+  .def.gold{border-top-color:var(--gold)} .def.gold h3{color:var(--gold)}
+  /* side-by-side comparison */
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:6px 0 20px}
+  @media (max-width:760px){ .pair{grid-template-columns:1fr} }
+  .pair figure img{max-height:54vh}
+  /* board callout */
+  .board{background:linear-gradient(180deg,#301f24,#261a1e); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px; padding:24px 30px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5; box-shadow:0 14px 40px rgba(0,0,0,.38)}
+  .board>b{color:var(--gold)}
+  .board .big{font-family:Georgia,serif; font-size:1.3em; color:var(--accent); display:block; margin:14px 0}
+  .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
+  /* numbered prompts */
+  .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
+  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  /* workshop grid */
+  .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
+  @media (max-width:760px){ .work{grid-template-columns:1fr} }
+  .work .cell{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  .work .cell .lab{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  .work .cell.g .lab{color:var(--gold)} .work .cell.s .lab{color:var(--sage)}
+  .work .cell p{margin:6px 0 0; font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink); line-height:1.4}
+  .pill{display:inline-block; background:rgba(235,143,153,.14); border:1px solid var(--accent); color:var(--accent); font-weight:700; font-size:clamp(1rem,1.5vw,1.25rem); border-radius:999px; padding:6px 16px; margin:4px 8px 4px 0}
+  /* controls */
+  .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.9); border:1px solid var(--line); color:var(--soft); border-radius:9px; padding:7px 13px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
+  .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
+  .lb{position:fixed; inset:0; background:rgba(10,6,7,.95); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
+  .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
+  .lb.on{display:flex}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+  <!-- 1 · TITLE -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Week 12 · Tuesday</div>
+    <h1>The most powerful medium is a person you trust.</h1>
+    <div class="idea">A movement with no money and no mass media won a national boycott, one <span class="hl">kitchen table</span> at a time.</div>
+  </section>
+
+  <!-- DEBATE OPENER -->
+  <section class="panel">
+    <div class="kick gold">Debate this &middot; in your pods</div>
+    <h2 class="q">"Knocking on one stranger's door is a waste of time when a single post reaches a million."</h2>
+    <p class="sub">Pick a side and defend it to your pod. Two minutes, then we fight it out as a room. No fence-sitting.</p>
+    <textarea data-k="w12-debate" aria-label="board"></textarea>
+  </section>
+
+  <!-- 2 · GOAL -->
+  <section class="panel">
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="teach"><p>Today we sit with three ideas that change how you build any campaign: <b>relational organizing</b>, the <b>boycott as a relational medium</b>, and the harder one, that you <b>match the medium to the job</b> instead of assuming reach always wins. We'll trace a movement that had no ads and no press and still won, then find where that model breaks. Thursday's module goes deeper on the same cases; today we dig in together.</p></div>
+  </section>
+
+  <!-- 3 · HOOK -->
+  <section class="panel">
+    <div class="kick">Feel It</div>
+    <h2 class="q">The last time you changed what you bought or ate, who actually moved you?</h2>
+    <p class="sub">An ad? A post? An influencer you've never met? Or a specific person you know, who said "you have to try this," or "I stopped buying that, and here's why"? Be honest about which one actually did it.</p>
+    <textarea data-k="w12-b1" aria-label="board"></textarea>
+  </section>
+
+  <!-- 4 · SCENE: the strike + question -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week12-pickets.jpg" alt="Grape boycott picketers on a sidewalk with strike signs">
+        <figcaption>Grape boycott pickets, United Farm Workers, 1960s (Wikimedia Commons, public domain).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">Put yourself in it</div>
+        <h2 class="q">You can't buy ads. The press ignores you. What is the one lever you DO have?</h2>
+        <p class="sub">1965, Delano, California. Filipino and Mexican-American farmworkers walk off the grape fields. Dirt poor, most can't vote, no newspaper on their side.</p>
+        <textarea data-k="w12-b2" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · SCENE: Huerta + question -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week12-huerta.jpg" alt="Dolores Huerta holding a Huelga (strike) sign, 1965">
+        <figcaption>Dolores Huerta with a Huelga (strike) sign, El Malcriado No. 21, September 1965 (Wikimedia Commons, public domain).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">The organizer</div>
+        <h2 class="q">If a shopper in New York will never meet that farmworker again, why would she change what she buys?</h2>
+        <p class="sub">Dolores Huerta co-founded the union and ran the New York City grape boycott out of a cramped office with volunteers and no budget. Before we name how she did it, take a guess.</p>
+        <textarea data-k="w12-b3" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · REVEAL: name it -->
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <div class="defs">
+      <div class="def"><h3>Boycott</h3><p>Enough ordinary people stop buying a product that the seller feels it where it counts: sales. Millions quietly skip the grapes.</p></div>
+      <div class="def gold"><h3>Picket line</h3><p>A visible, human presence outside the store. Not a poster. A real person you have to walk past and answer to.</p></div>
+      <div class="def"><h3>House meeting</h3><p>Persuasion in someone's kitchen, the oldest organizing tool there is. A few neighbors, one honest ask, then each hosts the next.</p></div>
+      <div class="def gold"><h3>Secondary boycott</h3><p>You don't skip the product only. You pressure the store that stocks it, so the pressure climbs the supply chain.</p></div>
+    </div>
+    <div class="teach"><p>Huerta built it the way you build a boycott: house meeting by house meeting, and farmworkers themselves sent to the cities to stand on the sidewalk and ask shoppers, one at a time. Her line became the movement's heartbeat: <b>Si se puede.</b> Yes, it can be done.</p></div>
+  </section>
+
+  <!-- 7 · REVEAL: the mechanism -->
+  <section class="panel">
+    <div class="kick gold">The boycott as a medium</div>
+    <div class="board">
+      <b>Watch how it actually spreads:</b>
+      <span class="big">farmworker &rarr; shopper (face to face at the store) &rarr; shopper &rarr; her neighbor &rarr; the neighbor's church &rarr; &hellip;</span>
+      It moves the way trust moves: one person hands it to the next. A billboard buys eyeballs. A boycott borrows relationships. The moment a shopper agrees, she becomes the next messenger.
+      <span class="also">By 1970 the growers signed. Grapes rotted on the vine because millions of people no one had ever met were quietly not buying them.</span>
+    </div>
+  </section>
+
+  <!-- 8 · THE LEADER: question -->
+  <section class="panel">
+    <div class="kick">Handle with honesty</div>
+    <h2 class="q">You've heard one name your whole life: Cesar Chavez. So what does a flawed leader teach us about relational power?</h2>
+    <p class="sub">He was central and genuinely gifted. Later in life he ran the union in an increasingly controlling, paranoid way, purged loyal staff, and imposed a cult-like group-confrontation ritual (borrowed from a group called Synanon) on members. Historians Miriam Pawel and Frank Bardacke document it. Same evidence-honest habit we used for the Robert Moses bridges in Week 2.</p>
+    <textarea data-k="w12-b4" aria-label="board"></textarea>
+  </section>
+
+  <!-- 9 · THE LEADER: reveal -->
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <div class="teach"><p>The boycott worked because of <b>thousands</b> of trusted messengers, Huerta and every farmworker at every store, not one heroic man. Relational power is distributed by its nature. Concentrate it in one unaccountable person and the very same trust can be used to harm the people inside the movement. Admire the method. Don't sanctify the man.</p></div>
+  </section>
+
+  <!-- 10 · SCENE: Immokalee + question -->
+  <section class="panel">
+    <div class="scene">
+      <figure>
+        <img src="images/week12-immokalee.jpg" alt="Coalition of Immokalee Workers farmworkers marching in protest">
+        <figcaption>Coalition of Immokalee Workers march, 2013 (Wikimedia Commons, CC BY-SA 3.0).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">Not a 1960s story</div>
+        <h2 class="q">They pressured Taco Bell, the buyer, not the farm. Why go after the brand you eat at instead of the grower?</h2>
+        <p class="sub">Immokalee, Florida. In 2001 the Coalition of Immokalee Workers launched a national boycott of Taco Bell. Same playbook as the grapes: students organizing their own campuses, churches their own congregations, each person asked by someone they trust. Won in 2005: a penny-per-pound raise and enforceable protections in the fields.</p>
+        <textarea data-k="w12-b5" aria-label="board"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · COMPLICATE: question -->
+  <section class="panel">
+    <div class="kick">The catch</div>
+    <h2 class="q">Does a trusted person ALWAYS beat a broadcast? When would you actually be better off with the billboard?</h2>
+    <p class="sub">Nobody in your county has ever heard your cause exists. You have $300 and two weeks. One person can't shake ten thousand hands. Push on it: name a job where reach genuinely wins.</p>
+    <textarea data-k="w12-b6" aria-label="board"></textarea>
+  </section>
+
+  <!-- 12 · COMPLICATE: reveal -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="teach gold"><p>The lesson is not "relational always wins." A trusted person is strongest <b>per contact</b> and terrible at scale. Match the medium to the job. <b>Broadcast</b> is right for pure first contact, making the name exist for strangers who've never heard of you. <b>Relational</b> is right for turning a supporter into a person standing in the parking lot on Saturday. Most real campaigns run both: broadcast to be found, relational to be believed and acted on.</p></div>
+  </section>
+
+  <!-- 13 · WORKSHOP -->
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; in your pods</div>
+    <h2 class="q">Diagnose the medium: broadcast, relational, or a mix?</h2>
+    <p class="sub">Each pod takes two of these jobs. For each, decide the best fit, then name what it's trading. The "obvious" answer is sometimes wrong. Pick a spokesperson to report back.</p>
+    <p><span class="pill">30 people at Saturday's fundraiser, 200 past supporters on your list</span><span class="pill">Nobody in the county has heard of you, $300 and two weeks</span><span class="pill">One grocery buyer decides if the co-op stocks you, one meeting</span><span class="pill">A false rumor is spreading in group chats you can't see</span></p>
+    <div class="work">
+      <div class="cell"><span class="lab">Best fit</span><p>Broadcast, relational, or mixed? Say which, and say it out loud to your pod before you defend it.</p></div>
+      <div class="cell g"><span class="lab">The trade</span><p>What does that choice gain, and what does it cost you? Every medium trades reach against depth somewhere.</p></div>
+      <div class="cell s"><span class="lab">The pressure point</span><p>Who actually has the power to give you what you want here, and who already has trust with them?</p></div>
+      <div class="cell"><span class="lab">Where it breaks</span><p>Name the case where your instinct would fail. When would the "obvious" medium be the wrong call?</p></div>
+    </div>
+    <textarea data-k="w12-b7" aria-label="board"></textarea>
+  </section>
+
+  <!-- 14 · FIELD NOTEBOOK -->
+  <section class="panel">
+    <div class="kick">Your cause &middot; Field Notebook</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">Open your Field Notebook. Who are your farmworkers at the store?</h2>
+    <p class="sub">Your real cause, not a hypothetical. Work these three on your own, then we'll hear a few.</p>
+    <div class="prompts">
+      <div class="p">Name THREE trusted messengers: specific people or roles who ALREADY have trust with the people you need to move (a coach, a pastor, a barber, a group-chat admin, a co-op manager, a respected elder), and what each has standing to say.</div>
+      <div class="p">What is the ONE action you actually need a person to take? Not "raise awareness." A behavior: show up, stop buying X, sign the paper petition, bring one friend to the meeting.</div>
+      <div class="p">Right now, is your cause mostly BROADCASTING or building RELATIONSHIPS? Name the trade you're making by default, and the one you'd rather make.</div>
+    </div>
+  </section>
+
+  <!-- 15 · CLOSE / looking ahead -->
+  <section class="panel title">
+    <div class="rule"></div>
+    <div class="kick">Where we go from here</div>
+    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">A boycott borrows relationships.</h1>
+    <div class="idea"><b>Thursday's module:</b> read the grape-boycott archive and the Immokalee campaign, sort six real cases of broadcast vs. relational, and plant the seed of Project 3. Bring the notebook. We'll reconvene at the end to share.</div>
+  </section>
+
+  <button class="clear" id="clear">Clear the boards</button>
+  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+    var key = 'e4_instr_' + ta.dataset.k;
+    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
+    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
+  });
+  document.getElementById('clear').addEventListener('click', function(){
+    if(!confirm('Clear everything typed on the boards?')) return;
+    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
+      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
+    });
+  });
+  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
+</script>
+</body>
+</html>
