@@ -78,6 +78,11 @@
   .lb{position:fixed; inset:0; background:rgba(10,6,7,.95); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
   .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
   .lb.on{display:flex}
+  /* image placeholder (copyrighted event photo shown live / added by instructor) */
+  .ph{border:2px dashed var(--line); border-radius:16px; padding:44px 32px; text-align:center; background:var(--panel)}
+  .ph .cap{color:var(--ink); font-size:clamp(1.2rem,2vw,1.5rem); max-width:42ch; margin:0 auto; line-height:1.4}
+  .ph .cap b{color:var(--accent)}
+  .ph .hint{margin-top:16px; font-size:.9rem; color:var(--soft); font-style:italic; opacity:.75}
   @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
 </style>
 </head>
@@ -91,11 +96,27 @@
     <div class="idea">Before anyone read a <span class="hl">banner</span>, the <span class="hl g">picture</span> had already made the argument.</div>
   </section>
 
-  <!-- 2 · DEBATE OPENER -->
+  <!-- 2 · DEBATE OPENER (spoken debate, no board) -->
   <section class="panel">
     <div class="kick gold">Debate this</div>
-    <h2 class="q">"A protest that wasn't designed to be photographed might as well not have happened."</h2>
-    <textarea data-k="w5-debate" aria-label="board"></textarea>
+    <h2 class="q">"Spectacle does more to change public opinion than facts do."</h2>
+  </section>
+
+  <!-- 2b · DEBATE REVEAL: spectacle vs. facts (scroll to after the debate) -->
+  <section class="panel">
+    <div class="kick gold">So &mdash; spectacle or facts?</div>
+    <div class="scene">
+      <div class="ph" data-note="add-image: Just Stop Oil throwing tomato soup on Van Gogh's Sunflowers, National Gallery, London, Oct 2022. News-agency photo, copyrighted and not on Wikimedia Commons. Drop a licensed copy here as images/week5-juststopoil.jpg.">
+        <div class="cap"><b>Just Stop Oil</b>, tomato soup on Van Gogh's <i>Sunflowers</i>, National Gallery, London, 2022.</div>
+        <div class="hint">Add a licensed image here, or pull it up live in class.</div>
+      </div>
+      <div class="board">
+        Spectacle can make people feel something before they have time to analyze it. It grabs attention, creates emotional identification, and gives an issue a memorable frame. Facts are usually slower and less visually powerful.
+        <span class="big">Spectacle is often better at getting people to care; facts are better at helping them decide what to believe once they do.</span>
+        Just Stop Oil throwing tomato soup at Van Gogh's <i>Sunflowers</i> in 2022 worked perfectly at the level of attention: the image went everywhere. But much of the public conversation became "Why are climate activists attacking art?" rather than "Why are we still expanding fossil-fuel use?" The tactic became the story, displacing the argument.
+        <span class="also"><b>The distinction to hand students:</b> a spectacle backfires when people remember what you did more clearly than why you did it.</span>
+      </div>
+    </div>
   </section>
 
   <!-- 3 · GOAL -->
