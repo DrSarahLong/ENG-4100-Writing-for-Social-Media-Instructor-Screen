@@ -62,8 +62,8 @@
   .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
   /* numbered prompts */
   .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
-  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
-  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; align-items:center}
+  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; margin-right:20px; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
   /* workshop grid */
   .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
   @media (max-width:760px){ .work{grid-template-columns:1fr} }
@@ -86,26 +86,34 @@
   <!-- 1 · TITLE -->
   <section class="panel title">
     <div class="rule"></div>
-    <div class="kick">Week 6 · Tuesday</div>
+    <div class="kick">Week 6 &middot; Tuesday</div>
     <h1>The reader is the publisher.</h1>
     <div class="idea">When the State owns every press, you don't get <span class="hl">louder</span>. You get <span class="hl g">slower</span>, and more personal.</div>
-  </section>
-
-  <!-- DEBATE OPENER -->
-  <section class="panel">
-    <div class="kick gold">Debate this</div>
-    <h2 class="q">"Some ideas are dangerous enough that banning them is the right call."</h2>
-    <textarea data-k="w6-debate" aria-label="board"></textarea>
   </section>
 
   <!-- 2 · GOAL -->
   <section class="panel">
     <div class="kick">Goal of today</div>
     <h2 class="q">What you'll walk out with</h2>
-    <div class="teach"><p>Today you'll handle three ideas that change how you think about reach. First, <b>samizdat</b>, and the claim that the reader is the publisher. Second, <b>slow media and trust networks</b>, and why a message that can't go viral has its own kind of power. Third, the <b>ethics of visibility</b>: whose safety a post spends, and who agreed to spend it. You'll go deeper Thursday. Today we do it together, with a pen.</p></div>
+    <div class="teach"><p>Three ideas that change how you think about reach. First, <b>samizdat</b>, and the claim that the reader is the publisher. Second, <b>strong-tie networks</b>, and why a message that cannot go viral has a different kind of power. Third, the <b>ethics of visibility</b>: whose safety a post spends, and who agreed to spend it.</p></div>
   </section>
 
-  <!-- 3 · SCENE + Q -->
+  <!-- 3 · DEBATE OPENER -->
+  <section class="panel">
+    <div class="kick gold">Debate this</div>
+    <h2 class="q">"Some ideas are dangerous enough that banning them is the right call."</h2>
+    <p class="sub">Before you answer, here are six real situations the question has to survive. Take a position that holds for all six, or explain what makes them different.</p>
+    <div class="prompts" style="font-size:clamp(1.05rem,1.7vw,1.35rem)">
+      <div class="p">Germany makes Holocaust denial a crime. The United States protects it as speech.</div>
+      <div class="p">A platform deletes posts claiming a household bleach product cures a disease.</div>
+      <div class="p">A university cancels a speaker whose published work argues some races are less intelligent.</div>
+      <div class="p">A school board pulls a novel about a Black girl's assault out of the high school library.</div>
+      <div class="p">A platform bans a cluster of accounts coordinating harassment of a 14-year-old.</div>
+      <div class="p">The USSR made it a felony to own a typed copy of a poem about Stalin.</div>
+    </div>
+  </section>
+
+  <!-- 4 · CONTEXT: what samizdat was -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -113,29 +121,50 @@
         <figcaption>Samizdat: hand-copied, underground literature passed reader to reader in the USSR (Wikimedia Commons, CC BY-SA 4.0).</figcaption>
       </figure>
       <div>
-        <div class="kick">Feel it</div>
-        <h2 class="q">The State owns every press, every copier, every typewriter that matters.</h2>
-        <p class="sub">You've read something true. Owning a copy could cost you five years. How do you get it to a thousand people?</p>
-        <textarea data-k="w6-b1" aria-label="board"></textarea>
+        <div class="kick">Context</div>
+        <h2 class="q">A copy of <span class="hl">what</span>, exactly?</h2>
+        <div class="teach"><p>In the Soviet Union, the State owned the printing presses, the paper supply, the copy machines, and the licenses. Nothing reached print without passing a censor.</p>
+        <p style="margin-top:14px">So "banned book" did not mean hard to find. It meant it <b>did not legally exist</b>.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- 4 · NAME IT / reveal -->
+  <!-- 4b · WHAT, AND WHY IT WAS ILLEGAL -->
   <section class="panel">
-    <div class="kick gold">Here's what they did</div>
     <div class="defs">
-      <div class="def"><h3>Samizdat</h3><p>Russian: <i>sam</i> (self) + <i>izdat</i> (publishing), so "self-published." The underground copying and hand-to-hand passing of banned texts in the USSR, roughly the 1950s through the 1980s.</p></div>
-      <div class="def gold"><h3>Carbon copy</h3><p>Stack thin paper with inky carbon sheets between, hit the keys hard, and one typing makes up to six copies at once. The whole "press" fits on a kitchen table.</p></div>
+      <div class="def"><h3>What people risked prison to copy</h3><p>Solzhenitsyn on the labor camps. Pasternak's <i>Doctor Zhivago</i>, published abroad in 1957 and banned at home. Akhmatova's <i>Requiem</i>, about the Terror. Orwell's <i>1984</i>. Bulgakov's <i>The Master and Margarita</i>. Trial transcripts. Bibles. Lists of who had been arrested.</p></div>
+      <div class="def gold"><h3>Why any of that was illegal</h3><p>Each one contradicted the Party's official account of its own history: that there were no camps, no famine, no Terror, no dissent worth naming. A censor's job was not to protect readers from lies. It was to protect one story from competitors.</p></div>
     </div>
     <div class="board">
+      Copying or passing these texts fell under the anti&#8209;Soviet agitation statute, Article&nbsp;70 of the Russian criminal code after 1960.
+      <span class="big">Up to seven years in a labor camp, plus five years' exile.</span>
+      Not for writing it. For <b>retyping</b> it, or for having a copy in a drawer.
+    </div>
+  </section>
+
+  <!-- 5 · NAME IT / reveal -->
+  <section class="panel">
+    <div class="kick gold">Here's what they did</div>
+    <div class="scene">
+      <figure>
+        <img src="images/week6-carbon.jpg" alt="A sheet of carbon paper, dark and inky on one side, used to duplicate typing">
+        <figcaption>Carbon paper. Photo by Pavel Krok (Wikimedia Commons, CC BY-SA 2.5).</figcaption>
+      </figure>
+      <div>
+        <div class="defs" style="grid-template-columns:1fr; margin-top:0">
+          <div class="def"><h3>Samizdat</h3><p>Russian: <i>sam</i> (self) + <i>izdat</i> (publishing), so "self-published." The underground copying and hand-to-hand passing of banned texts, roughly the 1950s through the 1980s. The word is a joke at the State's expense: <i>Gosizdat</i> was the State Publishing House.</p></div>
+          <div class="def gold"><h3>Carbon copy</h3><p>Stack thin paper with inky carbon sheets between, hit the keys hard enough to bruise the platen, and one typing makes up to six copies at once. The sixth is nearly unreadable. The whole "press" fits on a kitchen table, and the cc: line in your email is named after it.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="board" style="margin-top:22px">
       One typing plus carbon paper makes about six copies at a strike.
       <span class="big">6 readers &rarr; each retypes &rarr; 36 &rarr; 216 &hellip;</span>
       No headquarters to raid. The distribution system lives in people's kitchens and coat pockets. <b>The reader is the publisher.</b>
     </div>
   </section>
 
-  <!-- 5 · THE POEM (analog activity) -->
+  <!-- 7 · THE POEM: context -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -143,130 +172,212 @@
         <figcaption>Osip Mandelstam, photographed after his 1934 arrest (Public domain, Wikimedia Commons).</figcaption>
       </figure>
       <div>
-        <div class="kick">Become the press</div>
-        <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.6rem)">Copy the whole thing by hand.</h2>
-        <p class="sub">Osip Mandelstam, "The Stalin Epigram" (1933), opening lines. Pen only. No going back to fix a slip. When you're done, hand your copy to the next person in your group to copy from yours.</p>
-        <div class="board" style="border-left-color:var(--gold); font-family:Georgia,serif; font-style:italic; white-space:pre-line">We live, not feeling the country beneath us,
-our speech inaudible ten steps away.
-But where there's enough for half a conversation,
-the Kremlin mountaineer is named.
-His fingers are fat as grubs,
-his words drop like lead weights, and never miss.</div>
+        <div class="kick">The text we're about to copy</div>
+        <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.6rem)">Sixteen lines cost him his life. Here they are.</h2>
+        <div class="teach"><p>Osip Mandelstam, a Russian poet, wrote "The Stalin Epigram" in November 1933. He never published it. He recited it aloud to about a dozen people. Someone told.</p>
+        <p style="margin-top:14px">He was arrested in 1934, exiled, arrested again in 1938, and died that December in a transit camp near Vladivostok.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- 6 · WHAT CHANGED (ask) -->
+  <!-- 7a · THE POEM ITSELF -->
   <section class="panel">
-    <div class="kick">Compare the copies</div>
-    <h2 class="q">Read the copies aloud, down the chain. What changed?</h2>
-    <p class="sub">Line up the last copy against the original, and against your neighbor's.</p>
-    <textarea data-k="w6-b2" aria-label="board"></textarea>
+    <div class="kick gold">&ldquo;The Stalin Epigram&rdquo; &middot; Osip Mandelstam, November 1933</div>
+    <div class="board" style="border-left-color:var(--gold); font-family:Georgia,serif; font-style:italic; white-space:pre-line; font-size:clamp(1rem,1.65vw,1.35rem); line-height:1.5">Our lives no longer feel ground under them.
+At ten paces you can't hear our words.
+
+But whenever there's a snatch of talk
+it turns to the Kremlin mountaineer,
+
+the ten thick worms his fingers,
+his words like measures of weight,
+
+the huge laughing cockroaches on his top lip,
+the glitter of his boot-rims.
+
+Ringed with a scum of chicken-necked bosses
+he toys with the tributes of half-men.
+
+One whistles, another meows, a third snivels.
+He pokes out his finger and he alone goes boom.
+
+He forges decrees in a line like horseshoes,
+One for the groin, one the forehead, temple, eye.
+
+He rolls the executions on his tongue like berries.
+He wishes he could hug them like big friends from home.</div>
+    <p class="sub" style="font-size:clamp(.92rem,1.3vw,1.05rem); margin-top:16px">Translated by W. S. Merwin and Clarence Brown, from <i>Against Forgetting</i>, ed. Carolyn Forch&eacute; (W. W. Norton, 1989). Read it free at poets.org/poem/stalin-epigram</p>
   </section>
 
-  <!-- 7 · WHAT YOU FELT (reveal) -->
+  <!-- 7b · WHAT IT WAS RESISTING -->
   <section class="panel">
-    <div class="kick gold">What you just felt</div>
+    <div class="kick gold">What it was resisting</div>
+    <div class="teach"><p>By 1933 Stalin was not a politician you criticized. He was <b>the</b> subject of official poetry, painting, and song, addressed as a father and a genius. Meanwhile the countryside was starving.</p>
+    <p style="margin-top:16px">Mandelstam's poem does two forbidden things. It describes the silence everyone was living inside, and then it breaks that silence by describing the man himself in a human body, with fingers "fat as grubs." No reverence. No title. Just a mountaineer from the Caucasus with thick fingers.</p></div>
     <div class="board">
-      It is <b>slow</b>, and it is <b>work</b>. That is why it stayed small.<br>
-      Each copy <b>drifts</b> a little. That's the human carbon-copy fade, live.<br>
-      You had to <b>choose</b> who got your copy. That choice is trust.
-      <span class="also">The slowness, the smallness, and the trust were the whole design.</span>
+      It was never printed in the USSR in his lifetime, and no copy in his own hand survives.
+      <span class="big">His widow Nadezhda memorized his poems so they could not be seized.</span>
+      When every medium can be confiscated, the last storage device left is <b>a person</b>. The poem survived in a human body for thirty years.
     </div>
   </section>
 
-  <!-- 8 · WINNER CALLBACK (ask) -->
+  <!-- 8 · EXERCISE, part 1: memorize -->
   <section class="panel">
-    <div class="kick">Callback &middot; Langdon Winner: artifacts have politics</div>
-    <h2 class="q">What politics are built into a typewriter and a sheet of carbon paper?</h2>
-    <p class="sub">Two weeks ago Winner argued that the design of a tool can quietly enforce power. Turn that lens on these two humble objects.</p>
-    <textarea data-k="w6-b3" aria-label="board"></textarea>
+    <div class="kick">Exercise &middot; the only copy is in your head</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.6rem)">Two minutes. Learn this well enough to say it.</h2>
+    <p class="sub">Samizdat carried poems, but mostly it carried <b>facts</b>: who was taken, when, and where to go. Here is the same job, now. A message that has to move, and that nobody wants written down.</p>
+    <div class="board" style="border-left-color:var(--gold); white-space:pre-line; font-size:clamp(1.15rem,2vw,1.6rem); line-height:1.55">Fourteen families at Ridgeview got eviction notices on Tuesday.
+The notices give them thirty days.
+Three of the fourteen are on the tenant council.
+The council meets Thursday, 7 p.m., Sixth Street library, back room.
+Bring anyone who got a notice.
+Do not put this on Facebook.</div>
+    <p class="sub" style="margin-top:16px">No writing. No photos. No notes. In two minutes this comes off the screen, and the only place it exists in this room is inside the people in it. <span style="color:var(--soft); font-size:.9em">(Made-up building, real situation.)</span></p>
+    <p class="sub" style="margin-top:22px">Then it moves. We'll run <b>three separate chains</b> at once, from three different starting people, so keep track of which chain you're in. Recite it quietly to one person only, never to the room. You get one pass, with no repeating, no going back, and no corrections from anyone listening in. If you've lost a piece of it, do what anyone would do: fill the gap and keep going. Last person in each chain, hold what you have, because you'll say it out loud.</p>
   </section>
 
-  <!-- 8b · WINNER reveal -->
+  <!-- 9 · COMPARE -->
   <section class="panel">
-    <div class="kick gold">Here's the idea</div>
-    <div class="teach"><p>A printing press is central, costly, and seizable. A typewriter with carbon paper is none of those. The tool's very limits, slow, by hand, a few copies at a time, forced the network to be decentralized, with no center to raid and no list to demand. The weakness became the security feature. Winner's point, poured into an object: the politics were built into the thing itself.</p></div>
+    <div class="kick">Compare</div>
+    <h2 class="q" style="font-size:clamp(1.8rem,3.8vw,2.8rem)">Three endings. One original.</h2>
+    <p class="sub">Each chain's last person says what reached them. All three, before anyone looks back at the screen. Then here is what was sent:</p>
+    <div class="board" style="border-left-color:var(--gold); white-space:pre-line; font-size:clamp(1rem,1.7vw,1.35rem); line-height:1.5">Fourteen families at Ridgeview got eviction notices on Tuesday.
+The notices give them thirty days.
+Three of the fourteen are on the tenant council.
+The council meets Thursday, 7 p.m., Sixth Street library, back room.
+Bring anyone who got a notice.
+Do not put this on Facebook.</div>
+    <div class="prompts" style="font-size:clamp(1.05rem,1.75vw,1.35rem); margin-top:18px">
+      <div class="p">Did the numbers hold? Fourteen families, thirty days, three on the council.</div>
+      <div class="p">Could someone still find the meeting? Right day, right time, right room?</div>
+      <div class="p">Did the last line survive all three chains?</div>
+    </div>
   </section>
 
-  <!-- 9 · SURVEILLANCE (ask) -->
+  <!-- 10 · WHAT THE EXERCISE WAS FOR -->
+  <section class="panel">
+    <div class="kick gold">What the exercise was for</div>
+    <div class="teach"><p>Memory is the one medium nobody can search, seize, or subpoena. It is also the least reliable one you will ever use. Three things you just watched happen:</p></div>
+    <div class="work" style="margin-top:22px">
+      <div class="cell s"><span class="lab">The body is the last medium</span><p>Nothing to confiscate. Nadezhda Mandelstam held her husband's poems this way for roughly thirty years, through his arrests and his death, because paper could be taken and she could not be read.</p></div>
+      <div class="cell g"><span class="lab">Accuracy is the first casualty</span><p>Numbers slide, days move, addresses blur. The Chronicle's entire value was being exactly right about names and dates, which is the hardest thing for this network to carry.</p></div>
+      <div class="cell"><span class="lab">The safety line goes first</span><p>Check whether "do not put this on Facebook" made it to the end of all three chains. The instruction protecting everyone is usually the shortest, the least interesting, and the first thing dropped.</p></div>
+    </div>
+    <div class="board" style="margin-top:20px">
+      If a message can only travel through people who will stand close and listen, what does that predict about who actually carries risky work?
+    </div>
+  </section>
+
+  <!-- 11 · THE NAMED THEORY -->
+  <section class="panel">
+    <div class="kick gold">Name it &middot; the media theory for this week</div>
+    <h2 class="q" style="font-size:clamp(1.8rem,3.8vw,2.8rem)">It predicts the people closest to you. Strong ties carry risk; weak ties carry information.</h2>
+    <div class="teach"><p><b>Doug McAdam</b>, a sociologist studying the 1964 Mississippi Freedom Summer, asked in a 1986 study why some students went south to register Black voters and others, who believed exactly the same things, stayed home. Belief did not predict it. <b>Relationships did.</b> The volunteers who went were the ones with strong personal ties to people already going.</p>
+    <p style="margin-top:16px">His term for work that can get you hurt is <b>high&#8209;risk activism</b>, and his finding is that it travels through strong ties almost exclusively. You will hand a dangerous poem to someone you would take a punch for. You will not hand it to 4,000 followers.</p></div>
+    <div class="board">
+      <b>Why this matters for your project.</b> In 2010 Malcolm Gladwell used McAdam's finding to argue that social media builds mostly weak ties, and therefore cannot produce real movements. <b>Zeynep Tufekci</b>, whom you'll be reading, disputes that.
+    </div>
+  </section>
+
+  <!-- 12 · THE TOOL DECIDES -->
+  <section class="panel">
+    <div class="kick gold">The shape of the tool</div>
+    <div class="teach"><p>A printing press is central, costly, and seizable. A typewriter with carbon paper is none of those. The tool's limits, slow and by hand and six copies at a time, <b>forced</b> the network to be decentralized. There was no center to raid and no subscriber list to demand. The weakness was the security feature.</p></div>
+    <div class="board" style="margin-top:22px">
+      <b>Now run the same test on the tools you actually use.</b> Every platform has a shape, and the shape decides things for you before you write a word.
+      <span class="big">Where does your cause's network physically live, and who can seize it?</span>
+      A follower list lives on a company's server and can be sold, leaked, subpoenaed, or switched off. A group chat lives on 30 phones. A printed flyer on a laundromat corkboard lives in a room with no login. An Instagram account with 12,000 followers is one policy change from zero. Pick a tool and you have picked a politics, whether or not you meant to.
+    </div>
+  </section>
+
+  <!-- 13 · THE TURN (ask) -->
   <section class="panel">
     <div class="kick">The turn</div>
     <h2 class="q">Before anyone is ever arrested, what does being watched do to people?</h2>
-    <p class="sub">Samizdat existed because people were watched. You won't face the KGB, but your cause still lives under watchful systems: platforms that log everything, employers who search names, opponents who screenshot.</p>
-    <textarea data-k="w6-b4" aria-label="board"></textarea>
+    <p class="sub">Samizdat existed because people were watched. You will not face the KGB, but your cause still lives under watchful systems: platforms that log everything, employers who search names, landlords, opponents who screenshot.</p>
   </section>
 
-  <!-- 9b · SURVEILLANCE reveal -->
+  <!-- 13b · CHILLING EFFECT -->
   <section class="panel">
     <div class="kick gold">Name it &middot; the chilling effect</div>
     <div class="board">
-      After the 2013 revelations that the NSA was collecting bulk internet data, traffic to Wikipedia articles on terms like "car bomb" and "Al Qaeda" dropped measurably. Nobody was arrested for reading them. People simply stopped, because they felt watched.
-      <span class="big">Surveillance changes behavior without charging a soul.</span>
-      Researchers call it the <b>chilling effect</b>. One survey (Penney) found a personal legal threat made about 75% of people say they'd speak less online. For a movement, the danger is that your most vulnerable members go quiet before you even ask them to speak.
+      In June 2013 it became public that the NSA was collecting bulk internet data. <b>Jonathon Penney</b>, a legal scholar, went looking for what that did to ordinary behavior, and published the results in the <i>Berkeley Technology Law Journal</i> in 2016. Traffic to Wikipedia articles on terms like "car bomb" and "Al Qaeda" fell measurably after that month, and stayed down.
+      <span class="big">Nobody was arrested for reading them. People stopped on their own.</span>
+      That gap, between what is actually punished and what people stop doing anyway, is the <b>chilling effect</b>. For a movement the danger is specific: the members with the most to lose go quiet first, and they go quiet before you ever ask them to speak.
     </div>
   </section>
 
-  <!-- 10 · NO CENTER (ask) -->
+  <!-- 13c · CHILLING EFFECT, applied -->
   <section class="panel">
-    <h2 class="q">Why is a network with no center harder to shut down than one big press?</h2>
-    <textarea data-k="w6-b5" aria-label="board"></textarea>
+    <div class="kick">Applied &middot; back to the bench</div>
+    <h2 class="q" style="font-size:clamp(1.8rem,3.8vw,2.8rem)">Who can safely post about hostile architecture, and who can't?</h2>
+    <div class="board" style="margin-top:20px">
+      In June 2014 a man walking to work past 118 Southwark Bridge Road in London photographed a bed of metal studs set into the pavement outside a luxury building, and posted it. The photo spread, a hashtag formed, a petition passed 11,000 signatures, the Mayor of London called the studs ugly, and Tesco, whose subsidiary owned the site, agreed to pull a similar installation at its Regent Street store.
+      <span class="big">Now ask who took that photograph.</span>
+      A commuter. Not a person sleeping in that doorway. The people the spikes were built to remove are the ones who cannot safely post: a photograph places them somewhere at a time, identifiable, on a platform their shelter, their caseworker, their family, or the police can search. The most affected person has the most to lose by appearing. That is the chilling effect operating inside a campaign that is otherwise going well, and it is why a campaign can succeed while the people it is for stay invisible in it.
+    </div>
   </section>
 
-  <!-- 11 · CHRONICLE case (reveal) -->
+  <!-- 14 · NO CENTER (ask) -->
+  <section class="panel">
+    <h2 class="q">Why is a network with no center harder to shut down than one big press?</h2>
+    <p class="sub">Think about what an opponent would have to physically take in each case.</p>
+  </section>
+
+  <!-- 15 · CHRONICLE case -->
   <section class="panel">
     <div class="kick gold">A case &middot; Moscow, 1968 to 1983</div>
     <div class="board">
-      <b>The Chronicle of Current Events</b> was a samizdat newsletter that did one plain, dangerous thing: it documented Soviet arrests, trials, and abuses, dryly and accurately, for about fifteen years. Editors were arrested. The Chronicle kept coming.
+      <b>The Chronicle of Current Events</b> was a samizdat newsletter that did one dangerous thing: it documented Soviet arrests, trials, and abuses, dryly and accurately, for about fifteen years. Editors were arrested. The Chronicle kept coming.
       <span class="big">Its secret was structural. There was no center to cut.</span>
-      No subscriber list to seize, no single office to raid. Each issue told readers, in effect, "if you know of an arrest, pass the facts back up the same chain you got this from." Information traveled through trust, in both directions. The medium had no middle. That is the exact opposite of a contact list sitting on one shared link.
+      No subscriber list to seize, no single office to raid. Each issue told readers, in effect, "if you know of an arrest, pass the facts back up the same chain you got this from." Information traveled through trust, in both directions. The medium had no middle.
     </div>
   </section>
 
-  <!-- 12 · WORKSHOP -->
+  <!-- 15b · CHRONICLE, applied -->
+  <section class="panel">
+    <div class="kick">Applied &middot; where does your list live?</div>
+    <h2 class="q" style="font-size:clamp(1.8rem,3.8vw,2.8rem)">The Chronicle had no list. You probably do.</h2>
+    <div class="work">
+      <div class="cell"><span class="lab">One shared Google Sheet</span><p>Every volunteer's name, phone, and address in one link. Convenient, searchable, and one screenshot away from your opposition, a disgruntled ex-member, or a subpoena.</p></div>
+      <div class="cell g"><span class="lab">A public Facebook group</span><p>Membership is the list. Anyone who joins can scroll it. For a tenants' union, that means a landlord can learn exactly which of their tenants are organizing.</p></div>
+      <div class="cell s"><span class="lab">A phone tree, or small signal groups</span><p>Slower, and nobody can see the whole shape of it. Each person knows five people. No single capture gives you the network.</p></div>
+      <div class="cell"><span class="lab">A follower count</span><p>Feels like reach, and it is, but you do not own it. Change the algorithm or the terms of service and your 12,000 becomes 400 with no notice and no appeal.</p></div>
+    </div>
+    <p class="sub" style="margin-top:8px">Which of these is your cause using right now, and who would be exposed if it leaked tomorrow?</p>
+  </section>
+
+  <!-- 16 · WORKSHOP -->
   <section class="panel">
     <div class="kick gold">Workshop</div>
     <h2 class="q">Move a risky message without burning the person it's about.</h2>
     <p class="sub">Each group takes one situation, <span class="pill">undocumented families at a school</span><span class="pill">a nurse blowing the whistle on unsafe staffing</span><span class="pill">an abuse survivor's story</span><span class="pill">quiet union organizing</span><span class="pill">protest logistics</span> and fills all four boxes. Pick a spokesperson to report back.</p>
     <div class="work">
-      <div class="cell"><span class="lab">The message</span><p>What true thing has to reach people for this cause to move? Say it in one plain sentence.</p></div>
+      <div class="cell"><span class="lab">The message</span><p>What has to reach people for this cause to move? Say it in one sentence.</p></div>
       <div class="cell g"><span class="lab">The fast way</span><p>You post it publicly. What's the reach you gain, and exactly who does that post expose?</p></div>
       <div class="cell s"><span class="lab">The slow way</span><p>You move it person to person through people who already trust each other. Sketch the chain: who tells whom?</p></div>
       <div class="cell"><span class="lab">The call</span><p>Which do you choose, and whose safety are you spending either way? What's the one rule you'd set before posting a real person?</p></div>
     </div>
-    <textarea data-k="w6-b6" aria-label="board"></textarea>
   </section>
 
-  <!-- 13 · FIELD NOTEBOOK -->
+  <!-- 17 · FIELD NOTEBOOK -->
   <section class="panel">
     <div class="kick">Your cause &middot; quick notebook</div>
     <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">One line, first instinct.</h2>
-    <p class="sub">Open your Field Notebook and jot a single line: where does today's idea show up in your own cause, or where does it break down? Don't overthink it, we'll hear a couple. You'll do the full three-part version in Thursday's module.</p>
+    <p class="sub">Open your Field Notebook and jot a single line: where does today's idea show up in your own cause, or where does it break down? Don't overthink it, we'll hear a couple.</p>
   </section>
 
-  <!-- 14 · CLOSE -->
+  <!-- 18 · CLOSE -->
   <section class="panel title">
     <div class="rule"></div>
     <div class="kick">Close</div>
     <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">Whose safety am I spending, and did they agree to spend it?</h1>
-    <div class="idea"><b>Thursday's module:</b> how samizdat actually held together, then the ethics you just bumped into, privacy, surveillance, and what you owe the people you put online. Bring the notebook. <b>Project 1 is due this week.</b></div>
+    <div class="idea">Bring the notebook Thursday. <b>Project 1 is due this week.</b></div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e4_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
