@@ -95,7 +95,6 @@
   <section class="panel">
     <div class="kick gold">Debate this</div>
     <h2 class="q">"Your attention span, your taste, even your politics were shaped more by the platforms you grew up on than by anything you actually chose."</h2>
-    <textarea data-k="w2-debate" aria-label="board"></textarea>
   </section>
 
   <!-- 2 · GOAL -->
@@ -110,7 +109,6 @@
     <div class="kick">Feel It</div>
     <h2 class="q">Same four words: "I need your help." Sent five ways. What changes?</h2>
     <p class="sub">(1) whispered face to face &middot; (2) in a handwritten letter &middot; (3) as a quick text &middot; (4) shouted through a megaphone at a rally &middot; (5) posted as a public hashtag. For each: who is it really for, and how does it land?</p>
-    <textarea data-k="w2-b1" aria-label="board"></textarea>
   </section>
 
   <!-- 4 · McLUHAN scene + question -->
@@ -124,7 +122,6 @@
         <div class="kick">Name it</div>
         <h2 class="q">"The medium is the message."</h2>
         <p class="sub">Marshall McLuhan said this in 1964, before the internet existed. What do you think he meant?</p>
-        <textarea data-k="w2-b2" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -149,14 +146,12 @@
         <figcaption>A highway overpass in Bentonville, Arkansas. Brandonrush (Wikimedia Commons, CC0).</figcaption>
       </figure>
     </div>
-    <textarea data-k="w2-b3" aria-label="board" style="min-height:16vh"></textarea>
   </section>
 
   <!-- 6b · WHAT DOES A BRIDGE HAVE TO DO WITH POWER -->
   <section class="panel">
     <div class="kick">Now the real question</div>
     <h2 class="q">So what could a bridge possibly have to do with power?</h2>
-    <textarea data-k="w2-b3b" aria-label="board"></textarea>
   </section>
 
   <!-- 7 · WINNER reveal -->
@@ -180,7 +175,6 @@
         <div class="kick">Same move, in a bench</div>
         <p class="sub">No sign, no law, no announcement, just the shape of the thing.</p>
         <h2 class="q">Why is a low bridge, or this bench, sneakier than a sign that says the same thing out loud?</h2>
-        <textarea data-k="w2-b4" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -196,7 +190,6 @@
         <div class="kick">The contrast</div>
         <h2 class="q">Bus segregation was a written law. The low bridge was just concrete.</h2>
         <p class="sub">Which of the two was easier to fight, and why?</p>
-        <textarea data-k="w2-b5" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -206,7 +199,6 @@
     <div class="kick">Bring it home</div>
     <h2 class="q">What politics are built into Instagram, TikTok, X? What's the low bridge in your feed?</h2>
     <p class="sub">Think about who your posts reach, and who they never reach. What decides that?</p>
-    <textarea data-k="w2-b6" aria-label="board"></textarea>
   </section>
 
   <!-- 10 · FAST vs SLOW -->
@@ -218,7 +210,6 @@
       <div class="def gold"><h3>Slow media</h3><p>Takes time and effort, smaller reach, high commitment. A zine, a letter, a face-to-face meeting, a printed newsletter.</p></div>
     </div>
     <h2 class="q">What is each one good at, and what does each one cost you?</h2>
-    <textarea data-k="w2-b7" aria-label="board"></textarea>
   </section>
 
   <!-- 11 · WORKSHOP -->
@@ -232,20 +223,8 @@
       <div class="cell s"><span class="lab">Makes invisible</span><p>Who or what never shows up here at all, the people the design quietly excludes?</p></div>
       <div class="cell"><span class="lab">Who it serves</span><p>Given all that, whose interests does this medium actually serve? (Follow the money.)</p></div>
     </div>
-    <textarea data-k="w2-b8" aria-label="board"></textarea>
   </section>
 
-  <!-- 12 · FIELD NOTEBOOK -->
-  <section class="panel">
-    <div class="kick">Your cause &middot; Field Notebook</div>
-    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">Open your Field Notebook. The platform is not a neutral pipeline for your cause.</h2>
-    <p class="sub">Work these three on your own, then we'll hear a few.</p>
-    <div class="prompts">
-      <div class="p">List every medium your cause uses right now to reach people (Instagram? a newsletter? word of mouth? nothing yet?).</div>
-      <div class="p">Pick the main one. In one sentence: what does that medium make easy for your cause, and what does it make hard or invisible? That's its politics.</div>
-      <div class="p">Name one slow-media move and one fast-media move you could make for your cause this semester.</div>
-    </div>
-  </section>
 
   <!-- 13 · CLOSE / looking ahead -->
   <section class="panel title">
@@ -255,21 +234,9 @@
     <div class="idea"><b>Thursday's module:</b> a little real McLuhan and Winner, then you map the politics of the exact platform your cause lives on. Bring the notebook. We'll reconvene at the end to share.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e4_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

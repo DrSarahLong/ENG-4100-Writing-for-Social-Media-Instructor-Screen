@@ -85,6 +85,26 @@
   .ph .cap b{color:var(--accent)}
   .ph .hint{margin-top:16px; font-size:.9rem; color:var(--soft); font-style:italic; opacity:.75}
   .board ul{margin:10px 0 0; padding-left:1.1em} .board li{margin:9px 0}
+
+  /* week7 additions */
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:6px 0 18px}
+  @media (max-width:820px){ .two{grid-template-columns:1fr} }
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:13px; padding:18px 22px; font-size:clamp(1rem,1.6vw,1.3rem); line-height:1.45}
+  .card .lab{display:block; font-size:.72rem; letter-spacing:.13em; text-transform:uppercase; font-weight:800; color:var(--accent); margin-bottom:6px}
+  .card.g{border-left:4px solid var(--gold)} .card.g .lab{color:var(--gold)}
+  .card.s{border-left:4px solid var(--sage)} .card.s .lab{color:var(--sage)}
+  .model{background:var(--field); border:1px solid var(--line); border-left:5px solid var(--sage); border-radius:13px; padding:18px 22px; margin:10px 0 18px; font-size:clamp(1rem,1.65vw,1.32rem); line-height:1.5}
+  .model .lab{display:block; font-size:.72rem; letter-spacing:.13em; text-transform:uppercase; font-weight:800; color:var(--sage); margin-bottom:8px}
+  .model .h{font-family:Georgia,serif; font-size:1.18em; display:block; margin:8px 0 2px}
+  .model .who{color:var(--soft); font-size:.84em; font-style:italic}
+  /* five-elements table (story-based strategy) */
+  .elem{border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:18px 0 6px; background:var(--panel)}
+  .elem .row{display:grid; grid-template-columns:minmax(150px,1fr) 3.1fr; border-top:1px solid var(--line)}
+  .elem .row:first-child{border-top:none}
+  .elem .n{background:#3a262c; padding:13px 16px; font-weight:800; color:var(--gold); font-size:clamp(.95rem,1.4vw,1.14rem); letter-spacing:.02em}
+  .elem .d{padding:13px 16px; font-size:clamp(.92rem,1.35vw,1.1rem); line-height:1.5; color:var(--ink)}
+  .elem .d b{color:var(--accent)}
+  @media (max-width:760px){ .elem .row{grid-template-columns:1fr} .elem .n{border-bottom:1px solid var(--line)} }
 </style>
 </head>
 <body>
@@ -92,54 +112,64 @@
   <!-- 1 · TITLE -->
   <section class="panel title">
     <div class="rule"></div>
-    <div class="kick">Week 7 · Tuesday</div>
+    <div class="kick">Week 7 &middot; Tuesday</div>
     <h1>Who gets to tell your story.</h1>
     <div class="idea">Whoever holds the pen holds the <span class="hl">frame</span>. So they took the pen.</div>
   </section>
 
-  <!-- 2 · DEBATE OPENER -->
+  <!-- 2 · DEBATE -->
   <section class="panel">
     <div class="kick gold">Debate this</div>
     <h2 class="q">"You should never tell a story that isn't yours to tell."</h2>
-    <textarea data-k="w7-debate" aria-label="board"></textarea>
   </section>
 
   <!-- 3 · GOAL -->
   <section class="panel">
     <div class="kick">Goal of today</div>
     <h2 class="q">What you'll walk out with</h2>
-    <div class="teach"><p>Today you'll wrestle with two ideas that change how you read any coverage of any group: <b>self-representation</b> and <b>whoever holds the pen holds the frame</b>. We'll trace how one movement built its own newspaper and turned even the act of <b>selling it on a corner</b> into organizing. Then you'll ask the hard one about your own cause: who's holding your pen right now? You'll go deeper Thursday. Today we dig in together.</p></div>
+    <div class="teach"><p>Two ideas that change how you read coverage of any group: <b>self-representation</b> and <b>whoever holds the pen holds the frame</b>. Then the method behind both, <b>story-based strategy</b>, which is what Project&nbsp;2 runs on. And the question about your own cause: who's holding your pen right now?</p></div>
   </section>
 
-  <!-- 4 · HOOK: TWO HEADLINES (ASK) -->
+  <!-- 4 · FEEL IT -->
   <section class="panel">
     <div class="kick">Feel it</div>
-    <h2 class="q">A group in a poor neighborhood starts feeding hot breakfast to schoolkids. Free. Every weekday before class.</h2>
-    <p class="sub">Write two headlines for the exact same program: one from a TV station suspicious of the group, one from the group's own newspaper.</p>
-    <textarea data-k="w7-b1" aria-label="board"></textarea>
+    <h2 class="q" style="font-size:clamp(1.8rem,3.8vw,2.8rem)">A group in a poor neighborhood starts feeding hot breakfast to schoolkids. Free. Every weekday before class.</h2>
+    <p class="sub">Write two headlines for the same program: one from a TV station suspicious of the group, one from the group's own newspaper.</p>
+    <div class="model">
+      <span class="lab">The move, on a different story</span>
+      A church opens its parking lot overnight so people sleeping in cars have a legal place to park.
+      <span class="h">"Neighbors object as church lot becomes overnight campground"</span>
+      <span class="who">the local TV station</span>
+      <span class="h">"Safe Lot gives 40 families a legal place to sleep"</span>
+      <span class="who">the church's own newsletter</span>
+    </div>
   </section>
 
   <!-- 5 · THE REVEAL -->
   <section class="panel">
     <div class="kick gold">The reveal</div>
     <div class="board">
-      This is the <b>Black Panther Party</b>. The <b>Free Breakfast for Children Program</b>, 1969. They fed tens of thousands of kids across the country, and it worked so well that public-school breakfast programs later copied the model. The FBI's director called that breakfast program the single greatest threat to their effort to destroy the Party.
-      <span class="big">Eggs for six-year-olds, ranked a national threat.</span>
-      Mainstream news mostly showed the Panthers as armed criminals. Whoever told the story decided which of those two things the country saw.
+      This is the <b>Black Panther Party</b>. The <b>Free Breakfast for Children Program</b>, started January 1969 in Oakland. They fed tens of thousands of kids, and it worked well enough that federally funded school breakfast later followed the model.
+      <span class="big">"&hellip;potentially the greatest threat to efforts by authorities to neutralize the BPP and destroy what it stands for."</span>
+      J. Edgar Hoover, internal FBI memo, May 1969, describing the breakfast program. Not the guns. The breakfast.
     </div>
   </section>
 
-  <!-- 6 · NAME IT -->
+  <!-- 6 · WHERE THEY CAME FROM (photo + context) -->
   <section class="panel">
-    <div class="kick">Name it</div>
-    <div class="defs">
-      <div class="def"><h3>Self-representation</h3><p>A community authoring its own image, in a medium it controls, instead of being described by outsiders.</p></div>
-      <div class="def gold"><h3>The Black Panther</h3><p>The Party's newspaper, started 1967 in Oakland. At its peak, more than 300,000 copies a week, the most-read Black paper in the country.</p></div>
+    <div class="scene">
+      <figure>
+        <img src="images/week7-panthers-armed.jpg" alt="Armed members of the Black Panther Party on the steps of the Washington State Capitol in Olympia, February 1969">
+        <figcaption>Black Panther Party members on the steps of the Washington State Capitol, Olympia, February 28, 1969, protesting a proposed gun ban (CIR Online, CC BY 2.0, via Wikimedia Commons).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">Where they came from, and what the country saw</div>
+        <p class="sub"><b>Oakland, October 1966.</b> Huey Newton and Bobby Seale, two college students, write a Ten-Point Program: decent housing, an education that tells the truth about this country, an end to police brutality. Their first tactic is <b>cop-watching</b>. Open carry was legal, so they followed police through Oakland with a shotgun and a law book and read arrestees their rights out loud on the sidewalk. California <b>banned open carry</b> in 1967, a bill the NRA backed and Governor Reagan signed, and the thirty Panthers who went to the capitol to protest it made the image you are looking at. Most of their actual work was <b>survival programs</b>: breakfast, clinics, ambulances, sickle-cell testing, schools.</p>
+      </div>
     </div>
-    <div class="teach"><p><b>Whoever holds the pen holds the frame.</b> When the papers and stations that reach millions call you a criminal, you can ask them to be fairer, or you can build a channel you control and describe yourself. The Panthers built the channel.</p></div>
   </section>
 
-  <!-- 7 · WHY A WHOLE NEWSPAPER (ASK) -->
+  <!-- 7 · WHY A WHOLE NEWSPAPER (ask) -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -148,56 +178,61 @@
       </figure>
       <div>
         <div class="kick">The choice</div>
-        <p class="sub">They could have kept demanding fairer coverage from the stations that reached millions. Instead they printed their own paper.</p>
+        <p class="sub">Hoover called them "the greatest threat to the internal security of the country." A political party running a breakfast program. They could have kept demanding fairer coverage. Instead they printed their own paper.</p>
         <h2 class="q">Why build a whole newspaper instead of firing rebuttals at the TV station?</h2>
-        <textarea data-k="w7-b2" aria-label="board"></textarea>
       </div>
     </div>
   </section>
 
-  <!-- 8 · WHY A NEWSPAPER (REVEAL) -->
+  <!-- 8 · REVEAL: SELF-REPRESENTATION -->
   <section class="panel">
-    <div class="kick">Here's the idea</div>
-    <div class="teach"><p>A rebuttal still lives inside someone else's frame. You're reacting to their story, on their platform, on their schedule, and the correction never travels as far as the accusation did. Owning the medium flips that. You set the subject, the words, and the pictures, and you decide what the country never gets to call you in the first place. You go from being described to describing yourself.</p></div>
+    <div class="kick gold">Here's the idea</div>
+    <div class="defs">
+      <div class="def"><h3>Self-representation</h3><p>A community authoring its own image, in a medium it controls, instead of being described by outsiders.</p></div>
+      <div class="def gold"><h3><i>The Black Panther</i></h3><p>The Party's newspaper, started 1967 in Oakland. At its peak, more than 300,000 copies a week, the most-read Black paper in the country.</p></div>
+    </div>
+    <div class="teach"><p>A rebuttal still lives inside someone else's frame: their story, their platform, their schedule, and the correction never travels as far as the accusation did. Owning the medium flips that. You set the subject, the words, and the pictures, and you decide what the country never gets to call you in the first place.</p></div>
   </section>
 
-  <!-- 9 · EMORY DOUGLAS (ASK) -->
+  <!-- 9 · EMORY DOUGLAS (ask) -->
   <section class="panel">
     <div class="scene">
-      <div class="ph" data-note="add-image: Emory Douglas artwork from The Black Panther is copyrighted; Dr. Long shows a scanned issue from the marxists.org archive live in class">
-        <div class="cap"><b>Emory Douglas</b>, the Party's Minister of Culture and the paper's artist. Thick black outlines. The community drawn large and dignified. Power drawn as the pig. Cheap to print, plain enough that a child could read it.</div>
-        <div class="hint">Shown live in class from the archive.</div>
+      <div class="ph" data-note="add-image: Emory Douglas's art is in copyright. Open smarthistory.org/emory-douglas-black-panther/ live, or the marxists.org scans of The Black Panther, and project from there.">
+        <div class="cap"><b>Emory Douglas</b>, the Party's Minister of Culture and the paper's artist from 1967 to the early 1980s. Thick black outlines. The community drawn large and dignified. Power drawn as the pig. Cheap to print, legible enough that a child could read it.</div>
+        <div class="hint">Project it live: <b>smarthistory.org/emory-douglas-black-panther/</b> &middot; or the scanned issues at <b>letterformarchive.org</b></div>
       </div>
       <div>
         <div class="kick">The mirror</div>
-        <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem)">What does it do to a community to open its own paper every week and see people who look like them drawn as heroes instead of suspects?</h2>
-        <textarea data-k="w7-b3" aria-label="board"></textarea>
+        <h2 class="q" style="font-size:clamp(1.6rem,3.4vw,2.5rem)">What does it do to a community to open its own paper every week and see people who look like them drawn as heroes instead of suspects?</h2>
       </div>
     </div>
   </section>
 
-  <!-- 10 · DOUGLAS (REVEAL) -->
+  <!-- 10 · DOUGLAS (reveal) + MODERN -->
   <section class="panel">
-    <div class="kick">Here's the idea</div>
-    <div class="teach"><p>Douglas understood a picture as a mirror. Advertising showed people a life they couldn't afford. The news showed them people who looked like them in handcuffs. A community that keeps seeing itself as the villain starts to believe it, and a community that sees itself as the hero can begin to act like one. "Art has relevancy," he said. "It's a language, that's the power of it."</p></div>
+    <div class="kick gold">Here's the idea</div>
+    <div class="teach"><p>Douglas understood a picture as a mirror. Advertising showed people a life they couldn't afford. The news showed them people who looked like them in handcuffs. A community that keeps seeing itself as the villain starts to believe it, and a community that sees itself as the hero can begin to act like one. <b>"Art has relevancy,"</b> Douglas said, <b>"whether it's to exploit you, or pacify you, or to enlighten you and inform you."</b></p></div>
+    <div class="two" style="margin-top:18px">
+      <div class="card s"><span class="lab">The phone as the pen</span>In May 2020, a 17-year-old named <b>Darnella Frazier</b> filmed the murder of George Floyd. The police statement called it a "medical incident during police interaction." Her nine minutes is the only reason the country saw something else. Pulitzer special citation, 2021.</div>
+      <div class="card g"><span class="lab">The mirror, at scale</span><i>Black Panther</i> (2018) and <i>Into the Spider-Verse</i> made the same argument to a mass audience, and the reaction was people describing what it felt like to be drawn large. Douglas's mirror with a Marvel budget.</div>
+      <div class="card"><span class="lab">Made by, not about</span><i>Judas and the Black Messiah</i> (2021) put Fred Hampton at the center of his own story fifty years late. <i>Reservation Dogs</i> was written, directed, and acted almost entirely by Indigenous people. Same question as 1967: is the community the author or the subject?</div>
+    </div>
   </section>
 
-  <!-- 11 · DISTRIBUTION (ASK) -->
+  <!-- 11 · DISTRIBUTION (ask) -->
   <section class="panel">
     <div class="kick">The corner</div>
     <p class="sub">The paper wasn't mailed or posted. Members sold it by hand on the corner for 25&cent;, and the seller kept about half.</p>
     <h2 class="q">How is selling a paper on a corner, every day, different from a post going viral?</h2>
-    <textarea data-k="w7-b4" aria-label="board"></textarea>
   </section>
 
-  <!-- 12 · DISTRIBUTION (REVEAL) -->
+  <!-- 12 · DISTRIBUTION (reveal) -->
   <section class="panel">
     <div class="kick gold">Distribution was the organizing</div>
     <div class="board">
-      Sold on the corner for 25&cent;. The seller kept about half.
       <ul>
         <li>Income for members with no other job.</li>
-        <li>A reason to stand on the corner, visible, every single day. Presence.</li>
+        <li>A reason to stand on the corner, visible, every day. Presence.</li>
         <li>Every sale is a face-to-face conversation. Recruitment.</li>
         <li>The paper's money funded the free breakfast and the clinics.</li>
       </ul>
@@ -206,65 +241,138 @@
     </div>
   </section>
 
-  <!-- 13 · HOLD THE WHOLE OF IT -->
+  <!-- 13 · THE PIG (ask) -->
   <section class="panel">
-    <div class="kick">Hold the whole of it</div>
-    <div class="board">
-      <ul>
-        <li>The paper was community journalism <b>and</b> open persuasion, advocacy, not neutral news. The Party said so plainly.</li>
-        <li>Drawing police as pigs dehumanized a group on purpose. That's a rhetorical weapon. Name it as one, even when you understand why they reached for it.</li>
-        <li>The Party carried real internal contradictions, including sexism. Some surfaced in the paper. Much did not.</li>
-        <li><b>COINTELPRO</b>, a secret FBI program, actively worked to destroy the Party and the paper: raids, forged letters, worse. The threat was real and documented.</li>
-      </ul>
-      <span class="big">They seized the power to frame their own story instead of leaving it to people who wished them harm.</span>
-      So the question for your cause: who's holding your pen?
+    <div class="scene">
+      <figure>
+        <img src="images/week7-douglas-pig.jpg" alt="Emory Douglas drawing titled Battle Fatigue: a wounded pig in a police uniform on crutches, headlined What Is A Pig?, with the Black Panther Party's definition printed beside it">
+        <figcaption>Emory Douglas, "What Is A Pig? / Battle Fatigue," in <i>The Black Panther</i>, with the Party's own definition printed beside the drawing. Photographed at Tate Modern's <i>Soul of a Nation</i>, 2017 (CC BY-SA 2.0, via Wikimedia Commons).</figcaption>
+      </figure>
+      <div>
+        <div class="kick">The pig</div>
+        <p class="sub">Douglas drew police as pigs for thirteen years, and the paper printed a definition next to it, the way a dictionary would.</p>
+        <h2 class="q" style="font-size:clamp(1.5rem,3.2vw,2.3rem)">Douglas did not invent this word. Where do you think "pig" for a cop comes from, and why did it stick this time?</h2>
+      </div>
     </div>
   </section>
 
-  <!-- 14 · WORKSHOP -->
+  <!-- 14 · THE PIG (reveal) -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="board" style="font-size:clamp(1rem,1.7vw,1.32rem)">
+      The word is old and British. The <i>Dictionary of the Vulgar Tongue</i>, a slang dictionary published in <b>1811</b>, lists it flatly: <b>"PIG. A police officer. A China street pig; a Bow-street officer."</b> Then it sat unused for a century and a half.
+      <ul>
+        <li>Newton chose it on purpose. Police already had a fear image in the neighborhood, so the Party wanted a label that made them look low instead of frightening.</li>
+        <li>The paper printed it like a dictionary entry: <b>"A low natured beast that has no regard for law, justice, or the rights of people&hellip; usually found masquerading as the victim of an unprovoked attack."</b></li>
+        <li>Douglas gave it a face every week, in a paper reaching 300,000 people.</li>
+        <li>By the 1968 Democratic National Convention, protesters who had never read the paper were chanting it on live television.</li>
+      </ul>
+      <span class="big">A dead 1811 slang word became standard American protest vocabulary in about two years.</span>
+      They didn't coin it. They circulated it, defined it, drew it, and repeated it until it was the country's word.
+    </div>
+  </section>
+
+  <!-- 15 · THE PIG AS A DECISION -->
+  <section class="panel">
+    <div class="kick">A choice you will actually have to make</div>
+    <div class="teach"><p>Douglas drew police as pigs. It was effective, it was memorable, and it was deliberate dehumanization of a group of people. Both at once.</p></div>
+    <div class="two" style="margin-top:18px">
+      <div class="card g"><span class="lab">What it buys you</span>Instant clarity and fast solidarity. Nobody is confused about whose side the paper is on. An in-group forms around a shared enemy quicker than around a shared program.</div>
+      <div class="card s"><span class="lab">What it costs you</span>Everyone in the middle. A person who might have been persuaded now has to join a side first. And you hand your opponent a grievance to point at, which they will use.</div>
+    </div>
+    <div class="board">
+      <b>Your campaign will meet the same fork.</b> There will be somebody whose decision you are trying to change: a landlord, a developer, an administrator, a company.
+      <span class="big">Whichever way you go, go there knowingly.</span>
+      In Project&nbsp;2 you will write down how your campaign talks about whoever stands in its way, and why.
+    </div>
+  </section>
+
+  <!-- 16 · THE RECORD -->
+  <section class="panel">
+    <div class="kick gold">Hold the whole of it</div>
+    <div class="board" style="font-size:clamp(1rem,1.7vw,1.32rem)">
+      The paper was community journalism <b>and</b> open advocacy. The Party said so; it never claimed neutrality.
+      <ul>
+        <li><b>The sexism is documented.</b> At the Party's height women were nearly <b>two-thirds of the membership</b> while leadership stayed male. <b>Elaine Brown</b> chaired it from 1974 to 1977, the only woman ever to, appointed women to the central committee, and left after sustained resistance to her authority. Her memoir <i>A Taste of Power</i> is the account to read.</li>
+        <li><b>And the state really was trying to destroy them.</b> <b>COINTELPRO</b> was a secret FBI program that forged letters between Panthers and rival groups to provoke violence. On <b>December 4, 1969</b>, Chicago police killed <b>Fred Hampton, 21</b>, and <b>Mark Clark, 22</b>, in a raid; Hampton's own head of security, <b>William O'Neal</b>, was an FBI informant who supplied the floor plan and was paid a bonus. The Senate's <b>Church Committee</b> reported in 1976, and one chapter is titled "The FBI's Covert Action Program to Destroy the Black Panther Party." Congress's own wording.</li>
+      </ul>
+      <span class="big">They seized the power to frame their own story instead of leaving it to people who wished them harm.</span>
+    </div>
+  </section>
+
+  <!-- 17 · NAME THE THEORY -->
+  <section class="panel">
+    <div class="kick gold">Name the theory</div>
+    <h2 class="q" style="font-size:clamp(1.5rem,3.2vw,2.3rem)">Everything you watched today has a name: <span class="hl">story-based strategy</span>.</h2>
+    <p class="sub">The Center for Story-based Strategy teaches that any story breaks into five elements. You diagnose theirs, then build yours on purpose.</p>
+    <div class="elem">
+      <div class="row"><div class="n">Conflict</div><div class="d"><b>Theirs:</b> armed radicals vs. public order. <b>The Party's:</b> hungry children vs. a government that would rather police them than feed them.</div></div>
+      <div class="row"><div class="n">Characters</div><div class="d"><b>Theirs:</b> the Panther is the threat, the police are the protagonist. <b>The Party's:</b> the child eating breakfast is the protagonist, and the state has a decision to make.</div></div>
+      <div class="row"><div class="n">Imagery</div><div class="d"><b>Theirs:</b> the shotgun on the capitol steps. <b>The Party's:</b> the community drawn large and dignified, and the pig on crutches.</div></div>
+      <div class="row"><div class="n">Foreshadowing</div><div class="d"><b>Theirs:</b> this ends in violence, so act now. <b>The Party's:</b> we already run the clinic and the school, so this ends with us governing ourselves.</div></div>
+      <div class="row"><div class="n">Underlying assumption</div><div class="d"><b>Theirs:</b> that a Black political party arming itself must be criminal rather than lawful. Open carry was legal, which is why that assumption had to stay unstated.</div></div>
+    </div>
+    <h2 class="q" style="margin-top:22px; font-size:clamp(1.4rem,2.9vw,2.1rem)">Of those five, which one is easiest for a small campaign to actually change?</h2>
+  </section>
+
+  <!-- 18 · REVEAL + P2 -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="teach">
+      <p>The <b>underlying assumption</b>, because it is the only element the audience supplies themselves. Imagery is expensive and characters get cast by whoever reaches the most people, but the assumption works unnoticed, and saying it out loud is free. Once somebody hears "this story only works if you believe a hungry child did something wrong," they can't un-hear it.</p>
+      <p style="margin-top:14px">George Lakoff, a cognitive linguist writing in <i>Don't Think of an Elephant!</i> (2004), gives the other half: <b>"activating a frame, even when rejecting it, strengthens the frame."</b> Deny their words and you repeat their words. The Party didn't run rebuttals. It printed its own paper and spoke from its own values.</p>
+      <p style="margin-top:14px"><b>This is the method Project&nbsp;2 runs on.</b> You'll diagnose the story circulating about your cause with these same five elements, name its underlying assumption, and write the version you want people carrying instead.</p>
+    </div>
+  </section>
+
+  <!-- 19 · WORKSHOP -->
   <section class="panel">
     <div class="kick gold">Workshop</div>
     <h2 class="q">Design one front page that tells a community's story from the inside.</h2>
-    <p class="sub">Take a community or cause (your own is fine) and pick a format you could actually make, <span class="pill">a one-page paper</span><span class="pill">a zine</span><span class="pill">a photo series</span><span class="pill">a wall mural</span><span class="pill">a printed newsletter</span> then fill all four boxes. Pick a spokesperson to report back.</p>
+    <p class="sub">Take a community or cause and pick a format you could actually make: <span class="pill">a one-page paper</span><span class="pill">a zine</span><span class="pill">a photo series</span><span class="pill">a wall mural</span><span class="pill">a printed newsletter</span></p>
+    <div class="model">
+      <span class="lab">Worked example &middot; a needle exchange facing closure</span>
+      <b>The frame to refuse.</b> <span class="h" style="font-size:1.06em">"Residents say needle program draws addicts downtown"</span><span class="who">the outsider version: a problem arriving in a neighborhood</span>
+      <b style="display:block;margin-top:12px">Your headline.</b> <span class="h" style="font-size:1.06em">"Nobody who used this program died this year"</span><span class="who">same program, told from inside: a number they can't argue with</span>
+      <b style="display:block;margin-top:12px">Your hero image.</b> Marcus, the outreach worker who has done this route for nine years, photographed at eye level in daylight, doing the job. Not a pile of syringes.
+      <b style="display:block;margin-top:12px">Distribution as organizing.</b> The laundromat and the bus stop on the same route, same time, every week, so the same forty people see the same face.
+    </div>
+    <p class="sub" style="margin-top:4px">Now do all four for your own cause. Pick someone to report back.</p>
     <div class="work">
       <div class="cell"><span class="lab">The frame to refuse</span><p>What's the outsider headline or image you're up against, the way you'd get shown if you did nothing?</p></div>
       <div class="cell g"><span class="lab">Your headline</span><p>Same event, told from inside. What do you name it, and what do you refuse to call it?</p></div>
-      <div class="cell s"><span class="lab">Your hero image</span><p>Who gets drawn or photographed large and dignified? Name a real person or role, not a logo or a pity shot.</p></div>
-      <div class="cell"><span class="lab">Distribution as organizing</span><p>Where and how do you hand it out so the act of distributing it builds real relationships, more than views?</p></div>
+      <div class="cell s"><span class="lab">Your hero image</span><p>Who gets photographed large and dignified? Name an actual person or role, not a logo and not a pity shot.</p></div>
+      <div class="cell"><span class="lab">Distribution as organizing</span><p>Where and how do you hand it out so distributing it builds relationships, not views?</p></div>
     </div>
-    <textarea data-k="w7-b5" aria-label="board"></textarea>
   </section>
 
-  <!-- 15 · FIELD NOTEBOOK -->
+  <!-- 20 · NEXT TWO WEEKS + THE PRIME -->
   <section class="panel">
-    <div class="kick">Your cause &middot; quick notebook</div>
-    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">One line, first instinct.</h2>
-    <p class="sub">Open your Field Notebook and jot a single line: where does today's idea show up in your own cause, or where does it break down? Don't overthink it, we'll hear a couple. You'll do the full three-part version in Thursday's module.</p>
+    <div class="kick gold">How the next two weeks run</div>
+    <div class="two">
+      <div class="card"><span class="lab">Thursday this week</span>We meet on Zoom as usual, and the module is where you build the four-part front page for your own cause.</div>
+      <div class="card g"><span class="lab">Next Tuesday</span><b>Fall break. No class.</b></div>
+      <div class="card s"><span class="lab">Next Thursday</span><b>We do not meet on Zoom either</b>, but the ACT UP module is still due. With nothing on the calendar, the whole week is yours to work it at your own pace.</div>
+      <div class="card"><span class="lab">Due next week</span><b>Field Notebook midterm check-in.</b> Gather everything so far into your Doc and upload it.</div>
+    </div>
+    <div class="board">
+      <b>A ten-minute prime, before you open the Week 8 module.</b> Read "Silence = Death: The Beginning of the Epidemic," by Katherine Ott, a curator at the Smithsonian's National Museum of American History, written for World AIDS Day in 2018. Free, about seven minutes, linked in the module. Then write one line in your notebook:
+      <span class="big">If the whole country was ignoring a crisis that was killing your community, what would you design or stage to force people to look?</span>
+      Keep that line where you can find it. It's where ACT UP starts.
+    </div>
   </section>
 
-  <!-- 16 · CLOSE -->
+  <!-- 21 · CLOSE -->
   <section class="panel title">
     <div class="rule"></div>
     <div class="kick">Where we go from here</div>
     <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">Who's holding your pen?</h1>
-    <div class="idea"><b>Thursday's module:</b> you'll build the theory of self-representation, then work the ethics of telling any story, consent, dignity, and who can actually reach it. Bring your cause.</div>
+    <div class="idea">Bring your cause Thursday.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e4_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

@@ -98,7 +98,6 @@
   <section class="panel">
     <div class="kick gold">Debate this</div>
     <h2 class="q">"Online solidarity from strangers does a movement more harm than good."</h2>
-    <textarea data-k="w9-debate" aria-label="board"></textarea>
   </section>
 
   <!-- 3 · GOAL -->
@@ -118,7 +117,6 @@
       <div>
         <div class="kick">New Year's Day, 1994 · Chiapas</div>
         <h2 class="q">A few thousand farmers with old rifles cannot beat the Mexican army. So how does a movement this small avoid getting crushed and forgotten?</h2>
-        <textarea data-k="w9-b1" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -130,7 +128,6 @@
       <div class="def gold"><h3>The path it traveled</h3><p>Written in the jungle. Mailed to newspapers. Typed onto the young internet by volunteers within hours. Translated and read in dozens of countries within days.</p></div>
     </div>
     <h2 class="q">Their whole demand was eleven plain words: work, land, housing, food, health care, education, independence, freedom, democracy, justice, peace. Why write it that way instead of a political program full of jargon?</h2>
-    <textarea data-k="w9-b2" aria-label="board"></textarea>
   </section>
 
   <!-- 6 · PLAIN WORDS reveal -->
@@ -149,7 +146,6 @@
       <div>
         <div class="kick">The man with no face</div>
         <h2 class="q">The government kept trying to unmask him and print his real name. Why would staying anonymous make him more powerful, not less?</h2>
-        <textarea data-k="w9-b3" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -177,7 +173,6 @@
       <div class="def gold"><h3>Mandar obedeciendo</h3><p>"To lead by obeying." The leader carries out what the assembly decides. The community does not obey the leader; the leader obeys the community.</p></div>
     </div>
     <h2 class="q">A whole village debating for three days to settle one question sounds painfully inefficient. What does that slowness buy them that a quick order from the top never would?</h2>
-    <textarea data-k="w9-b4" aria-label="board"></textarea>
   </section>
 
   <!-- 10 · THE FAST HALF (context defs) + question -->
@@ -187,7 +182,6 @@
       <div class="def gold"><h3>An electronic fabric of struggle</h3><p>Scholar Harry Cleaver's name for it. One communiqué left the jungle, and within hours scattered volunteers translated it and flooded email lists, embassies, and newsrooms worldwide.</p></div>
     </div>
     <h2 class="q">So which one actually saved them, the internet or the assembly?</h2>
-    <textarea data-k="w9-b5" aria-label="board"></textarea>
   </section>
 
   <!-- 11 · THE PAIRING reveal (jungle scene + board) -->
@@ -198,7 +192,7 @@
         <figcaption>The Lacandón jungle, Chiapas, where the communiqués were written. Photo via Wikimedia Commons (public domain).</figcaption>
       </figure>
       <div class="board">
-        <span class="big">Both, and the pairing is the whole point.</span>
+        <span class="big">Both, and it had to be both.</span>
         A viral message with no real community behind it is empty. A real community nobody ever hears about gets crushed in silence.
         <span class="also">The slow assembly built the thing worth defending. The fast network made sure the world was watching while they defended it.</span>
       </div>
@@ -213,7 +207,6 @@
       <span class="also"><b style="color:var(--gold)">The full picture.</b> They never won their formal demands. The state response stayed harsh, and in 1997 a paramilitary group massacred 45 people at Acteal, most of them women and children. What they won was survival, self-rule in their own territory, and a playbook every networked movement since has borrowed. Both things are true at once.</span>
     </div>
     <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem)">Netwar's edge is that there's no head to cut off. So name one real weakness of a movement with no headquarters and no single leader.</h2>
-    <textarea data-k="w9-b6" aria-label="board"></textarea>
   </section>
 
   <!-- 13 · WORKSHOP -->
@@ -227,15 +220,8 @@
       <div class="cell s"><span class="lab">The ¡Ya Basta! line</span><p>Write one plain sentence, no jargon, that a stranger three states away could read and feel in their own life.</p></div>
       <div class="cell"><span class="lab">The mirror</span><p>Whose story do you tell, and told how, so a stranger looks at it and sees themselves, more than they see you?</p></div>
     </div>
-    <textarea data-k="w9-b7" aria-label="board"></textarea>
   </section>
 
-  <!-- 14 · FIELD NOTEBOOK -->
-  <section class="panel">
-    <div class="kick">Your cause &middot; quick notebook</div>
-    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">One line, first instinct.</h2>
-    <p class="sub">Open your Field Notebook and jot a single line: where does today's idea show up in your own cause, or where does it break down? Don't overthink it, we'll hear a couple. You'll do the full three-part version in Thursday's module.</p>
-  </section>
 
   <!-- 15 · CLOSE -->
   <section class="panel title">
@@ -245,21 +231,9 @@
     <div class="idea"><b>Thursday's module:</b> read a real Zapatista communiqué, name the network that carried it, then run the first audit of your own cause's presence online. That audit is the on-ramp to Project 2, Content Strategy &amp; Audit. Bring the notebook. We'll reconvene at the end to share.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e4_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

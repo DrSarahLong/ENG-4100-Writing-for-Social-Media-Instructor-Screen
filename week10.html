@@ -97,7 +97,6 @@
   <section class="panel">
     <div class="kick gold">Debate this</div>
     <h2 class="q">"If you can put a million people in the street in a week, you've basically already won."</h2>
-    <textarea data-k="w10-debate" aria-label="board"></textarea>
   </section>
 
   <!-- 3 · GOAL -->
@@ -112,7 +111,6 @@
     <div class="kick">Feel it</div>
     <h2 class="q">One post names a hashtag, a time, and a place. By Friday, 800 students are on Sanford Mall.</h2>
     <p class="sub">Now rewind to 1963, before any of the tech. What would you have had to do to get those same 800 people in one place, and how long would it have taken?</p>
-    <textarea data-k="w10-b1" aria-label="board"></textarea>
   </section>
 
   <!-- 5 · THE CATCH -->
@@ -127,7 +125,6 @@
       </ul>
     </div>
     <h2 class="q" style="margin-top:26px">There's no agreed leader, no single demand, no way to decide together. So what happens next?</h2>
-    <textarea data-k="w10-b2" aria-label="board"></textarea>
   </section>
 
   <!-- 6 · SCENE: TAHRIR + question -->
@@ -140,7 +137,6 @@
       <div>
         <div class="kick">Name it</div>
         <h2 class="q">Being leaderless sounds free and democratic. Why would it be the exact thing that freezes a movement?</h2>
-        <textarea data-k="w10-b3" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -165,7 +161,6 @@
       <div>
         <div class="kick">A harder case</div>
         <h2 class="q">A quarter-million people arrived and left in one day without incident. What did that flawless march signal to those in power, and why did it scare them more than the size of the crowd?</h2>
-        <textarea data-k="w10-b4" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -190,7 +185,6 @@
     <div class="kick">Bring it home</div>
     <h2 class="q">We love the speed of the hashtag and we don't want the freeze. So what do we now have to do on purpose that used to happen by accident?</h2>
     <p class="sub">Think about what an old movement was forced to build before it could gather anyone, and what a phone now lets us skip.</p>
-    <textarea data-k="w10-b5" aria-label="board"></textarea>
   </section>
 
   <!-- 11 · WORKSHOP -->
@@ -204,15 +198,8 @@
       <div class="cell s"><span class="lab">The floor</span><p>What survives Saturday, after the crowd goes home? A sign-up list, a group chat, a standing meeting. How do you reach these people again?</p></div>
       <div class="cell"><span class="lab">The next move</span><p>The Chancellor offers half. Walk through what your group does in the next 24 hours. Where could you freeze, and how do you avoid it?</p></div>
     </div>
-    <textarea data-k="w10-b6" aria-label="board"></textarea>
   </section>
 
-  <!-- 12 · FIELD NOTEBOOK -->
-  <section class="panel">
-    <div class="kick">Your cause &middot; quick notebook</div>
-    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">One line, first instinct.</h2>
-    <p class="sub">Open your Field Notebook and jot a single line: where does today's idea show up in your own cause, or where does it break down? Don't overthink it, we'll hear a couple. You'll do the full three-part version in Thursday's module.</p>
-  </section>
 
   <!-- 13 · CLOSE -->
   <section class="panel title">
@@ -222,21 +209,9 @@
     <div class="idea"><b>Thursday's module:</b> the real Tufekci, then you build the four pieces of capacity that keep a cause from freezing, audience, goal, an editorial calendar, and a platform voice. That work is the engine of Project 2. Bring the notebook. We'll reconvene at the end to share.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e4_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

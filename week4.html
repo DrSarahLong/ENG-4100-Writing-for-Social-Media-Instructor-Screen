@@ -95,7 +95,6 @@
   <section class="panel">
     <div class="kick gold">Debate this</div>
     <h2 class="q">"A cause should never give its opponents a platform, not even to prove them wrong."</h2>
-    <textarea data-k="w4-debate" aria-label="board"></textarea>
   </section>
 
   <!-- 3 · GOAL -->
@@ -124,7 +123,6 @@
       </div>
     </div>
     <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem)">What does that first headline do to them? Which word is doing the damage? And what can the tenants' own paper do that the other two can't?</h2>
-    <textarea data-k="w4-b1" aria-label="board"></textarea>
   </section>
 
   <!-- 5 · REVEAL: owns the press -->
@@ -148,7 +146,6 @@
         <div class="kick">On his own side</div>
         <p class="sub">The young Frederick Douglass was the most powerful speaker in American abolition. The white leaders around <span class="hl">William Lloyd Garrison</span> wanted him to supply the raw facts of his enslavement and leave the arguing to them. Their line: "Give us the facts, we'll take care of the philosophy." He was welcome as evidence, never as the author.</p>
         <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.6rem)">If even the people on your side will only let you be the evidence, never the author, what do you do?</h2>
-        <textarea data-k="w4-b2" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -176,7 +173,6 @@
       <figcaption><i>The North Star</i>, Rochester, N.Y., June 2, 1848, the paper Douglass owned (public domain).</figcaption>
     </figure>
     <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem); margin-top:22px">He was already the most famous speaker in the movement. Why build and run an entire newspaper on top of that?</h2>
-    <textarea data-k="w4-b3" aria-label="board"></textarea>
   </section>
 
   <!-- 9 · MORAL SUASION (ask) -->
@@ -185,7 +181,6 @@
     <h2 class="q">Douglass rarely reached for a law or a weapon. His main tool was moral: make people feel a wrong so sharply they can no longer defend it.</h2>
     <p class="sub"><b class="hl">For example:</b> rather than argue slavery in statistics, Douglass would describe one enslaved person's suffering in such specific, human detail that a comfortable Northern reader could no longer treat it as a distant abstraction.</p>
     <p class="sub">Name a cause working today that fights the same way, by moving hearts and consciences more than by passing a law.</p>
-    <textarea data-k="w4-b4" aria-label="board"></textarea>
   </section>
 
   <!-- 10 · MORAL SUASION (reveal) -->
@@ -211,7 +206,6 @@
       </div>
     </div>
     <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem)">Put Embree's <i>Emancipator</i> next to Douglass's <i>North Star</i>. What could Douglass's paper do, precisely because of who ran it, that Embree's never could?</h2>
-    <textarea data-k="w4-b5" aria-label="board"></textarea>
   </section>
 
   <!-- 12 · OWN vs RENT (defs + ask) -->
@@ -222,7 +216,6 @@
       <div class="def"><h3>Own</h3><p>An audience you can reach directly no matter what. An email list you can export, your own website, a printed thing in someone's hands. Slower to build, yours to keep.<br><span style="color:var(--soft); font-size:.9em"><b class="hl">Climate example:</b> the email list from everyone who signed the group's petition, plus its own site, still reachable if every platform drops it.</span></p></div>
     </div>
     <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem)">You can't just quit the rented platforms; that's where the people already are. So what's the first owned channel worth building for your cause, and what exactly would you lose if you got banned tomorrow before you built it?</h2>
-    <textarea data-k="w4-b6" aria-label="board"></textarea>
   </section>
 
   <!-- 13 · WORKSHOP -->
@@ -236,15 +229,8 @@
       <div class="cell s"><span class="lab">Your moral-suasion line</span><p>Which value does your town or country already claim to hold? Write the one sentence that holds them to it. <span style="color:var(--soft)"><b>e.g. (climate):</b> "We say we'd do anything for our kids, so why hand them a hotter, harsher world than the one we were given?"</span></p></div>
       <div class="cell"><span class="lab">Own the ground</span><p>Name the one channel you'd build and actually own first (list, site, printed thing), and why that one. <span style="color:var(--soft)"><b>e.g. (climate):</b> an email list of everyone who showed up to one river cleanup, so you can reach them without an algorithm's permission.</span></p></div>
     </div>
-    <textarea data-k="w4-b7" aria-label="board"></textarea>
   </section>
 
-  <!-- 14 · FIELD NOTEBOOK -->
-  <section class="panel">
-    <div class="kick">Your cause &middot; quick notebook</div>
-    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">One line, first instinct.</h2>
-    <p class="sub">Open your Field Notebook and jot a single line: where does today's idea show up in your own cause, or where does it break down? Don't overthink it, we'll hear a couple. You'll do the full three-part version in Thursday's module.</p>
-  </section>
 
   <!-- 15 · CLOSE -->
   <section class="panel title">
@@ -254,21 +240,9 @@
     <div class="idea"><b>Thursday's module:</b> Douglass in his own words (the founding statement of The North Star, and "What to the Slave Is the Fourth of July?"), an own-it-or-rent-it diagnostic, and the ethics thread this course keeps circling back to. Bring the notebook. We'll reconvene at the end to share.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e4_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

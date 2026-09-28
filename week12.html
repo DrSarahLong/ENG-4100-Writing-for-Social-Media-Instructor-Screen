@@ -95,7 +95,6 @@
   <section class="panel">
     <div class="kick gold">Debate this</div>
     <h2 class="q">"Knocking on one stranger's door is a waste of time when a single post reaches a million."</h2>
-    <textarea data-k="w12-debate" aria-label="board"></textarea>
   </section>
 
   <!-- 2 · GOAL -->
@@ -110,7 +109,6 @@
     <div class="kick">Feel It</div>
     <h2 class="q">The last time you changed what you bought or ate, who actually moved you?</h2>
     <p class="sub">An ad? A post? An influencer you've never met? Or a specific person you know, who said "you have to try this," or "I stopped buying that, and here's why"? Be honest about which one actually did it.</p>
-    <textarea data-k="w12-b1" aria-label="board"></textarea>
   </section>
 
   <!-- 4 · SCENE: the strike + question -->
@@ -124,7 +122,6 @@
         <div class="kick">Put yourself in it</div>
         <h2 class="q">You can't buy ads. The press ignores you. What is the one lever you DO have?</h2>
         <p class="sub">1965, Delano, California. Filipino and Mexican-American farmworkers walk off the grape fields. Dirt poor, most can't vote, no newspaper on their side.</p>
-        <textarea data-k="w12-b2" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -140,7 +137,6 @@
         <div class="kick">The organizer</div>
         <h2 class="q">If a shopper in New York will never meet that farmworker again, why would she change what she buys?</h2>
         <p class="sub">Dolores Huerta co-founded the union and ran the New York City grape boycott out of a cramped office with volunteers and no budget. Before we name how she did it, take a guess.</p>
-        <textarea data-k="w12-b3" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -173,7 +169,6 @@
     <div class="kick">Handle with honesty</div>
     <h2 class="q">You've heard one name your whole life: Cesar Chavez. So what does a flawed leader teach us about relational power?</h2>
     <p class="sub">He was central and genuinely gifted. Later in life he ran the union in an increasingly controlling, paranoid way, purged loyal staff, and imposed a cult-like group-confrontation ritual (borrowed from a group called Synanon) on members. Historians Miriam Pawel and Frank Bardacke document it. Same evidence-honest habit we used for the Robert Moses bridges in Week 2.</p>
-    <textarea data-k="w12-b4" aria-label="board"></textarea>
   </section>
 
   <!-- 9 · THE LEADER: reveal -->
@@ -193,7 +188,6 @@
         <div class="kick">Not a 1960s story</div>
         <h2 class="q">They pressured Taco Bell, the buyer, not the farm. Why go after the brand you eat at instead of the grower?</h2>
         <p class="sub">Immokalee, Florida. In 2001 the Coalition of Immokalee Workers launched a national boycott of Taco Bell. Same playbook as the grapes: students organizing their own campuses, churches their own congregations, each person asked by someone they trust. Won in 2005: a penny-per-pound raise and enforceable protections in the fields.</p>
-        <textarea data-k="w12-b5" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -203,7 +197,6 @@
     <div class="kick">The catch</div>
     <h2 class="q">Does a trusted person ALWAYS beat a broadcast? When would you actually be better off with the billboard?</h2>
     <p class="sub">Nobody in your county has ever heard your cause exists. You have $300 and two weeks. One person can't shake ten thousand hands. Push on it: name a job where reach genuinely wins.</p>
-    <textarea data-k="w12-b6" aria-label="board"></textarea>
   </section>
 
   <!-- 12 · COMPLICATE: reveal -->
@@ -224,15 +217,8 @@
       <div class="cell s"><span class="lab">The pressure point</span><p>Who actually has the power to give you what you want here, and who already has trust with them?</p></div>
       <div class="cell"><span class="lab">Where it breaks</span><p>Name the case where your instinct would fail. When would the "obvious" medium be the wrong call?</p></div>
     </div>
-    <textarea data-k="w12-b7" aria-label="board"></textarea>
   </section>
 
-  <!-- 14 · FIELD NOTEBOOK -->
-  <section class="panel">
-    <div class="kick">Your cause &middot; quick notebook</div>
-    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">One line, first instinct.</h2>
-    <p class="sub">Open your Field Notebook and jot a single line: where does today's idea show up in your own cause, or where does it break down? Don't overthink it, we'll hear a couple. You'll do the full three-part version in Thursday's module.</p>
-  </section>
 
   <!-- 15 · CLOSE / looking ahead -->
   <section class="panel title">
@@ -242,21 +228,9 @@
     <div class="idea"><b>Thursday's module:</b> read the grape-boycott archive and the Immokalee campaign, sort six real cases of broadcast vs. relational, and plant the seed of Project 3. Bring the notebook. We'll reconvene at the end to share.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e4_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

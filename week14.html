@@ -95,7 +95,6 @@
   <section class="panel">
     <div class="kick gold">Debate this</div>
     <h2 class="q">"A cause with a million followers is doing more good than one with a hundred committed people."</h2>
-    <textarea data-k="w14-debate" aria-label="board"></textarea>
   </section>
 
   <!-- 3 · GOAL -->
@@ -110,7 +109,6 @@
     <div class="kick">All semester you built a campaign</div>
     <h2 class="q">How would you know if it actually worked?</h2>
     <p class="sub">The uncomfortable question every organizer runs into sooner or later.</p>
-    <textarea data-k="w14-b1" aria-label="board"></textarea>
   </section>
 
   <!-- 5 · TWO CAMPAIGNS -->
@@ -139,7 +137,6 @@
         <div class="kick">Call it</div>
         <h2 class="q">Which one succeeded, A or B?</h2>
         <p class="sub">Hands up, then defend your vote to the room. What did each one actually change?</p>
-        <textarea data-k="w14-b2" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -185,7 +182,6 @@
   <section class="panel">
     <div class="kick">Apply it</div>
     <h2 class="q">So which kind of number did KONY 2012 rack up, and which kind did it never touch?</h2>
-    <textarea data-k="w14-b3" aria-label="board"></textarea>
   </section>
 
   <!-- 10 · DEAN CALLBACK -->
@@ -193,7 +189,6 @@
     <div class="kick">Week 11 &middot; Jodi Dean</div>
     <h2 class="q">Remind the room: what did "communicative capitalism" mean?</h2>
     <p class="sub">Think back to the loop where posting can feel like doing something.</p>
-    <textarea data-k="w14-b4" aria-label="board"></textarea>
   </section>
 
   <!-- 11 · CIRCULATION IS NOT CHANGE reveal -->
@@ -211,7 +206,6 @@
     <div class="kick">Build it with me, bottom to top</div>
     <h2 class="q">A metric isn't good or bad on its own. It's worth whatever it can reach.</h2>
     <p class="sub">Start at the bottom rung. What can a platform hand you for free, the number that costs your audience nothing?</p>
-    <textarea data-k="w14-b5" aria-label="board"></textarea>
   </section>
 
   <!-- 13 · THE LADDER reveal -->
@@ -232,7 +226,6 @@
     <div class="kick">Complicate it</div>
     <h2 class="q">Rungs 1 and 2 aren't worthless. When does reach actually earn its keep for a cause?</h2>
     <p class="sub">Push back on your own ladder. Where would a big view count genuinely matter?</p>
-    <textarea data-k="w14-b6" aria-label="board"></textarea>
   </section>
 
   <!-- 15 · WORKSHOP -->
@@ -246,15 +239,8 @@
       <div class="cell s"><span class="lab">Put it on the ladder</span><p>Which rung does that brag number really sit on, 1 through 5, and how do you know?</p></div>
       <div class="cell"><span class="lab">The metric it should report</span><p>Name the one honest number this campaign should track instead, and say exactly how you'd count it.</p></div>
     </div>
-    <textarea data-k="w14-b7" aria-label="board"></textarea>
   </section>
 
-  <!-- 16 · FIELD NOTEBOOK -->
-  <section class="panel">
-    <div class="kick">Your cause &middot; quick notebook</div>
-    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">One line, first instinct.</h2>
-    <p class="sub">Open your Field Notebook and jot a single line: where does today's idea show up in your own cause, or where does it break down? Don't overthink it, we'll hear a couple. You'll do the full three-part version in Thursday's module.</p>
-  </section>
 
   <!-- 17 · CLOSE -->
   <section class="panel title">
@@ -264,21 +250,9 @@
     <div class="idea"><b>Thursday's module:</b> build the framework out, sort the cases that split the room, and draft your P3 impact report. Bring the three metrics you named today.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e4_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

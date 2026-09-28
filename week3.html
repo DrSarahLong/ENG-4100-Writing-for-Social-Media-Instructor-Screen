@@ -100,7 +100,6 @@
   <section class="panel">
     <div class="kick gold">Debate this</div>
     <h2 class="q">"Arguing under a fake name is cowardice. If you believe it, sign it."</h2>
-    <textarea data-k="w3-debate" aria-label="board"></textarea>
   </section>
 
   <!-- 3 · GOAL -->
@@ -121,7 +120,6 @@
         <div class="kick">The problem</div>
         <h2 class="q">You have to change the mind of a whole state full of strangers.</h2>
         <p class="sub">It's 1787, and your only tool is print, a single newspaper essay, passed hand to hand. Getting words onto paper is the easy part. The hard part: how do you take thousands of strangers who will never meet, a farmer in Georgia, a merchant in New York, and get them to believe they share one decision and act as a single body?</p>
-        <textarea data-k="w3-b1" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -160,7 +158,6 @@
       <div class="p">What is he making you feel? Point to the exact words doing it.</div>
       <div class="p">It's 1787. How does this physically get from his desk into thousands of heads?</div>
     </div>
-    <textarea data-k="w3-b2" aria-label="board"></textarea>
   </section>
 
   <!-- 8 · WHO IS PUBLIUS (ask) -->
@@ -168,7 +165,6 @@
     <div class="kick">Look at the byline</div>
     <h2 class="q">It's signed Publius. That's not a person.</h2>
     <p class="sub">How many people actually wrote it? And why would anyone hide their name on the most important argument of their life?</p>
-    <textarea data-k="w3-b3" aria-label="board"></textarea>
   </section>
 
   <!-- 9 · THE MASK (reveal) -->
@@ -202,7 +198,6 @@
     <div class="kick">Bring it home</div>
     <h2 class="q">Where is Publius today? And when is a mask the right call, versus just hiding?</h2>
     <p class="sub">Think of a hashtag, an anonymous org account, a collective, a burner. What does the mask buy the message, and what does it cost?</p>
-    <textarea data-k="w3-b4" aria-label="board"></textarea>
   </section>
 
   <!-- 11b · PUBLIUS TODAY (reveal, names to look up) -->
@@ -228,15 +223,8 @@
       <div class="cell s"><span class="lab">The mask</span><p>Whose name is on it, named, anonymous, or a shared banner? What does that choice buy, and what does it cost?</p></div>
       <div class="cell"><span class="lab">The medium</span><p>What channel carries it, and is it fast tech or slow tech? How does that shape who it reaches?</p></div>
     </div>
-    <textarea data-k="w3-b5" aria-label="board"></textarea>
   </section>
 
-  <!-- 13 · FIELD NOTEBOOK -->
-  <section class="panel">
-    <div class="kick">Your cause &middot; quick notebook</div>
-    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">One line, first instinct.</h2>
-    <p class="sub">Open your Field Notebook and jot a single line: where does today's idea show up in your own cause, or where does it break down? Don't overthink it, we'll hear a couple. You'll do the full three-part version in Thursday's module.</p>
-  </section>
 
   <!-- 14 · CLOSE / looking ahead -->
   <section class="panel title">
@@ -246,21 +234,9 @@
     <div class="idea"><b>Thursday's module:</b> the real Federalist No. 1, "Brutus" writing back under his own mask, a tool for diagnosing circulation moves, and how your own cause spreads. This is also where Project 1 begins. Bring the notebook. We'll reconvene at the end to share.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e4_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

@@ -95,7 +95,6 @@
   <section class="panel">
     <div class="kick gold">Debate this</div>
     <h2 class="q">"No one in power has ever been moved by politeness."</h2>
-    <textarea data-k="w8-debate" aria-label="board"></textarea>
   </section>
 
   <!-- 3 · GOAL -->
@@ -110,7 +109,6 @@
     <div class="kick">Early 1980s &middot; a new plague</div>
     <h2 class="q">If the people in power will not even say the name of the thing killing you, what does that silence tell you?</h2>
     <p class="sub">A new disease was spreading through gay men, drug users, and other people the country was already happy to ignore. The President gave no major public speech about it until 1987, years in, after tens of thousands of Americans were already dead.</p>
-    <textarea data-k="w8-b1" aria-label="board"></textarea>
   </section>
 
   <!-- 5 · SILENCE=DEATH scene (ASK) -->
@@ -127,7 +125,6 @@
         <div class="kick">Name it</div>
         <h2 class="q">Why is reclaiming your oppressor's own symbol so powerful?</h2>
         <p class="sub">That pink triangle is borrowed. In the Nazi camps, gay men were forced to wear a downward-pointing pink triangle to mark them for death. These activists flipped it to point up.</p>
-        <textarea data-k="w8-b2" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -137,7 +134,7 @@
     <div class="kick gold">Here's the idea</div>
     <div class="defs">
       <div class="def"><h3>Design activism</h3><p>Making your argument with an image, a color, or a symbol instead of a paragraph. The picture does the arguing.</p></div>
-      <div class="def gold"><h3>Gran Fury</h3><p>ACT UP's design cell, named for the Plymouth the NYPD drove. Rage and a police car in one name. They dressed protest in the look of advertising so it traveled the same rails everyone already scrolls.</p></div>
+      <div class="def gold"><h3>Gran Fury</h3><p>ACT UP's design cell, named for the Plymouth the NYPD drove, a car whose name also means rage. They dressed protest in the look of advertising so it traveled the same rails everyone already scrolls.</p></div>
     </div>
     <div class="board">
       <b>Why SILENCE=DEATH works as design</b>
@@ -159,7 +156,6 @@
       <div class="def gold"><h3>Affinity group</h3><p>Five to fifteen people who know and trust each other, plan their own piece of an action, and look after their own members. Many groups plug into one big demonstration.</p></div>
     </div>
     <h2 class="q">Why is a crowd built from small bonded cells harder to stop than one giant leaderless mob?</h2>
-    <textarea data-k="w8-b3" aria-label="board"></textarea>
   </section>
 
   <!-- 8 · DIE-IN scene (ASK) -->
@@ -173,7 +169,6 @@
         <div class="kick">Drama on purpose</div>
         <h2 class="q">They lay down and played dead while the cameras rolled. Why stage your own death for a photograph?</h2>
         <p class="sub">Fake tombstones, blood-spattered lab coats, hundreds of bodies still on the pavement. All of it built for one viewer.</p>
-        <textarea data-k="w8-b4" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -218,7 +213,6 @@
   <section class="panel">
     <div class="kick">Two speeds, one silence</div>
     <h2 class="q">The die-in and the Quilt fought the same silence. What did the slow Quilt do that a fast zap never could, and what did the zap do that the Quilt couldn't?</h2>
-    <textarea data-k="w8-b5" aria-label="board"></textarea>
   </section>
 
   <!-- 12 · WORKSHOP -->
@@ -232,15 +226,8 @@
       <div class="cell s"><span class="lab">The affinity group</span><p>Name five to fifteen real people who'd pull it off, and one job each owns (permit, photos, safety, press).</p></div>
       <div class="cell"><span class="lab">The line</span><p>Name the ethical line you would not cross to get attention. Where does the drama go too far?</p></div>
     </div>
-    <textarea data-k="w8-b6" aria-label="board"></textarea>
   </section>
 
-  <!-- 13 · FIELD NOTEBOOK -->
-  <section class="panel">
-    <div class="kick">Your cause &middot; quick notebook</div>
-    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">One line, first instinct.</h2>
-    <p class="sub">Open your Field Notebook and jot a single line: where does today's idea show up in your own cause, or where does it break down? Don't overthink it, we'll hear a couple. You'll do the full three-part version in Thursday's module.</p>
-  </section>
 
   <!-- 14 · CLOSE / looking ahead -->
   <section class="panel title">
@@ -250,21 +237,9 @@
     <div class="idea"><b>Thursday's module:</b> Gran Fury's design up close, then the harder question. If you build an image to grab everyone, can everyone actually receive it? Accessible, inclusive design. Bring the notebook.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e4_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

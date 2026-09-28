@@ -95,7 +95,6 @@
   <section class="panel">
     <div class="kick gold">Debate this</div>
     <h2 class="q">"Changing one person at a time is how you guarantee you change nothing."</h2>
-    <textarea data-k="w13-debate" aria-label="board"></textarea>
   </section>
 
   <!-- 3 · GOAL -->
@@ -116,7 +115,6 @@
         <div class="kick">Feel it</div>
         <h2 class="q">A hundred thousand birds turning in perfect sync. Who is giving the orders? Who is the lead bird?</h2>
         <p class="sub">It swells, splits, pours back together, all in the same second.</p>
-        <textarea data-k="w13-b1" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -140,7 +138,6 @@
       <span class="also">adrienne maree brown, <em>Emergent Strategy</em>, 2017. She lowercases her name.</span>
     </div>
     <h2 class="q">What does she mean by "the large is a reflection of the small"?</h2>
-    <textarea data-k="w13-b2" aria-label="board"></textarea>
   </section>
 
   <!-- 7 · BROWN (REVEAL) -->
@@ -155,7 +152,6 @@
       <div class="def"><h3>Fractal</h3><p>A shape that repeats at every scale. A fern where each tiny frond is the same shape as the whole fern. A coastline equally jagged from a plane or from a footpath. brown's version for people: how we are at the small scale is how we are at the large scale.</p></div>
     </div>
     <h2 class="q" style="font-size:clamp(1.8rem,4vw,3rem)">Think of a group you were part of that fell apart or turned toxic. Was the bad feeling already there in the small, in how two people talked to each other, long before it was ever big?</h2>
-    <textarea data-k="w13-b3" aria-label="board"></textarea>
   </section>
 
   <!-- 9 · SPEED OF TRUST + CRITICAL CONNECTIONS (teach cards + ASK) -->
@@ -165,7 +161,6 @@
       <div class="def gold"><h3>Critical connections over critical mass</h3><p>You do not need a huge crowd. You need a few real, strong relationships that can actually bear weight. Build resilience by building relationships, not follower counts.</p></div>
     </div>
     <h2 class="q">Which is stronger: ten thousand followers who like your posts and do nothing, or twelve people who will show up at 6am when you call?</h2>
-    <textarea data-k="w13-b4" aria-label="board"></textarea>
   </section>
 
   <!-- 10 · SCENE: mycelium (ASK) -->
@@ -178,7 +173,6 @@
       <div>
         <div class="kick">A different way to grow</div>
         <h2 class="q">An ad campaign is one big loud push, then it stops when the money stops. This fungus grows the other way. What is different about how it grows, and why might a movement want to grow like this?</h2>
-        <textarea data-k="w13-b5" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -202,7 +196,6 @@
       <span class="also">People copied it. Not her organization, because there was none. They copied the pattern. One pantry, then a hundred, then thousands, each built and stocked and watched over by whoever lives nearby, in whatever wood and paint they had.</span>
     </div>
     <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem); margin-top:26px">Growing by copying a small pattern, with no central plan, gave this movement something a single big national campaign never could. Name it.</h2>
-    <textarea data-k="w13-b6" aria-label="board"></textarea>
   </section>
 
   <!-- 13 · WORKSHOP -->
@@ -216,15 +209,8 @@
       <div class="cell s"><span class="lab">Speed of trust</span><p>Name one ask it makes too fast, before the relationship can hold it. What is a smaller first ask that trust could actually carry?</p></div>
       <div class="cell"><span class="lab">The fractal check</span><p>If the small version got copied a hundred times, would the big version carry the character you want? What in the small piece do you protect as it grows?</p></div>
     </div>
-    <textarea data-k="w13-b7" aria-label="board"></textarea>
   </section>
 
-  <!-- 14 · FIELD NOTEBOOK -->
-  <section class="panel">
-    <div class="kick">Your cause &middot; quick notebook</div>
-    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">One line, first instinct.</h2>
-    <p class="sub">Open your Field Notebook and jot a single line: where does today's idea show up in your own cause, or where does it break down? Don't overthink it, we'll hear a couple. You'll do the full three-part version in Thursday's module.</p>
-  </section>
 
   <!-- 15 · CLOSE -->
   <section class="panel title">
@@ -234,21 +220,9 @@
     <div class="idea"><b>Thursday's module:</b> read a little real adrienne maree brown, run the emergent read on six real cases, then build the smallest strong version of your own campaign in words, image, sound, and design. Bring the notebook. We'll reconvene at the end to share.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e4_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

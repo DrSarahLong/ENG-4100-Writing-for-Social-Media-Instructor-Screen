@@ -95,7 +95,6 @@
   <section class="panel">
     <div class="kick gold">Debate this</div>
     <h2 class="q">"Deleting your accounts would do more good than anything you'll ever post."</h2>
-    <textarea data-k="w11-debate" aria-label="board"></textarea>
   </section>
 
   <!-- 3 · GOAL -->
@@ -110,7 +109,6 @@
     <div class="kick">Feel it</div>
     <h2 class="q">Name one thing in the real world that changed because of something you posted.</h2>
     <p class="sub">A person, a dollar, a vote, a policy, a door that opened. Real and offline only. A like on the post does not count.</p>
-    <textarea data-k="w11-b1" aria-label="board"></textarea>
   </section>
 
   <!-- 5 · ASK: message vs circulate -->
@@ -118,7 +116,6 @@
     <div class="kick">Name it</div>
     <h2 class="q">What's the difference between a message that wants a reply and a message that just wants to circulate?</h2>
     <p class="sub">Texting one friend "please water my plant" versus posting "please water my plant" to ten thousand strangers.</p>
-    <textarea data-k="w11-b2" aria-label="board"></textarea>
   </section>
 
   <!-- 6 · REVEAL: communicative capitalism -->
@@ -137,7 +134,6 @@
       <div>
         <div class="kick">What runs out</div>
         <h2 class="q">Anyone can post forever, for free. Information is basically unlimited. So what is actually scarce?</h2>
-        <textarea data-k="w11-b3" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -157,7 +153,6 @@
     <div class="kick">The case &middot; Kony 2012</div>
     <p class="sub" style="margin-bottom:18px">In March 2012 an advocacy group released a 30-minute film urging the world to help capture a warlord. It hit about 100 million views in six days, the fastest-spreading video to that point in history. Then almost nothing followed. He was never captured. The real-world action fizzled. The organization fell apart within a year.</p>
     <h2 class="q">More reach than your cause will ever get, and it produced less than sixty phone calls would. What was it missing?</h2>
-    <textarea data-k="w11-b4" aria-label="board"></textarea>
   </section>
 
   <!-- 10 · ASK: Odell -->
@@ -165,7 +160,6 @@
     <div class="kick">A way out?</div>
     <h2 class="q">If the answer isn't "log off forever and stop caring," what could refusing the attention economy actually look like?</h2>
     <p class="sub">Jenny Odell wrote a whole book called <i>How to Do Nothing</i>. She is not telling you to quit.</p>
-    <textarea data-k="w11-b5" aria-label="board"></textarea>
   </section>
 
   <!-- 11 · REVEAL: Odell -->
@@ -185,15 +179,8 @@
       <div class="cell s"><span class="lab">Who could answer</span><p>Name one real person or office that could be made to respond. Where is the power this should land on?</p></div>
       <div class="cell"><span class="lab">Wire it to action</span><p>The one ask, channel, or captured contact that turns the reach into a reply. Redesign the move so something catches it.</p></div>
     </div>
-    <textarea data-k="w11-b6" aria-label="board"></textarea>
   </section>
 
-  <!-- 13 · FIELD NOTEBOOK -->
-  <section class="panel">
-    <div class="kick">Your cause &middot; quick notebook</div>
-    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">One line, first instinct.</h2>
-    <p class="sub">Open your Field Notebook and jot a single line: where does today's idea show up in your own cause, or where does it break down? Don't overthink it, we'll hear a couple. You'll do the full three-part version in Thursday's module.</p>
-  </section>
 
   <!-- 14 · CLOSE -->
   <section class="panel title">
@@ -203,21 +190,9 @@
     <div class="idea">Before "how do I get more reach," ask "if this circulates perfectly, does anything change, and who has to answer for it?" <b>Thursday's module:</b> the real Dean and Odell, a sorting tool on genuinely tricky cases, and you finalize Project 2. P2 is due Thursday, in the module.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e4_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

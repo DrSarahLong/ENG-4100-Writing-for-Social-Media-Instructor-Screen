@@ -114,7 +114,7 @@
         Spectacle can make people feel something before they have time to analyze it. It grabs attention, creates emotional identification, and gives an issue a memorable frame. Facts are usually slower and less visually powerful.
         <span class="big">Spectacle is often better at getting people to care; facts are better at helping them decide what to believe once they do.</span>
         Just Stop Oil throwing tomato soup at Van Gogh's <i>Sunflowers</i> in 2022 worked perfectly at the level of attention: the image went everywhere. But much of the public conversation became "Why are climate activists attacking art?" rather than "Why are we still expanding fossil-fuel use?" The tactic became the story, displacing the argument.
-        <span class="also"><b>The distinction to hand students:</b> a spectacle backfires when people remember what you did more clearly than why you did it.</span>
+        <span class="also"><b>The distinction:</b> a spectacle backfires when people remember what you did more clearly than why you did it.</span>
       </div>
     </div>
   </section>
@@ -137,7 +137,6 @@
         <div class="kick">Read the picture</div>
         <h2 class="q">What is this picture arguing?</h2>
         <p class="sub">Not the words on any banner. The white robes, the white horse, the crown, the calm order. What did they want you to feel before you read a thing?</p>
-        <textarea data-k="w5-b1" aria-label="board"></textarea>
       </div>
     </div>
   </section>
@@ -157,7 +156,6 @@
     <div class="kick">The real question</div>
     <h2 class="q">1913. No TV, no internet, no phones. So why pour months of work into how the march LOOKED?</h2>
     <p class="sub">Alice Paul spent a year on costumes, colors, floats, and a pageant. What was she buying with all that effort?</p>
-    <textarea data-k="w5-b2" aria-label="board"></textarea>
   </section>
 
   <!-- 7 · THE PROCESSION (reveal) -->
@@ -181,7 +179,6 @@
     <div class="kick">A harder truth</div>
     <h2 class="q">Who gets to be in the picture?</h2>
     <p class="sub">To keep white Southern support, organizers told Black suffragists to march together at the back, out of the main image. Every choice about what a movement shows is also a choice about who is seen. What does that cost, and who pays it?</p>
-    <textarea data-k="w5-b3" aria-label="board"></textarea>
   </section>
 
   <!-- 9 · WELLS (reveal) -->
@@ -199,7 +196,6 @@
     <div class="kick">Bring it home</div>
     <h2 class="q">Where do you see visual rhetoric and spectacle right now?</h2>
     <p class="sub">What's the modern white-robes-on-a-horse? Think of a march, a logo, a color everyone wears, a staged image built to be photographed from above.</p>
-    <textarea data-k="w5-b4" aria-label="board"></textarea>
   </section>
 
   <!-- 11 · SEEN vs WON (ask) -->
@@ -207,7 +203,6 @@
     <div class="kick">The catch</div>
     <h2 class="q">Spectacle gets you SEEN. Does being seen mean you won?</h2>
     <p class="sub">The 1913 march made the papers. Women didn't get the federal vote until 1920. So what does a spectacle actually buy, and what does it not?</p>
-    <textarea data-k="w5-b5" aria-label="board"></textarea>
   </section>
 
   <!-- 12 · WORKSHOP -->
@@ -221,15 +216,8 @@
       <div class="cell s"><span class="lab">The wordless claim</span><p>What does this design argue with zero text? Say the sentence it makes a viewer feel without printing&nbsp;it.</p></div>
       <div class="cell"><span class="lab">The trade</span><p>What does this choice cost? Who might it exclude, or who could read it the wrong&nbsp;way?</p></div>
     </div>
-    <textarea data-k="w5-b6" aria-label="board"></textarea>
   </section>
 
-  <!-- 13 · FIELD NOTEBOOK -->
-  <section class="panel">
-    <div class="kick">Your cause &middot; quick notebook</div>
-    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.7rem)">One line, first instinct.</h2>
-    <p class="sub">Open your Field Notebook and jot a single line: where does today's idea show up in your own cause, or where does it break down? Don't overthink it, we'll hear a couple. You'll do the full three-part version in Thursday's module.</p>
-  </section>
 
   <!-- 14 · CLOSE -->
   <section class="panel title">
@@ -239,21 +227,9 @@
     <div class="idea"><b>Thursday's module:</b> the real photographs and the official program up close, how suffragists engineered the picture, and a design tool where you judge what each move actually does. Bring the notebook. We'll reconvene at the end to share.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e4_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e4_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
