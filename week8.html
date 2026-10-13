@@ -79,14 +79,32 @@
   .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
   .lb.on{display:flex}
   @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+
+  /* week7-parity additions */
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:6px 0 18px}
+  @media (max-width:820px){ .two{grid-template-columns:1fr} }
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:13px; padding:18px 22px; font-size:clamp(1rem,1.6vw,1.3rem); line-height:1.45}
+  .card .lab{display:block; font-size:.72rem; letter-spacing:.13em; text-transform:uppercase; font-weight:800; color:var(--accent); margin-bottom:6px}
+  .card.g{border-left:4px solid var(--gold)} .card.g .lab{color:var(--gold)}
+  .card.s{border-left:4px solid var(--sage)} .card.s .lab{color:var(--sage)}
+  .model{background:var(--field); border:1px solid var(--line); border-left:5px solid var(--sage); border-radius:13px; padding:18px 22px; margin:10px 0 18px; font-size:clamp(1rem,1.65vw,1.32rem); line-height:1.5}
+  .model .lab{display:block; font-size:.72rem; letter-spacing:.13em; text-transform:uppercase; font-weight:800; color:var(--sage); margin-bottom:8px}
+  .model .h{font-family:Georgia,serif; font-size:1.18em; display:block; margin:8px 0 2px}
+  .model .who{color:var(--soft); font-size:.84em; font-style:italic}
+  .elem{border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:18px 0 6px; background:var(--panel)}
+  .elem .row{display:grid; grid-template-columns:minmax(150px,1fr) 3.1fr; border-top:1px solid var(--line)}
+  .elem .row:first-child{border-top:none}
+  .elem .n{background:#3a262c; padding:13px 16px; font-weight:800; color:var(--gold); font-size:clamp(.95rem,1.4vw,1.14rem); letter-spacing:.02em}
+  .elem .d{padding:13px 16px; font-size:clamp(.92rem,1.35vw,1.1rem); line-height:1.5; color:var(--ink)}
+  .elem .d b{color:var(--accent)}
+  @media (max-width:760px){ .elem .row{grid-template-columns:1fr} .elem .n{border-bottom:1px solid var(--line)} }
 </style>
 </head>
 <body>
-
-  <!-- 1 · TITLE -->
+<!-- 1 · TITLE -->
   <section class="panel title">
     <div class="rule"></div>
-    <div class="kick">Week 8 · Tuesday</div>
+    <div class="kick">Week 8 &middot; Tuesday</div>
     <h1>Design as a weapon.</h1>
     <div class="idea">When the press looks away and the government stays quiet, you build an event too well made to ignore.</div>
   </section>
@@ -101,64 +119,76 @@
   <section class="panel">
     <div class="kick">Goal of today</div>
     <h2 class="q">What you'll walk out with</h2>
-    <div class="teach"><p>Today we watch a movement invent attention out of almost nothing. You'll pick up four ideas: <b>design activism</b> (making the argument with an image), <b>reclaiming your oppressor's symbol</b> (SILENCE=DEATH and Gran Fury), <b>direct action engineered for the camera</b> (the zap and the die-in), and the <b>affinity group</b> that holds it all together. You'll go deeper Thursday; today we dig in together.</p></div>
+    <div class="teach"><p>Today we watch a movement invent attention out of almost nothing. You'll pick up <b>design activism</b> (making the argument with an image), <b>reclaiming your opponent's symbol</b>, <b>direct action engineered for the camera</b> (the zap and the die-in), and the <b>affinity group</b> that holds it together. Then we take the most famous poster of the twentieth century apart into <b>key messages</b> and <b>style and tone</b>, which are two of the boxes Project&nbsp;2 asks you to fill. You'll go deeper Thursday; today we dig in together.</p></div>
   </section>
 
-  <!-- 4 · THE SILENCE (ASK) -->
+  <!-- 4 · THE SILENCE (ask) -->
   <section class="panel">
     <div class="kick">Early 1980s &middot; a new plague</div>
     <h2 class="q">If the people in power will not even say the name of the thing killing you, what does that silence tell you?</h2>
     <p class="sub">A new disease was spreading through gay men, drug users, and other people the country was already happy to ignore. The President gave no major public speech about it until 1987, years in, after tens of thousands of Americans were already dead.</p>
   </section>
 
-  <!-- 5 · SILENCE=DEATH scene (ASK) -->
+  <!-- 5 · WHAT THE SILENCE WAS CALLED (reveal) -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="teach">
+      <p>The silence was not sitting there unexplained. It already had a story attached, and the story was <b>privacy</b>. This was a private illness, in private lives, and decent people did not discuss it. Grief happened behind closed doors. Obituaries said "after a long illness."</p>
+      <p style="margin-top:14px">So a movement had two jobs, not one. Break the silence, and <b>take away the excuse the silence was hiding behind.</b></p>
+    </div>
+  </section>
+
+  <!-- 6 · SILENCE=DEATH scene (ask) -->
   <section class="panel">
     <div class="scene">
-      <figure data-note="add-image: the SILENCE=DEATH poster (copyrighted, Gran Fury / Silence=Death Project). Solid black field, small upward-pointing pink triangle, three words. Drop in a licensed copy here as images/week8-silence-death.jpg.">
+      <figure data-note="add-image: the SILENCE=DEATH poster (copyrighted, Silence=Death Project / Gran Fury). Rendered below as a description. Drop a licensed copy in as images/week8-silence-death.jpg.">
         <div style="width:100%; aspect-ratio:4/5; background:#000; border-radius:14px; border:1px solid var(--line); box-shadow:0 18px 46px rgba(0,0,0,.5); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px; padding:8%">
           <div style="width:0; height:0; border-left:46px solid transparent; border-right:46px solid transparent; border-bottom:80px solid #ef4f86"></div>
           <div style="font-family:Georgia,serif; color:#fff; font-weight:700; letter-spacing:.14em; font-size:clamp(1.7rem,4vw,3rem)">SILENCE = DEATH</div>
         </div>
-        <figcaption>The 1987 emblem that launched ACT UP. The poster is under copyright, so it is rendered here as a plain description.</figcaption>
+        <figcaption>The 1987 emblem that became ACT UP's. The poster is under copyright, so it is rendered here as a description rather than reproduced.</figcaption>
       </figure>
       <div>
-        <div class="kick">Name it</div>
-        <h2 class="q">Why is reclaiming your oppressor's own symbol so powerful?</h2>
-        <p class="sub">That pink triangle is borrowed. In the Nazi camps, gay men were forced to wear a downward-pointing pink triangle to mark them for death. These activists flipped it to point up.</p>
+        <div class="kick">Look at it</div>
+        <h2 class="q">Two words and an equals sign. What does that equation accuse somebody of?</h2>
+        <p class="sub">The triangle is borrowed. In the Nazi camps, gay men were forced to wear a downward-pointing pink triangle to mark them for death. These designers turned it to point up.</p>
       </div>
     </div>
   </section>
 
-  <!-- 6 · REVEAL: design activism + Gran Fury -->
+  <!-- 7 · REVEAL: the reframe + Gran Fury -->
   <section class="panel">
     <div class="kick gold">Here's the idea</div>
-    <div class="defs">
-      <div class="def"><h3>Design activism</h3><p>Making your argument with an image, a color, or a symbol instead of a paragraph. The picture does the arguing.</p></div>
-      <div class="def gold"><h3>Gran Fury</h3><p>ACT UP's design cell, named for the Plymouth the NYPD drove, a car whose name also means rage. They dressed protest in the look of advertising so it traveled the same rails everyone already scrolls.</p></div>
+    <div class="two">
+      <div class="card"><span class="lab">The frame they inherited</span>A private illness. Quiet deaths. Silence as discretion, which is to say silence as good manners.</div>
+      <div class="card g"><span class="lab">The frame they built</span>Silence is not discretion. Silence is the mechanism. Somebody is choosing it, and the choosing is what kills.</div>
     </div>
     <div class="board">
-      <b>Why SILENCE=DEATH works as design</b>
-      <ul style="margin:10px 0 0; padding-left:1.1em; font-size:.92em; line-height:1.5">
-        <li>black reads as mourning and a void</li>
-        <li>the pink triangle is a Nazi death-badge, reclaimed and flipped point-up</li>
-        <li>three words, huge contrast, no logo, no explanation</li>
-        <li>it makes you finish the equation yourself</li>
-        <li>it looks like an ad, so it travels like one</li>
+      <b>Why that equation does so much work</b>
+      <ul>
+        <li>it assigns an <b>actor</b>. Someone is being silent, which means someone could stop</li>
+        <li>it refuses the excuse. Privacy stops being kindness and becomes complicity</li>
+        <li>it makes you finish the sentence, so the conclusion is yours and you can't argue with yourself</li>
+        <li>flipping the triangle upward turns a mark imposed on you into a claim you make</li>
       </ul>
-      <span class="also">One image, basically no budget, still legible on a t-shirt forty years later.</span>
+      <span class="also">The flipped triangle is a frame move dressed as a design move. The picture did not change much. Who was holding it changed completely.</span>
+    </div>
+    <div class="defs" style="margin-top:22px">
+      <div class="def"><h3>Design activism</h3><p>Making your argument with an image, a color, or a symbol instead of a paragraph. The picture does the arguing.</p></div>
+      <div class="def gold"><h3>Gran Fury</h3><p>ACT UP's design cell, formed 1988, named for the Plymouth the NYPD drove, a car whose name also means rage. They dressed protest in the visual language of advertising so it traveled the same rails everyone already looked at.</p></div>
     </div>
   </section>
 
-  <!-- 7 · AFFINITY GROUPS (defs + ASK) -->
+  <!-- 8 · AFFINITY GROUPS (defs + ask) -->
   <section class="panel">
     <div class="defs">
       <div class="def"><h3>The scaling problem</h3><p>Small groups trust each other but can't reach anyone. Big crowds have reach, but strangers don't trust each other or move fast together.</p></div>
       <div class="def gold"><h3>Affinity group</h3><p>Five to fifteen people who know and trust each other, plan their own piece of an action, and look after their own members. Many groups plug into one big demonstration.</p></div>
     </div>
-    <h2 class="q">Why is a crowd built from small bonded cells harder to stop than one giant leaderless mob?</h2>
+    <h2 class="q">Why is a crowd built from small bonded cells more difficult to stop than one giant leaderless mob?</h2>
   </section>
 
-  <!-- 8 · DIE-IN scene (ASK) -->
+  <!-- 9 · DIE-IN scene (ask) -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -173,23 +203,23 @@
     </div>
   </section>
 
-  <!-- 9 · REVEAL: drama as strategy -->
+  <!-- 10 · REVEAL: drama as strategy -->
   <section class="panel">
     <div class="kick gold">Here's the idea</div>
     <div class="board">
       <b>Drama as strategy</b>
-      <ul style="margin:10px 0 0; padding-left:1.1em; font-size:.92em; line-height:1.5">
+      <ul>
         <li>a zap is fast, surprise, one target, embarrass them today</li>
         <li>an action is big, planned, staged for the camera</li>
-        <li>the die-in gives the news a picture it can't resist</li>
-        <li>the bonded cells make the crowd hard to behead: no single leader to arrest, trust lives in the group</li>
+        <li>the die-in hands the news a picture it can't resist, and the picture argues the equation without printing it</li>
+        <li>the bonded cells make the crowd difficult to behead: no single leader to arrest, trust lives in the group</li>
       </ul>
-      <span class="big">FDA action, 1988. About 1,500 activists, roughly 180 arrests, on camera, on purpose.</span>
+      <span class="big">FDA action, October 1988. Roughly 1,500 activists, about 180 arrests, on camera, on purpose.</span>
       <span class="also">Within months the FDA changed its rules to release experimental drugs faster. The image did what a press release never could.</span>
     </div>
   </section>
 
-  <!-- 10 · THE QUILT (slow counterpart, teaching context) -->
+  <!-- 11 · THE QUILT (slow counterpart) -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -198,10 +228,10 @@
       </figure>
       <div class="board">
         <b>The AIDS Memorial Quilt</b> (1987 on)
-        <ul style="margin:10px 0 0; padding-left:1.1em; font-size:.92em; line-height:1.5">
+        <ul>
           <li>each panel is 3 by 6 feet, the size of a grave</li>
           <li>one panel per person lost, sewn by the people who loved them</li>
-          <li>first laid on the National Mall in 1987: 1,920 panels</li>
+          <li>first laid on the National Mall in October 1987: 1,920 panels</li>
           <li>now the largest piece of community folk art on earth</li>
         </ul>
         <span class="also">Quilting is one of the oldest folk media there is, and it runs deep here in Appalachia: memorial quilts, and the quilting bee, where a community gathers to sew and to grieve together.</span>
@@ -209,32 +239,62 @@
     </div>
   </section>
 
-  <!-- 11 · FAST vs SLOW (ASK) -->
+  <!-- 12 · FAST vs SLOW (ask) -->
   <section class="panel">
     <div class="kick">Two speeds, one silence</div>
     <h2 class="q">The die-in and the Quilt fought the same silence. What did the slow Quilt do that a fast zap never could, and what did the zap do that the Quilt couldn't?</h2>
   </section>
 
-  <!-- 12 · WORKSHOP -->
+  <!-- 13 · WHAT THIS IS CALLED (ask) -->
   <section class="panel">
-    <div class="kick gold">Workshop</div>
-    <h2 class="q">Engineer one attention action the camera can't walk away from.</h2>
-    <p class="sub">Each group takes one silence, <span class="pill">a campus issue no one names</span><span class="pill">a local closure or cut</span><span class="pill">a workplace people won't talk about</span><span class="pill">an environmental harm nearby</span> and fills all four boxes. Pick a spokesperson to report back.</p>
-    <div class="work">
-      <div class="cell"><span class="lab">The silence</span><p>Who is staying quiet, and what does that silence cost the people you're fighting for?</p></div>
-      <div class="cell g"><span class="lab">The single image</span><p>Design one legal, doable action. What is the one picture the camera carries away, and what do you leave out so the viewer finishes the thought?</p></div>
-      <div class="cell s"><span class="lab">The affinity group</span><p>Name five to fifteen real people who'd pull it off, and one job each owns (permit, photos, safety, press).</p></div>
-      <div class="cell"><span class="lab">The line</span><p>Name the ethical line you would not cross to get attention. Where does the drama go too far?</p></div>
+    <div class="kick gold">What this is called</div>
+    <h2 class="q" style="font-size:clamp(1.5rem,3.2vw,2.3rem)">Before any of it got designed, somebody decided what three things a stranger had to walk away with.</h2>
+    <p class="sub">Those are <span class="hl g">key messages</span>, and the look that carries them is <span class="hl g">style and tone</span>. Both come from the Story Canvas, an eleven-box planning tool published by Digital Storytellers under a Creative Commons license, built on Osterwalder's business model canvas. Two of those boxes are Project&nbsp;2 deliverables.</p>
+    <div class="elem">
+      <div class="row"><div class="n">Key message 1</div><div class="d">This is an epidemic, it is happening now, and the numbers are enormous.</div></div>
+      <div class="row"><div class="n">Key message 2</div><div class="d">Your government knows and is choosing not to act.</div></div>
+      <div class="row"><div class="n">Key message 3</div><div class="d">That choice is killing people, which means a different choice is available today.</div></div>
+      <div class="row"><div class="n">Style and tone</div><div class="d"><b>The look of advertising.</b> Black field, one saturated color, sans-serif capitals, no logo, no caption, no explanation. It borrowed the visual grammar of the glossy ad campaigns running beside it, so a poster about dying moved on the same rails as a poster about jeans.</div></div>
+    </div>
+    <h2 class="q" style="margin-top:22px; font-size:clamp(1.4rem,2.9vw,2.1rem)">Three messages, and the poster prints none of them. So why write them down at all?</h2>
+  </section>
+
+  <!-- 14 · REVEAL + P2 -->
+  <section class="panel">
+    <div class="kick gold">Here's the idea</div>
+    <div class="teach">
+      <p>Because key messages are not copy. They are the <b>test you hold the copy up against.</b> Nobody ever printed "your government is choosing not to act," but every zap, every die-in, every poster had to deliver it, and anything that didn't got cut. Settle the three first and the design decisions stop being arguments about taste.</p>
+      <p style="margin-top:14px">Style and tone does the same job for the look. "The look of advertising" is a decision you can hand to four different people and get four consistent objects back. "Make it powerful" is not.</p>
+      <p style="margin-top:14px"><b>Project&nbsp;2 asks you for both.</b> Three key messages for your own cause, sized so a stranger could repeat them, and a style and tone note with two reference images so somebody else could design to it. Thursday's module walks you through drafting them with the pink triangle as the worked example.</p>
     </div>
   </section>
 
+  <!-- 15 · WORKSHOP -->
+  <section class="panel">
+    <div class="kick gold">Workshop</div>
+    <h2 class="q">Engineer one attention action the camera can't walk away from.</h2>
+    <p class="sub">Each group takes one silence, <span class="pill">a campus issue nobody talks about</span><span class="pill">a local closure or cut</span><span class="pill">a workplace people won't talk about</span><span class="pill">an environmental harm nearby</span> and fills all four boxes. Pick a spokesperson to report back.</p>
+    <div class="model">
+      <span class="lab">Worked example &middot; wage theft at a regional warehouse</span>
+      <b>The silence.</b> Nobody is lying about it. It simply has a story attached already, which is that this is a payroll error and a matter between a worker and HR. Private. Individual. Boring.
+      <b style="display:block;margin-top:12px">The single image.</b> Forty time cards pinned to a clothesline strung across the sidewalk outside the main gate at shift change, each one with the unpaid minutes circled in red. One photograph, and you can count.
+      <b style="display:block;margin-top:12px">The three key messages.</b> It is happening to forty people, not one. The company has the records. Fixing it is a decision somebody could make Friday.
+      <b style="display:block;margin-top:12px">The line not crossed.</b> No worker's name or face appears without them asking for it, because the people in the photograph are the ones who can be fired.
+    </div>
+    <div class="work">
+      <div class="cell"><span class="lab">The silence</span><p>Who is staying quiet, what story is the quiet hiding behind, and what does it cost the people you're fighting for?</p></div>
+      <div class="cell g"><span class="lab">The single image</span><p>Design one legal, doable action. What is the one picture the camera carries away, and what do you leave out so the viewer finishes the thought?</p></div>
+      <div class="cell s"><span class="lab">Your three key messages</span><p>Three things a stranger walks away able to repeat. None of them has to appear in the image.</p></div>
+      <div class="cell"><span class="lab">The line</span><p>What would you not do to get attention? Say where the drama goes too far, and who bears the risk.</p></div>
+    </div>
+  </section>
 
-  <!-- 14 · CLOSE / looking ahead -->
+  <!-- 16 · CLOSE / looking ahead -->
   <section class="panel title">
     <div class="rule"></div>
     <div class="kick">Where we go from here</div>
     <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">Engineer an image they can't look away from.</h1>
-    <div class="idea"><b>Thursday's module:</b> Gran Fury's design up close, then the harder question. If you build an image to grab everyone, can everyone actually receive it? Accessible, inclusive design. Bring the notebook.</div>
+    <div class="idea"><b>Thursday's module:</b> Gran Fury up close, your own three key messages and a style and tone note, then the question underneath all of it. If you build an image to grab everyone, can everyone actually receive it? Accessible, inclusive design. Bring the notebook.</div>
   </section>
 
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
