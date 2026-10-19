@@ -81,142 +81,289 @@
   .lb img{max-width:96vw; max-height:96vh; object-fit:contain; border-radius:8px}
   .lb.on{display:flex}
   @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+  .led{display:grid; grid-template-columns:1fr 1fr; gap:0; margin:10px 0 18px; border:1px solid var(--line); border-radius:14px; overflow:hidden}
+  @media (max-width:860px){ .led{grid-template-columns:1fr} }
+  .led > div{padding:22px 26px; font-size:clamp(1.02rem,1.7vw,1.32rem); line-height:1.5}
+  .led .got{background:rgba(158,198,166,.10); border-right:1px solid var(--line)}
+  .led .not{background:rgba(235,143,153,.10)}
+  .led h4{margin:0 0 12px; font-size:.72em; letter-spacing:.16em; text-transform:uppercase; font-weight:800}
+  .led .got h4{color:var(--accent2)} .led .not h4{color:var(--accent)}
+  .led ul{margin:0; padding-left:1.15em} .led li{margin:.45rem 0}
+  .verdict{background:var(--panel); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:12px; padding:18px 24px; font-size:clamp(1.1rem,1.9vw,1.5rem); line-height:1.45}
+  .verdict b{color:var(--gold)}
+  .three{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:10px 0 18px}
+  @media (max-width:960px){ .three{grid-template-columns:1fr} }
+  .three .c{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 20px; font-size:clamp(.98rem,1.55vw,1.22rem); line-height:1.45}
+  .three .c h5{margin:0 0 8px; font-family:Georgia,serif; font-size:1.3em; color:var(--accent)}
+  .bridge{background:var(--field); border:1px dashed var(--accent2); border-radius:12px; padding:20px 24px; margin:14px 0; font-size:clamp(1.02rem,1.7vw,1.3rem); line-height:1.5}
+  .bridge .step{display:block; color:var(--accent2); font-weight:800; font-size:.78em; letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px}
 </style>
 </head>
 <body>
 
-  <!-- 1 · TITLE -->
+
   <section class="panel title">
-    <div class="rule"></div>
-    <div class="kick">Week 10 · Tuesday</div>
-    <h1>Fast, huge, and fragile.</h1>
-    <div class="idea">A phone can put a giant crowd in the street in <span class="hl">days</span>. Then <span class="hl g">what</span>?</div>
+    <div class="kick">Week 10 &middot; Tuesday</div>
+    <h1>A crowd is not capacity.</h1>
+    <div class="idea">Three movements put enormous numbers in the street. Only one of them could still do anything the following year.</div>
   </section>
 
-  <!-- 2 · DEBATE OPENER -->
-  <section class="panel">
-    <div class="kick gold">Debate this</div>
-    <h2 class="q">"If you can put a million people in the street in a week, you've basically already won."</h2>
-  </section>
-
-  <!-- 3 · GOAL -->
   <section class="panel">
     <div class="kick">Goal of today</div>
     <h2 class="q">What you'll walk out with</h2>
-    <div class="teach"><p>Today you'll wrestle with the gap between a <b>crowd</b> and <b>capacity</b>, meet the trap that sociologist Zeynep Tufekci calls the <b>tactical freeze</b>, and start seeing why a movement can get enormous fast and still stall out. Then you'll spot where your own cause is fast-but-fragile. You'll read the full theory in Thursday's module. Today we dig in together.</p></div>
+    <div class="teach"><p>One argument and three tools. The argument: <b>reach is cheap, capacity is expensive, and only capacity survives the week.</b> The tools are three pieces of Project 2, each one answering a specific way a movement we study came apart: <b>an audience chosen by values</b>, <b>an ask somebody is authorized to accept</b>, and <b>indicators that are not follower counts.</b></p></div>
   </section>
 
-  <!-- 4 · HOOK -->
   <section class="panel">
-    <div class="kick">Feel it</div>
-    <h2 class="q">One post names a hashtag, a time, and a place. By Friday, 800 students are on Sanford Mall.</h2>
-    <p class="sub">Now rewind to 1963, before any of the tech. What would you have had to do to get those same 800 people in one place, and how long would it have taken?</p>
-  </section>
-
-  <!-- 5 · THE CATCH -->
-  <section class="panel">
-    <div class="kick">The crowd is here</div>
-    <p class="sub" style="margin-bottom:16px">A reporter walks up to your hashtag crowd and asks three plain questions.</p>
+    <div class="kick">Coming up</div>
     <div class="board">
-      <ul>
-        <li>Who speaks for this group?</li>
-        <li>What, specifically, do you want?</li>
-        <li>The Chancellor offers you a meeting and half of what you're asking. Deal or no deal, and who decides?</li>
-      </ul>
+      <b>Week 11 sets up Project 2, and Project 2 is due at the end of Week 12.</b> The three tools we build today are three of its required parts, and you will leave with rough versions of all three.
+      <span class="also">Next Tuesday: the attention economy, Jodi Dean and Jenny Odell, which is the argument for why circulation is not change.</span>
     </div>
-    <h2 class="q" style="margin-top:26px">There's no agreed leader, no single demand, no way to decide together. So what happens next?</h2>
   </section>
 
-  <!-- 6 · SCENE: TAHRIR + question -->
   <section class="panel">
+    <div class="kick">Debate this</div>
+    <h2 class="q">&ldquo;If you can put a million people in the street in a week, you have basically already won.&rdquo;</h2>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Who is telling us this</div>
+    <h2 class="q">Zeynep Tufekci grew up in Turkey and lived through a military coup.</h2>
+    <div class="teach"><p>A sociologist who writes about technology and power, and who was physically present at protests she writes about. She's arguing that the tools which make a protest enormous in days are the same reason it can have nothing left a month later. <i>Twitter and Tear Gas</i>, <b>2017</b>, free online at twitterandteargas.org.</p></div>
+    <div class="verdict">Her test, and ours for the next half hour: <b>not how many people showed up, but what the movement could still do the day after they went home.</b></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Case one &middot; what they were up against</div>
+    <h2 class="q">Hosni Mubarak ruled Egypt for thirty years, and he ruled it under emergency law the entire time.</h2>
+    <div class="teach"><p>The Emergency Law had been in force continuously since <b>1981</b>. It let the state detain people indefinitely without charge, try civilians in state security courts, and ban any unauthorized gathering of more than five people. Elections were held and the results were understood in advance; the 2010 parliamentary vote was so openly rigged that the opposition walked out.</p>
+      <p>The instrument was the State Security Investigations Service. Human Rights Watch and Amnesty International documented torture in its custody for two decades: beatings, electric shock, suspension by the limbs. It was not a secret. It was the point. A population that assumes the police can take you and that nothing will follow does not need to be policed very often.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Case one &middot; what broke the fear</div>
+    <div class="teach"><p>On <b>June 6, 2010</b>, two plainclothes policemen beat <b>Khaled Said</b>, a 28-year-old, to death in an Alexandria internet cafe. The ministry said he choked on drugs. His family photographed his body in the morgue, and the photograph, a face with the jaw broken and the teeth gone, went everywhere.</p>
+      <p>That is the specific fear being described: not fear of a law, but fear that the police can kill your son in public and publish a lie about it. What the photograph did was make the lie unusable.</p></div>
+    <div class="board"><b>How the phone part actually worked, because this is the mechanism:</b>
+      <span class="also">A Google marketing executive, Wael Ghonim, set up a Facebook page called <i>We Are All Khaled Said</i>, anonymously. It grew into the hundreds of thousands. When organizers called the first protest, they chose <b>January 25</b> on purpose, because it is National Police Day, a public holiday honouring the police. The page issued it as an event invitation. People could see the number of attendees climbing, which is the part that mattered: each person could see that thousands of others had already said yes, so nobody had to be the first one into the street. Once it started, mobile phones moved crowds between squares faster than the police could redeploy. On January 27 the regime shut off the internet and the mobile networks nationwide, and the protests got bigger, because by then people were going to the square rather than to a hashtag.</span></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Case one &middot; what the phone built</div>
     <div class="scene">
-      <figure>
-        <img src="images/week10-tahrir.png" alt="Over a million people fill Tahrir Square in Cairo during the 2011 Egyptian uprising">
-        <figcaption>Tahrir Square, Cairo, February 9, 2011. A leaderless, internet-coordinated occupation forced out a president in 18 days. Photo: Jonathan Rashad (CC BY 2.0), via Wikimedia Commons.</figcaption>
-      </figure>
-      <div>
-        <div class="kick">Name it</div>
-        <h2 class="q">Being leaderless sounds free and democratic. Why would it be the exact thing that freezes a movement?</h2>
-      </div>
+      <figure><img src="images/week10-tahrir.png" alt="Aerial view at dusk of Tahrir Square in Cairo filled with a tent encampment and an enormous crowd, February 2011">
+        <figcaption>Tahrir Square, Cairo, February 2011.</figcaption></figure>
+      <div class="teach"><p>This is eighteen days in. Look at what is actually in the square: tents in blocks, field clinics, food lines, checkpoints at every entrance, trash crews, a stage. Nobody ran it. No office assigned any of it.</p>
+        <p>So the network could assemble a million people, feed them, protect them, and hold the ground for eighteen days. Ask the room what it never built, and wait.</p></div>
     </div>
   </section>
 
-  <!-- 7 · REVEAL: the tactical freeze -->
+  <section class="panel">
+    <div class="kick">Case one &middot; the ledger</div>
+    <div class="led">
+      <div class="got"><h4>What Tahrir got</h4><ul>
+        <li>Mubarak gone in eighteen days, after thirty years</li>
+        <li>The fear broken in public, on camera, which is not reversible in the people who saw it</li>
+        <li>Proof to every watching country that an Arab autocrat could be removed by his own population</li>
+      </ul></div>
+      <div class="not"><h4>What it did not get</h4><ul>
+        <li>No organization, no membership, no list of who had been in the square</li>
+        <li>Nobody authorized to negotiate, so no offer could be accepted or refused</li>
+        <li>No candidate, no party, no policy programme ready for an election eighteen months later</li>
+        <li>No way to call the million people back a second time for something less dramatic</li>
+      </ul></div>
+    </div>
+    <div class="verdict">A single-demand movement ends the day the demand is met. Tahrir had the demand and no machine.</div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Case one &middot; who had a machine</div>
+    <h2 class="q">The Muslim Brotherhood had been building one since 1928.</h2>
+    <div class="teach"><p>Founded in Egypt in <b>1928</b> by Hassan al-Banna, the Brotherhood is an Islamist movement that spent most of the twentieth century formally banned. Being banned is what made it formidable: it survived by running clinics, schools, and charity networks in neighbourhoods the state neglected, with a disciplined membership structure and people who knew how to turn out a vote. It did not organize Tahrir. It inherited it.</p>
+      <p>Its party won the parliamentary elections, and <b>Mohamed Morsi</b> won the presidency in <b>June 2012</b>. In <b>November 2012</b> he issued a decree placing his own decisions beyond review by any court, and pushed through a constitution written largely by his allies. To a great many Egyptians, including people who had been in the square, that was the same autocracy wearing different clothes.</p>
+      <p>Mass protests followed. On <b>July 3, 2013</b> the army removed him, led by <b>Abdel Fattah el-Sisi</b>. The following month security forces killed several hundred pro-Morsi demonstrators at Rabaa Square in a single day. Sisi has held power since. Human Rights Watch and Amnesty both assess his government as more repressive than Mubarak's, with tens of thousands of political prisoners.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">So the question you are about to ask</div>
+    <h2 class="q">Did the movement fail?</h2>
+    <div class="teach"><p>Measured against its own stated demand, no. It said Mubarak must go and Mubarak went, in eighteen days, which nobody in the world predicted.</p>
+      <p>Measured against what the people in the square were chanting, which was bread, freedom, and social justice, it failed completely, and Egyptians now live under a government more repressive than the one they removed.</p>
+      <p>Both of those are true and the second one is the lesson. <b>They were organized enough to break something and not organized enough to build anything</b>, and the people who were organized to build took the country. That is not an argument against the uprising. It is an argument about what the uprising needed to have ready on day nineteen.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Case two &middot; what it was fighting</div>
+    <h2 class="q">Occupy Wall Street, September 2011. Three years after the crash, nobody had been held responsible.</h2>
+    <div class="teach"><p>The 2008 financial crisis cost Americans something in the order of nine million jobs and four million homes to foreclosure. The banks whose products caused it were rescued with public money. Essentially no senior banking executive went to prison. Meanwhile the share of national income going to the top one per cent had been climbing for thirty years.</p>
+      <p>That is the grievance: not that some people are rich, but that the people who broke it were made whole and the people who lost their houses were not. The Canadian magazine <i>Adbusters</i> put out the original call to occupy Wall Street, and a few hundred people turned up in Zuccotti Park, two blocks from the Stock Exchange, on <b>September 17, 2011</b>.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Case two &middot; how it ran</div>
+    <h2 class="q">Fifty-nine days, and no demands, on purpose.</h2>
+    <div class="teach"><p>Occupy never issued a list of demands. That was a choice rather than an oversight; it produced a list of grievances instead. Decisions were made by consensus in open general assemblies, and it refused to designate leaders as a matter of principle, exactly so that no leader could be arrested, bought, or discredited.</p>
+      <p>The NYPD cleared the park at about one in the morning on <b>November 15, 2011</b>, on Mayor Bloomberg's order, officially over sanitation.</p>
+      <p>It is the purest version of what Tufekci describes, because every protection it built against being killed from outside also removed its ability to act as one body.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Case two &middot; the ledger</div>
+    <div class="led">
+      <div class="got"><h4>What Occupy got</h4><ul>
+        <li>&ldquo;We are the 99%&rdquo;, a phrase that entered permanent political vocabulary</li>
+        <li>Inequality moved from an economist's subject to a front-page one, and stayed there</li>
+        <li>It changed what editors counted as a story</li>
+        <li>A vocabulary that later candidates ran on</li>
+      </ul></div>
+      <div class="not"><h4>What it did not get</h4><ul>
+        <li>No demand, so nothing anyone in power could say yes or no to</li>
+        <li>No leaders by design, so nobody could accept a concession</li>
+        <li>No legislation, no rule change, no institution</li>
+        <li>No organization that outlived the camp by a year</li>
+        <li>No list of who came, so no way to call them back</li>
+      </ul></div>
+    </div>
+    <div class="verdict">Occupy won the narrative but lost everything else.</div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Case two &middot; what winning the narrative looks like</div>
+    <div class="scene">
+      <figure><img src="images/week10-sanders-podium.jpg" alt="Bernie Sanders speaking at a podium at a 2016 campaign rally, his campaign web address on the lectern">
+        <figcaption>Bernie Sanders campaigning for the Democratic presidential nomination. Phoenix, March 15, 2016. Photo: Gage Skidmore (CC BY-SA 2.0), via Wikimedia Commons.</figcaption></figure>
+      <div class="teach"><p>Five years after the park was cleared, <b>Bernie Sanders</b> ran for the Democratic presidential nomination on Occupy's analysis, in Occupy's words: the one per cent, a rigged economy, a system working as designed for the people who own it. He won 23 states and about 43 per cent of the primary vote, on a platform that would have been treated as unelectable in 2010.</p>
+        <p>Nobody from Zuccotti Park organized this. There was no list to inherit and no organization to endorse anybody. The idea travelled on its own and somebody else picked it up.</p>
+        <p>That is a win, and it is worth having. It is also the only kind of win available to a movement that keeps no list.</p></div>
+    </div>
+  </section>
+
   <section class="panel">
     <div class="kick">Here's the idea</div>
     <div class="defs">
-      <div class="def"><h3>The tactical freeze</h3><p>A movement gets enormous fast, then finds it can't switch tactics, authorize anyone to negotiate, or accept a partial win. Zeynep Tufekci, <i>Twitter and Tear Gas</i> (2017).</p></div>
-      <div class="def gold"><h3>Why it happens</h3><p>The crowd scaled up overnight without ever building the muscle to decide together. So it defaults to the one move everyone recognizes. At Tahrir, that meant going back to the square. Tufekci's phrase: "Tahrir or bust."</p></div>
+      <div class="def"><h3>The tactical freeze</h3><p>A movement gets enormous fast, then finds it cannot switch tactics, authorize anybody to negotiate, or accept a partial win. Zeynep Tufekci, <i>Twitter and Tear Gas</i> (2017).</p></div>
+      <div class="def gold"><h3>Why it happens</h3><p>The crowd scaled up overnight without building the muscle to decide together, so it defaults to the one move everybody recognizes. At Tahrir that meant going back to the square; Tufekci's phrase is &ldquo;Tahrir or bust.&rdquo; At Occupy it meant holding the park.</p></div>
     </div>
-    <div class="teach"><p>Leaderless has a real upside. No single person can be arrested, bought off, or discredited to kill the movement. The cost shows up later, when the moment calls for a new move and there is no agreed way to choose one.</p></div>
+    <div class="board">Leaderless has a clear upside: no single person can be arrested, bought off, or discredited to kill the movement, but the bill comes later, when the moment calls for a different move and there is no agreed way to choose one.</div>
   </section>
 
-  <!-- 8 · SCENE: MARCH ON WASHINGTON + question -->
   <section class="panel">
+    <div class="kick">Case three &middot; the counter-example</div>
     <div class="scene">
-      <figure>
-        <img src="images/week10-march.jpg" alt="Civil rights and labor leaders marching arm in arm at the 1963 March on Washington">
-        <figcaption>March on Washington, August 28, 1963. It looked spontaneous. Bayard Rustin built it in about eight weeks: 2,000+ buses, 21 trains, trained marshals, sound, water, 80,000 lunches. U.S. Information Agency / National Archives (public domain).</figcaption>
-      </figure>
-      <div>
-        <div class="kick">A harder case</div>
-        <h2 class="q">A quarter-million people arrived and left in one day without incident. What did that flawless march signal to those in power, and why did it scare them more than the size of the crowd?</h2>
-      </div>
+      <figure><img src="images/week10-march.jpg" alt="Civil rights and labor leaders marching arm in arm at the 1963 March on Washington">
+        <figcaption>March on Washington, August 28, 1963. U.S. Information Agency / National Archives (public domain).</figcaption></figure>
+      <div class="teach"><p><b>Bayard Rustin</b> built the logistics in roughly eight weeks: a quarter of a million people in and out in one day, 2,000-plus buses, 21 special trains, trained marshals, sound, water, 80,000 packed lunches.</p>
+        <p>Rustin had been organizing since the 1940s. He was also Black, gay, and carried a 1953 morals conviction and old Communist Party ties, so the movement kept him off the public stage; A. Philip Randolph held the title of director and Rustin ran it as his deputy.</p>
+        <p>And here is the part that matters most for today. This march had <b>leaders with standing</b>. Martin Luther King Jr. and the other five organizers of the coalition could speak for it, and that same afternoon they walked into the White House and met President Kennedy. There was somebody to invite, and somebody authorized to answer.</p></div>
     </div>
   </section>
 
-  <!-- 9 · REVEAL: the real lesson -->
   <section class="panel">
-    <div class="kick gold">Here's the idea</div>
-    <div class="board">
-      The slow work built the crowd AND built the muscle:
-      <ul>
-        <li>the meetings taught the group how to decide together</li>
-        <li>the roles taught them who could speak for whom</li>
-        <li>the shared labor built trust that survives a bad day</li>
-      </ul>
-      <span class="big">Skip the slow work and you get the crowd without the muscle.</span>
-      <span class="also">A flawless march advertised a hidden machine: "we can coordinate a quarter-million people, so imagine what else we can coordinate." A hashtag can now produce a bigger crowd overnight and prove none of that, which is part of why sheer size means less than it used to.</span>
+    <div class="kick">Case three &middot; and it was not one march</div>
+    <div class="teach"><p>It would be wrong to tell you the Civil Rights Act happened because of a day in August. The march sat inside a long arc of slow, organized work, most of it unglamorous and much of it dangerous:</p></div>
+    <div class="three">
+      <div class="c"><h5>1955&ndash;56</h5><p>Montgomery bus boycott. Thirteen months, carpools, church networks.</p></div>
+      <div class="c"><h5>1960&ndash;61</h5><p>Sit-ins across the South, then the Freedom Rides and the beatings that followed.</p></div>
+      <div class="c"><h5>Spring 1963</h5><p>Birmingham. Children, dogs, fire hoses, and the photographs that moved northern opinion.</p></div>
+    </div>
+    <div class="teach"><p>Then the march in August 1963. Then Kennedy's assassination in November, Johnson spending his own political capital, a 54-day Senate filibuster, and the Civil Rights Act signed in <b>July 1964</b>. Then Selma, and the Voting Rights Act in <b>1965</b>.</p>
+      <p>Years, not weeks. The march was a hinge, not a cause.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Case three &middot; the ledger</div>
+    <div class="led">
+      <div class="got"><h4>What the March had that the others did not</h4><ul>
+        <li><b>Ten published demands</b>: civil rights legislation with no filibuster, every school district desegregated in 1963, federal funds withheld from any programme practising discrimination, a federal jobs programme, a national minimum wage of at least two dollars an hour</li>
+        <li>A coalition of standing organizations with members, officers, and budgets</li>
+        <li>Leaders with standing to negotiate, and a meeting with the President the same day</li>
+        <li>Years of prior organizing that had already taught these groups how to decide together</li>
+      </ul></div>
+      <div class="not"><h4>What that cost</h4><ul>
+        <li>Eight weeks of logistics before one person could gather, on top of eight years of movement-building</li>
+        <li>A coalition that had to agree, so speeches were negotiated and edited</li>
+        <li>An organizer kept out of the photographs to protect the coalition</li>
+      </ul></div>
+    </div>
+    <div class="verdict">The ten demands are the point. A published list is what lets a movement <b>recognize even a partial win and decide whether to accept it or not</b>, and that is exactly what Tahrir and Occupy could not do.</div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The pattern</div>
+    <div class="three">
+      <div class="c"><h5>Tahrir</h5><p>One demand, no machine. Got the demand, lost the country.</p></div>
+      <div class="c"><h5>Occupy</h5><p>No demand by design, no machine. Got the language, lost the rest.</p></div>
+      <div class="c"><h5>The March</h5><p>Ten demands, a coalition, leaders who could say yes. Got the law, slowly.</p></div>
+    </div>
+    <h2 class="q">The slow work built the crowd <i>and</i> the muscle. A phone builds the crowd but has no muscle.</h2>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Project 2, piece one</div>
+    <div class="bridge"><span class="step">The failure it answers</span>Occupy's audience was &ldquo;the 99%&rdquo;, which is everybody, and an audience of everybody gives you no sentence to write.</div>
+    <h2 class="q">Project 2 makes you pick an audience by values, not demographics.</h2>
+    <div class="teach"><p>Chris Rose, a British campaign strategist, set this out in <i>What Makes People Tick</i> in <b>2011</b>, drawing on values research from Cultural Dynamics. Demographics tell you who somebody is. Values tell you what moves them.</p></div>
+    <div class="three">
+      <div class="c"><h5>Settlers</h5><p>Safety, belonging, the familiar. Reached by what protects what they already have.<br><br><b>Worked on them:</b> Mothers Against Drunk Driving. No statistics in the pitch, just somebody's daughter and a drunk driver, and it changed the drinking age in every state.</p></div>
+      <div class="c"><h5>Prospectors</h5><p>Esteem and visible success. Reached by being ahead, or by not being left behind.<br><br><b>Worked on them:</b> the ALS Ice Bucket Challenge. You were called out in public by the person who went before you, and your participation was a video of you doing it.</p></div>
+      <div class="c"><h5>Pioneers</h5><p>Ethics and the big picture. Reached by what is fair.<br><br><b>Worked on them:</b> Extinction Rebellion. No appeal to self-interest at all, and an explicit willingness to be arrested.</p></div>
     </div>
   </section>
 
-  <!-- 10 · BRIDGE QUESTION -->
   <section class="panel">
-    <div class="kick">Bring it home</div>
-    <h2 class="q">We love the speed of the hashtag and we don't want the freeze. So what do we now have to do on purpose that used to happen by accident?</h2>
-    <p class="sub">Think about what an old movement was forced to build before it could gather anyone, and what a phone now lets us skip.</p>
+    <div class="kick">The same ask, three ways</div>
+    <div class="sub">One campaign: the county hospital is closing the only maternity ward in a rural county, and the next one is seventy miles away.</div>
+    <div class="three">
+      <div class="c"><h5>To a Settler</h5><p>Your daughter would have to drive seventy miles in labour, on this road, in February.</p></div>
+      <div class="c"><h5>To a Prospector</h5><p>Every county around us kept theirs. We would be the only one on the map without one.</p></div>
+      <div class="c"><h5>To a Pioneer</h5><p>The poorest county in the district is the one losing its maternity ward. Nobody is closing one in the rich counties.</p></div>
+    </div>
+    <div class="board">Same ward, same closure, same ask. What changed is which of their values the fact touches, and that is the only reason one of these moves a person and the others slide past.</div>
   </section>
 
-  <!-- 11 · WORKSHOP -->
   <section class="panel">
-    <div class="kick gold">Workshop</div>
+    <div class="kick">Project 2, piece two</div>
+    <div class="bridge"><span class="step">The failure it answers</span>Tahrir could not accept half and Occupy could not be offered anything, because in both cases nobody was authorized to say yes.</div>
+    <h2 class="q">Project 2 makes you write an ask somebody could accept, and say who is allowed to accept it.</h2>
+    <div class="pair">
+      <div class="cell"><span class="lab">Not an ask</span><p>Raise awareness about the rural maternal health crisis. Nobody can say yes to this, so nobody has to.</p></div>
+      <div class="cell g"><span class="lab">An ask</span><p>Keep the maternity ward open through the next fiscal year. The hospital board votes on this, so the board can say yes or no.</p></div>
+    </div>
+    <div class="board">And then the part movements skip. The board comes back and offers a <b>staffed birthing centre instead of a full maternity ward</b>: no surgical capacity, so no caesareans, so the high-risk cases still drive seventy miles.
+      <span class="big">Is that a win you take, or an insult you refuse?</span>
+      <span class="also">Somebody has to be allowed to answer that in the room, on the day. Deciding who afterward is the freeze.</span></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Project 2, piece three</div>
+    <div class="bridge"><span class="step">The failure it answers</span>All three movements had numbers. Only one had anything the year after. The numbers measured the crowd; nothing measured the muscle.</div>
+    <h2 class="q">Project 2 makes you set indicators that are not follower counts.</h2>
+    <div class="three">
+      <div class="c"><h5>Language</h5><p>Somebody outside your group starts using your words for the problem.<br><br><b>Here:</b> a county commissioner says &ldquo;maternity desert&rdquo; in a public meeting. You put that phrase into circulation. Now it is being used by the people who decide.</p></div>
+      <div class="c"><h5>Behavior</h5><p>They did a thing that took time, not a thing that took a thumb.<br><br><b>Here:</b> forty people in the room at the hospital board meeting on a Tuesday night, which is worth more than four thousand signatures and is just as countable.</p></div>
+      <div class="c"><h5>Relationships</h5><p>People you connected now act without you.<br><br><b>Here:</b> three of the mothers who spoke at that meeting have their own group chat, and they organized the next thing without asking you.</p></div>
+    </div>
+    <div class="verdict">Score Occupy on these three. <b>Language: the highest mark any movement in this course will get.</b> Behavior and relationships: close to nothing once the park was cleared. That is why one indicator is never enough.</div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Workshop</div>
     <h2 class="q">Build the muscle before the crowd shows up.</h2>
-    <p class="sub">Your group is behind the post that will put those 800 students on Sanford Mall Friday. Pick one cause to organize around, <span class="pill">campus safety</span><span class="pill">housing costs</span><span class="pill">a dining-hall change</span><span class="pill">climate</span><span class="pill">something your group actually cares about</span>, then fill all four boxes so the crowd doesn't freeze. Choose a spokesperson to report back.</p>
+    <div class="sub">Use your own project topic, the cause you have been carrying since Week 1. Fill all four boxes.</div>
     <div class="work">
-      <div class="cell"><span class="lab">The one demand</span><p>What specifically do you want? Something a person in power could actually say yes or no to, not "raise awareness."</p></div>
-      <div class="cell g"><span class="lab">Who decides</span><p>Name the two or three people allowed to speak for the group and the rule they use to say yes to an offer. Be concrete.</p></div>
-      <div class="cell s"><span class="lab">The floor</span><p>What survives Saturday, after the crowd goes home? A sign-up list, a group chat, a standing meeting. How do you reach these people again?</p></div>
-      <div class="cell"><span class="lab">The next move</span><p>The Chancellor offers half. Walk through what your group does in the next 24 hours. Where could you freeze, and how do you avoid it?</p></div>
+      <div class="cell"><span class="lab">The ask</span><p>What specifically do you want? Something a particular person or body could say yes, no, or half to. Say which person or body.</p></div>
+      <div class="cell g"><span class="lab">Who can accept half</span><p>Which two or three people may speak for the group, and what rule do they use to take a partial offer?</p></div>
+      <div class="cell s"><span class="lab">Your audience, by values</span><p>Settler, Prospector, or Pioneer? Then write your ask in the version that fits them.</p></div>
+      <div class="cell"><span class="lab">Your three indicators</span><p>One language, one behavior, one relationship. Each has to be countable by somebody with no special access.</p></div>
     </div>
   </section>
 
-
-  <!-- 13 · CLOSE -->
   <section class="panel title">
-    <div class="rule"></div>
     <div class="kick">Where we go from here</div>
-    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">Reach is cheap. Capacity is expensive. The expensive thing is what keeps a movement from freezing.</h1>
-    <div class="idea"><b>Thursday's module:</b> the real Tufekci, then you build the four pieces of capacity that keep a cause from freezing, audience, goal, an editorial calendar, and a platform voice. That work is the engine of Project 2. Bring the notebook. We'll reconvene at the end to share.</div>
+    <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">Go back to the sentence we opened with.</h1>
+    <div class="idea">A million people in the street in a week. Have you won? Occupy had the crowd, the slogan, and fifty-nine days, and what it kept was a phrase.</div>
   </section>
 
-  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
-
-<script>
-  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
-  document.querySelectorAll('figure img').forEach(function(img){
-    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
-  });
-  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
-</script>
 </body>
 </html>
