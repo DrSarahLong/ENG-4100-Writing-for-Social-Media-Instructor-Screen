@@ -29,6 +29,24 @@
   /* questions */
   .q{font-family:Georgia,"Iowan Old Style",serif; font-size:clamp(2rem,4.6vw,3.5rem); line-height:1.12; margin:0 0 12px; text-wrap:balance}
   .sub{color:var(--soft); font-size:clamp(1.1rem,1.8vw,1.4rem); margin:0 0 24px; line-height:1.45}
+  .work .cell .eg{margin-top:9px; padding-top:9px; border-top:1px dashed var(--line); color:var(--soft); font-size:clamp(.95rem,1.4vw,1.12rem); line-height:1.4}
+  .work .cell .eg em{color:var(--ink); font-style:italic}
+  .trio{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin:8px 0 22px}
+  @media (max-width:900px){ .trio{grid-template-columns:1fr} }
+  .trio>div{background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:14px; padding:18px 20px}
+  .trio h4{margin:0 0 7px; font-family:Georgia,serif; font-size:clamp(1.25rem,2vw,1.6rem); color:var(--accent)}
+  .trio p{margin:0; font-size:clamp(1rem,1.5vw,1.22rem); line-height:1.42; color:var(--ink)}
+  .trio .mini{display:block; margin-top:10px; color:var(--soft); font-size:.88em}
+  .trio.g>div{border-top-color:var(--gold)} .trio.g h4{color:var(--gold)}
+  .canvas{display:grid; grid-template-columns:repeat(4,1fr); gap:11px; margin:10px 0 20px}
+  @media (max-width:900px){ .canvas{grid-template-columns:repeat(2,1fr)} }
+  .canvas>div{background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:12px 13px; font-size:clamp(.95rem,1.3vw,1.08rem); line-height:1.35}
+  .canvas b{display:block; color:var(--soft); font-size:.74rem; letter-spacing:.11em; text-transform:uppercase; margin-bottom:4px}
+  .canvas .last{border-color:var(--gold); background:rgba(232,181,103,.10)}
+  .canvas .last b{color:var(--gold)}
+  .bridge{background:var(--field); border:1px dashed var(--accent); border-radius:14px; padding:18px 22px; margin:10px 0 20px}
+  .bridge .step{display:block; color:var(--accent); font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; margin-bottom:6px}
+  .bridge p{margin:0; font-size:clamp(1.05rem,1.6vw,1.3rem); line-height:1.45}
   .hl{color:var(--accent); font-weight:700} .hl.g{color:var(--gold)}
   /* teach card (explanation) */
   .teach{background:linear-gradient(180deg,#301f24,#271a1e); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:16px; padding:26px 30px; box-shadow:0 16px 44px rgba(0,0,0,.4); font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.5}
@@ -85,87 +103,260 @@
 
   <section class="panel title">
     <div class="rule"></div>
-    <div class="kick">Week 11 · Tuesday</div>
+    <div class="kick">Week 11 &middot; Tuesday</div>
     <h1>Is any of this actually doing anything?</h1>
-    <div class="idea">Posting can feel exactly like <span class="hl">politics</span> while changing <span class="hl g">nothing</span>.</div>
+    <div class="idea">A hundred million people watched. Then we are going to look at what that did and did not buy, and at the three pieces of Project 2 you still need before Thursday.</div>
   </section>
 
   <section class="panel">
-    <div class="kick gold">Debate this</div>
-    <h2 class="q">"Deleting your accounts would do more good than anything you'll ever post."</h2>
+    <div class="kick">Debate this</div>
+    <h2 class="q">&ldquo;If a campaign reaches fifty million people and the thing it asked for never happens, the campaign failed.&rdquo;</h2>
+    <p class="sub">Take a side before we look at any evidence. Hold onto your answer, because the case we study today is going to complicate whichever side you picked.</p>
   </section>
 
   <section class="panel">
     <div class="kick">Goal of today</div>
     <h2 class="q">What you'll walk out with</h2>
-    <div class="teach"><p>Today we name three ideas that change how you read your own feed: <b>communicative capitalism</b>, <b>the attention economy</b>, and Jenny Odell's idea of <b>refusing it in place</b>. You'll test them on campaigns that went huge and changed nothing, and on small quiet ones that changed a lot. Thursday's module goes deeper; today we dig in together.</p></div>
+    <div class="teach"><p>Two halves. First, three ideas that change how you read your own feed: <b>communicative capitalism</b>, <b>the attention economy</b>, and Jenny Odell's <b>refusal in place</b>. Then the three sections of Project 2 we have not covered: <b>the public narrative</b>, <b>how the story travels</b>, and <b>outcomes and indicators</b>. P2 is due Thursday, so the second half is the part you cannot skip.</p></div>
   </section>
 
   <section class="panel">
-    <div class="kick">Feel it</div>
-    <h2 class="q">Name one thing in the real world that changed because of something you posted.</h2>
-    <p class="sub">A person, a dollar, a vote, a policy, a door that opened. Offline and verifiable only. A like on the post does not count.</p>
+    <div class="kick">Start here</div>
+    <h2 class="q">Point to one thing that changed because of something you posted.</h2>
+    <p class="sub">A person who showed up, a dollar that moved, a vote, a policy, a door that opened. Take a minute. Most people come up empty, and that is the correct starting place for today rather than a failing.</p>
   </section>
 
   <section class="panel">
-    <div class="kick">Name it</div>
-    <h2 class="q">What's the difference between a message that wants a reply and a message that just wants to circulate?</h2>
-    <p class="sub">Texting one friend "please water my plant" versus posting "please water my plant" to ten thousand strangers.</p>
+    <div class="kick">The distinction</div>
+    <h2 class="q">What is the difference between a message that needs an answer and a post that needs nothing from anybody?</h2>
+    <div class="teach"><p>Texting your landlord <em>&ldquo;the heat has been out three days, when is someone coming?&rdquo;</em> goes to one person who now has to respond or visibly refuse.</p>
+      <p>Posting <em>&ldquo;landlords in this town are a joke&rdquo;</em> goes to four hundred people, none of whom owe you anything. Both are true. Only one of them lands on somebody.</p></div>
   </section>
 
   <section class="panel">
     <div class="kick">Here's the idea</div>
-    <div class="teach"><p>In 2005, before the iPhone, the political theorist <b>Jodi Dean</b> named this. On networked platforms your political speech stops being a <b>message</b>, something a person receives and has to answer, and becomes a <b>contribution to circulation</b>, one more unit added to the flow, valued only for moving. The count is the product. She calls the result <b>communicative capitalism</b>. The passion that could have become action gets spent as posting instead. It feels like doing something. That feeling is the trap.</p></div>
+    <h2 class="q">Communicative capitalism: when your political speech stops being a message and becomes one more unit of circulation.</h2>
+    <div class="teach"><p>That is the concept, and the political theorist <b>Jodi Dean</b> gave it that label in 2005, before the iPhone. Her argument: on networked platforms, speech is valued for <b>moving</b> rather than for being received and answered. The count is the product. The passion that could have become action gets spent as posting instead, and it feels like doing something. That feeling is the trap.</p>
+      <p>Her phrase for the result is the <b>foreclosure of politics</b>: the loop closes, the energy is used up inside it, and nothing exits into the world.</p></div>
   </section>
 
   <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week11-crowd-phones.jpg" alt="A crowd of people standing close together, each looking down at a smartphone">
-        <figcaption>Photo: Rawpixel Ltd (CC BY 2.0), via Wikimedia Commons.</figcaption>
-      </figure>
-      <div>
-        <div class="kick">What runs out</div>
-        <h2 class="q">Anyone can post forever, for free. Information is basically unlimited. So what is actually scarce?</h2>
-      </div>
+    <div class="kick">What it looks like now</div>
+    <h2 class="q">An AI-generated image, shared about 47 million times in roughly two days, in May 2024.</h2>
+    <div class="teach"><p><b>&ldquo;All Eyes on Rafah.&rdquo;</b> Not a photograph. A rendered image of a vast tent camp with the words spelled out in the tents, spread through an Instagram Story template that made resharing a single tap. It became one of the most-shared images in the platform's history, including by large advocacy accounts.</p>
+      <p>Hold the politics of the conflict aside and look only at the mechanism, because that is what this class studies. <b>The share was the entire act.</b> It asked nothing of the person sharing, it reached nobody who had to answer, and it was engineered for frictionless circulation. Dean described the shape of this in 2005 and the platforms have only gotten better at it.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">What runs out</div>
+    <h2 class="q">Anyone can post forever, for free. Information is effectively unlimited. So what is actually scarce?</h2>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <h2 class="q">&ldquo;A wealth of information creates a poverty of attention.&rdquo;</h2>
+    <div class="teach"><p><b>Herbert Simon</b> wrote that in <b>1971</b>, and he was not writing about social media, which did not exist. He was an economist and cognitive scientist, later a Nobel laureate, and he was advising <em>organizations</em> on how to design their internal information systems now that computers could produce more reports than any human could read.</p>
+      <p>His insight generalizes: once information is abundant, <b>the scarce resource is the attention it consumes.</b> Anything scarce can be priced, bought, and sold. Fifty years later that is the entire business model of the platforms you use.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The consequence</div>
+    <h2 class="q">The free app is not a charity. Your attention is the raw material.</h2>
+    <div class="teach"><p>So there are two different questions here and they get confused constantly.</p>
+      <p><b>The cause's question</b> is how to capture attention. That is the one every campaign asks, and it is the easier one.</p>
+      <p><b>Your question, as the person being harvested,</b> is where your attention goes and who decides. Not whether to pay attention, but what you are willing to spend it on and what you refuse. Those are different skills, and a campaign built by someone who has never asked the second question tends to produce exactly the kind of post that circulates and lands nowhere.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">A way out that is not quitting</div>
+    <h2 class="q">Jenny Odell wrote an entire book called <em>How to Do Nothing</em>, and she is not telling you to log off.</h2>
+    <div class="teach"><p>Her &ldquo;doing nothing&rdquo; is two moves. <b>Refuse</b> to hand your attention to the machine that converts it into circulation. Then <b>re-place</b> it on something specific: a place, a community, the actual people and living things in front of you.</p>
+      <p>For a cause, that is a design instruction rather than a mood. Aim the same energy at things that produce a reply and a relationship that outlasts the scroll. You cannot organize what you never actually noticed.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Causes that made this exact turn</div>
+    <h2 class="q">This is not theoretical. Organizations do it, usually after the viral strategy disappoints them.</h2>
+    <div class="trio">
+      <div><h4>Invisible Children</h4><p>The organization in today's case. After the backlash they moved off viral awareness entirely and into locally-led work in central Africa.<span class="mini">We will get to what that looks like in a few minutes.</span></p></div>
+      <div><h4>Mutual aid networks</h4><p>The pandemic-era spreadsheets and neighborhood pods that stayed. No hashtag, a phone list, and a standing commitment to specific households.<span class="mini">Small, unglamorous, still running in 2026.</span></p></div>
+      <div><h4>Local land and water groups</h4><p>Watershed and riverkeeper organizations near here measure volunteers at a cleanup and samples collected, not impressions.<span class="mini">Attention re-placed on one actual creek.</span></p></div>
     </div>
   </section>
 
   <section class="panel">
-    <div class="kick gold">Here's the idea</div>
-    <div class="board">
-      <b>A wealth of information creates a poverty of attention. (Herbert Simon, 1971)</b>
-      <span class="big">Attention is the scarce resource, so it is the valuable one.</span>
-      The free app is not a charity. You are the product, and your attention is the raw material being sold to advertisers. That reframes the whole problem: what would it mean to take yours back?
+    <div class="kick">The case &middot; who they were first</div>
+    <h2 class="q">Eight years of grinding work came before the famous video. That order matters.</h2>
+    <div class="teach"><p><b>Invisible Children</b> was founded in 2004 by three young filmmakers after a trip to Uganda, to campaign against Joseph Kony and the Lord's Resistance Army, which had abducted children as soldiers for two decades.</p>
+      <p>For eight years they did the slow version: campus screenings, student chapters, lobbying trips, letters. In <b>2010</b> that work helped produce the <b>LRA Disarmament and Northern Uganda Recovery Act</b>. In <b>October 2011</b> President Obama deployed about <b>100 US military advisers</b> to help regional forces pursue the LRA.</p>
+      <p>Note the date. That deployment came <b>five months before</b> the video. The political win was bought by eight years of organizing, which is the argument we spent all of last week on.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The case &middot; the video</div>
+    <h2 class="q">March 5, 2012. About 100 million views in six days, the fastest-spreading video in history to that point.</h2>
+    <div class="teach"><p>The strategy was stated openly: make Kony <em>famous</em>, so that the advisers already deployed would not be quietly withdrawn. By that narrow measure it worked. US support was sustained and later expanded, the State Department added Kony to its war crimes rewards program with a five million dollar bounty, and in 2014 additional special forces and aircraft were committed.</p>
+      <p>So it is not accurate to say the campaign did nothing. <b>It held political attention on a conflict the news had abandoned, and that is an accomplishment worth stating.</b></p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The case &middot; what it did not get</div>
+    <h2 class="q">Kony was never captured. He is still at large.</h2>
+    <div class="teach"><p>The LRA was degraded to roughly a hundred fighters, and in 2017 the US and Uganda ended the pursuit without him. The campaign's own stated goal, the thing on every poster, did not happen.</p>
+      <p>And the backlash was immediate, from serious people, and some of it was earned:</p>
+      <p>Kony had left Uganda around 2006, so the film's picture of the conflict was years out of date. Critics called it a textbook <b>white savior</b> narrative, a phrase Teju Cole put into wide use that same month, in which African agency disappears and American teenagers become the protagonists. The organization's finances drew scrutiny over how little reached direct services. A public screening in Lira, in northern Uganda, reportedly drew anger from survivors who felt the film was about somebody else's catharsis.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The case &middot; what they do now</div>
+    <h2 class="q">They stopped making viral campaigns, and that was a decision, not a collapse.</h2>
+    <div class="teach"><p>Invisible Children still exists. The work looks nothing like 2012. They run <b>locally-led peacebuilding and community protection</b> in central Africa: early-warning radio networks that let remote villages warn each other, defection messaging aimed at fighters still in the bush, and programs run by people from the region rather than filmed for an American audience.</p>
+      <p>Read that as a strategic answer to the criticism. They concluded that the thing they were good at, <b>capturing enormous attention</b>, was not the thing that protected anybody, and they rebuilt around what did.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick gold">Watch</div>
+    <h2 class="q">KONY 2012, Invisible Children. About 30 minutes.</h2>
+    <p class="sub">Watch it as a rhetorician. Who is the protagonist, who speaks, who is spoken about, and what exactly are you being asked to do at the end? Notice how the ask is designed, and how easy it is.</p>
+    <div class="board"><a href="https://www.youtube.com/watch?v=Y4MnpzG5Sqc" target="_blank" rel="noopener">youtube.com/watch?v=Y4MnpzG5Sqc</a>
+      <span class="also">Two questions to hold while it plays: what does this film ask of you, and what would it have had to ask to get something that mattered?</span></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">After the film</div>
+    <h2 class="q">Go back to the debate you took a side on at the start. Does it still hold?</h2>
+    <p class="sub">Fifty million people, the stated goal unmet, and yet: sustained US policy, a bounty, a degraded militia, and an organization that learned enough to rebuild itself. Decide what you want to call that, and say why.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Now the rest of Project 2</div>
+    <h2 class="q">Three pieces of the strategy document we have not covered yet. They need all three by Thursday.</h2>
+    <div class="teach"><p>Everything so far today was about why reach is not evidence, which matters for the last section of their document. But three parts of the strategy are still untaught, and together they are worth ten of the twenty-five points: <b>the public narrative</b> (section 4), <b>how the story travels</b> (section 6), and <b>outcomes and indicators</b> (section 7), plus the Story Canvas underneath them. We do all three now. Thursday's module walks them again with sorting exercises they can work at their own pace.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Who</div>
+    <h2 class="q">He left Harvard in 1964 to register voters in Mississippi and did not come back to finish his degree for twenty-eight years.</h2>
+    <div class="teach"><p><b>Marshall Ganz</b> spent sixteen of those years organizing farmworkers alongside Cesar Chavez and Dolores Huerta. He eventually returned, finished, and now teaches organizing at the Harvard Kennedy School. The structure he built is called <b>public narrative</b>.</p>
+      <p>The origin matters for this assignment. He developed it to train farmworkers, many with little formal schooling and no interest in being writers, to speak publicly and persuasively. It is a structure precisely because it had to be teachable to someone who had never done it. Which is the same reason their strategy document has to be something a volunteer could pick up and tell.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The structure</div>
+    <h2 class="q">Three parts, in order, each doing a job the others cannot.</h2>
+    <div class="trio">
+      <div><h4>Story of Self</h4><p>Why this claims <em>me</em>. One specific experience, first person, told as scene.<span class="mini">Alone: a personal essay. Moving, and nobody knows what to do with it.</span></p></div>
+      <div><h4>Story of Us</h4><p>Why it claims <em>the people I am talking to</em>. The shared condition, handing the audience their own memory back.<span class="mini">Alone: a press release. True, and nobody is in it.</span></p></div>
+      <div><h4>Story of Now</h4><p>Why it has to be answered <em>this week</em>. A deadline that exists on its own, and the choice facing the audience.<span class="mini">Alone: a demand from a stranger.</span></p></div>
     </div>
+    <p class="sub">They hand off. Self earns the right to say Us; Us earns the right to ask for Now.</p>
   </section>
 
   <section class="panel">
-    <div class="kick">The case &middot; Kony 2012</div>
-    <p class="sub" style="margin-bottom:18px">In March 2012 an advocacy group released a 30-minute film urging the world to help capture a warlord. It hit about 100 million views in six days, the fastest-spreading video to that point in history. Then almost nothing followed. He was never captured. The real-world action fizzled. The organization fell apart within a year.</p>
-    <h2 class="q">More reach than your cause will ever get, and it produced less than sixty phone calls would. What was it missing?</h2>
+    <div class="kick">Ask the room</div>
+    <h2 class="q">Each of the three parts carries a challenge, a choice, and an outcome. One of those is missing from almost every first draft. Which one, and what does its absence do to the story?</h2>
   </section>
 
   <section class="panel">
-    <div class="kick">A way out?</div>
-    <h2 class="q">If the answer isn't "log off forever and stop caring," what could refusing the attention economy actually look like?</h2>
-    <p class="sub">Jenny Odell wrote a whole book called <i>How to Do Nothing</i>. She is not telling you to quit.</p>
+    <div class="kick">The answer</div>
+    <h2 class="q">The choice is the one that goes missing, and without it they have written a report.</h2>
+    <div class="teach"><p>A challenge and an outcome with nothing between them is just sequence: this happened, then that happened. The choice is the only place values become visible, because a choice shows what someone was willing to do when they did not have to do anything.</p>
+      <p>The test to give them: <b>can a reader point at the sentence where somebody decided something?</b> If not, the part is unfinished, however well written.</p></div>
   </section>
 
   <section class="panel">
-    <div class="kick gold">Here's the idea</div>
-    <div class="teach gold"><p><b>Jenny Odell's</b> "doing nothing" is two moves at once. Refuse to hand your attention to the machine that turns it into circulation. Then re-place that attention on something concrete: a place, a community, the actual people and living things in front of you. Refusal in place. Where you put your attention is where your life goes, and reclaimed attention is the ground everything else stands on. You cannot organize what you can't even notice. For a cause, that means aiming the same energy at things that produce a reply and a relationship that lasts past the scroll.</p></div>
+    <div class="kick">The case &middot; the model they can read</div>
+    <h2 class="q">Watch how small a usable choice is.</h2>
+    <div class="defs">
+      <div class="def"><h3>The challenge</h3><p>&ldquo;In tenth grade, I got my period during second period. I knew what had happened before I even stood up. I checked my backpack. Nothing. I asked the girl beside me. She didn't have anything either.&rdquo;</p></div>
+      <div class="def"><h3>The choice</h3><p>&ldquo;A few weeks later, I asked if I could help keep that drawer stocked. I brought in a box of pads. It was a small decision, but it changed what I noticed about school.&rdquo;</p></div>
+    </div>
+    <p class="sub">From &ldquo;Ready from Bell to Bell,&rdquo; the completed example now linked on the Major Projects page. The challenge is one morning. The choice is a box of pads. The outcome is not a victory but a shift in attention: she starts asking why a predictable need depends on knowing which teacher has a drawer. Nobody needs a dramatic life to write this. They need one moment where they decided something.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Section 6</div>
+    <h2 class="q">How the story travels is not a posting schedule. Every piece has a job.</h2>
+    <div class="trio g">
+      <div><h4>Piece one</h4><p>Introduces the frame. A thirty-second reel: pencils in a cup, paper towels, soap, an empty shelf, then that shelf stocked.<span class="mini">Instagram, because the frame is visual.</span></p></div>
+      <div><h4>Piece two</h4><p>Explains the opportunity in plain language. The new state law, and the board's official contact information.<span class="mini">Facebook, because that is where the parents and community groups are.</span></p></div>
+      <div><h4>Piece three</h4><p>Supplies the deadline and the action. &ldquo;One email. Five minutes. Friday.&rdquo;<span class="mini">Plus direct messages to PTA members and teachers, which turn agreement into a relationship.</span></p></div>
+    </div>
+    <div class="board">Platforms get assigned by what they actually do, not by what the student already uses. Sequence matters only because the jobs are different.
+      <span class="also">The test to hand them: point at any piece in your campaign and say what job it does that no other piece does. Two pieces with the same job means you have one piece and a duplicate. A piece with no job is there because posting felt like progress, which is what this entire class period has been about.</span></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Section 7</div>
+    <h2 class="q">Two words they use interchangeably, and the rubric does not.</h2>
+    <div class="defs">
+      <div class="def"><h3>Outcome</h3><p>The change you want in the world, stated so somebody could tell whether it arrived.<br><br><span class="hl g">The district publishes a supply-access and restocking plan.</span></p></div>
+      <div class="def"><h3>Indicator</h3><p>Evidence you could observe that tells you whether the outcome is getting closer.<br><br><span class="hl g">Thirty-five confirmed emails by October 23.</span></p></div>
+    </div>
+    <p class="sub">The outcome is the point. The indicator is how you find out early whether you are getting there.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Ask the room</div>
+    <h2 class="q">A campaign reel reaches 41,000 accounts and brings in 1,200 new followers. Outcome, indicator, or neither?</h2>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The answer</div>
+    <h2 class="q">Neither, and they already know why. They spent the first half of today on it.</h2>
+    <div class="teach"><p>Reach measures circulation. If circulation can rise while nothing in the world changes, which is Dean's claim exactly, then a number made of circulation cannot be evidence that something changed. Report it if you like. It cannot be what the strategy rests on.</p>
+      <p>So the indicators have to be made of something else. The model uses three kinds, and the top rubric band asks for all three.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The three kinds</div>
+    <h2 class="q">Language, behavior, relationships.</h2>
+    <div class="trio">
+      <div><h4>Language</h4><p>Somebody else starts using your words. The model codes how the issue gets described beforehand (an emergency, a donation, a student problem, an expected part of school operations), then looks for the readiness frame in comparable public texts afterward.<span class="mini">Dated screenshots, so you are not remembering the language you hoped to hear.</span></p></div>
+      <div><h4>Behavior</h4><p>Somebody does something that costs them a little. Thirty-five confirmed emails by a date; three people willing to speak at public comment.<span class="mini">Showing up is a much higher bar than agreeing, which is why this one resists faking.</span></p></div>
+      <div><h4>Relationships</h4><p>People who did not know each other are connected without you in the middle. Four people who met through the campaign now text each other directly.<span class="mini">This is the one that predicts whether anything survives after they graduate.</span></p></div>
+    </div>
+    <div class="board">An indicator with no method behind it is a hope.
+      <span class="big">Collect the &ldquo;before&rdquo; first.</span>
+      <span class="also">The top band asks for a stated way to collect each one. Tell them today, because a baseline they do not capture this week cannot be captured later: gather the before-texts now, keep dated screenshots, count confirmed actions rather than claimed ones, and let people self-report voluntarily.</span></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The canvas</div>
+    <h2 class="q">Eleven boxes, one page, handed in alongside the document.</h2>
+    <div class="canvas">
+      <div><b>1 Purpose</b>Why tell this story, how things are now, what change you want</div>
+      <div><b>2 Audience</b>Each segment, profiled by what they value</div>
+      <div><b>3 Story</b>How it starts, how it ends, what happens between</div>
+      <div><b>4 People &amp; Places</b>Who is in it, where it happens</div>
+      <div><b>5 Style &amp; Tone</b>How it sounds</div>
+      <div><b>6 Key Messages</b>The three things they should remember</div>
+      <div><b>7 Call To Action</b>The one thing to do, completable this week</div>
+      <div><b>8 Timeline</b>When each piece lands</div>
+      <div class="last"><b>9 Campaign</b>The touchpoints. Section 6 in box form</div>
+      <div class="last"><b>10 Outcomes</b>The change in the world</div>
+      <div class="last"><b>11 Indicators</b>How you would know. All three kinds</div>
+    </div>
+    <p class="sub">Free download, built by Digital Storytellers on Osterwalder's Business Model Canvas. The three in gold get filled in thinly, and they are the ones carrying their own five-point line on the rubric.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick gold">Before Thursday</div>
+    <h2 class="q">What has to exist by Sunday night.</h2>
+    <div class="bridge"><span class="step">The three we did today</span>
+      <p>A Story of Self with a choice sentence somebody could point at. A campaign where every piece has a job no other piece does. One outcome, three indicators, and a sentence each on how they will be collected.</p></div>
+    <p class="sub">Thursday's module walks all three again with sorting exercises and the model to check against, and Thursday is the finalize session. None of that works if they arrive with nothing. Say it directly: each piece we covered today is its own line on the rubric, and the collection baseline is the one thing that cannot be invented afterward.</p>
   </section>
 
   <section class="panel">
     <div class="kick gold">Workshop</div>
     <h2 class="q">Take one piece of pure circulation and wire it to action.</h2>
-    <p class="sub">Each group picks one move, <span class="pill">a viral hashtag</span><span class="pill">an online petition</span><span class="pill">a boosted video</span><span class="pill">a black-square solidarity post</span><span class="pill">a shared infographic</span> and fills all four boxes. Pick a spokesperson to report back.</p>
+    <p class="sub">Each group picks one move, <span class="pill">a viral hashtag</span><span class="pill">an online petition</span><span class="pill">a boosted video</span><span class="pill">a black-square solidarity post</span><span class="pill">a shared infographic</span> and fills all four boxes. Pick someone to report back.</p>
     <div class="work">
-      <div class="cell"><span class="lab">What it circulates</span><p>What does this move spread well? What kind of reach can it get?</p></div>
-      <div class="cell g"><span class="lab">Where it dead-ends</span><p>Who has to receive it or answer it right now? If the answer is nobody, that is the dead end.</p></div>
-      <div class="cell s"><span class="lab">Who could answer</span><p>Name one actual person or office that could be made to respond. Where is the power this should land on?</p></div>
-      <div class="cell"><span class="lab">Wire it to action</span><p>The one ask, channel, or captured contact that turns the reach into a reply. Redesign the move so something catches it.</p></div>
+      <div class="cell"><span class="lab">What it circulates</span><p>What does this move spread well, and what reach can it realistically get?</p><p class="eg">e.g. a viral hashtag spreads a <em>feeling</em> and the sense that many people agree. It can reach millions of strangers and almost nobody with authority over the thing.</p></div>
+      <div class="cell g"><span class="lab">Where it dead-ends</span><p>Who has to receive it or answer it right now? If the answer is nobody, that is the dead end.</p><p class="eg">e.g. a petition with 40,000 signatures delivered to a company under no obligation to read it. Nothing compels a response, so no response is the correct prediction.</p></div>
+      <div class="cell s"><span class="lab">Who could answer</span><p>Point to one actual person or office with the power to say yes. Where should this land?</p><p class="eg">e.g. not &ldquo;the university&rdquo; but the Director of Dining Services, who holds the contract. Not &ldquo;the town&rdquo; but the five people on the planning board who vote in November.</p></div>
+      <div class="cell"><span class="lab">Wire it to action</span><p>The one ask, channel, or captured contact that converts reach into a reply.</p><p class="eg">e.g. the infographic now ends with one line, &ldquo;Email these five board members before Friday,&rdquo; the addresses sit in the caption, and a sign-up link turns the people who cared into a list you can reach again.</p></div>
     </div>
   </section>
 
@@ -173,7 +364,7 @@
     <div class="rule"></div>
     <div class="kick">Where we go from here</div>
     <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">Stop feeding the flow. Start building the thing.</h1>
-    <div class="idea">Before "how do I get more reach," ask "if this circulates perfectly, does anything change, and who has to answer for it?" <b>Thursday's module:</b> Dean and Odell themselves, a sorting tool on tricky cases, and you finalize Project 2. P2 is due Thursday, in the module.</div>
+    <div class="idea">Before "how do I get more reach," ask "if this circulates perfectly, does anything change, and who has to answer for it?" <b>Thursday's module:</b> Dean and Odell in their own words, a sorting tool on the tricky cases, the public narrative and the indicators walked again with exercises, and the finalize session. P2 is due Thursday, in the module.</div>
   </section>
 
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
