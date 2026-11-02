@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Week 12 · The Most Powerful Medium Is a Person You Trust</title>
+<title>Week 12 · Idea Studio</title>
 <style>
   :root{
     --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
@@ -62,8 +62,8 @@
   .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
   /* numbered prompts */
   .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
-  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
-  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px 18px calc(22px + 2.8em); margin:14px 0; position:relative}
+  .prompts .p::before{counter-increment:p; content:counter(p); position:absolute; left:22px; top:16px; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
   /* workshop grid */
   .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
   @media (max-width:760px){ .work{grid-template-columns:1fr} }
@@ -85,131 +85,154 @@
 
   <section class="panel title">
     <div class="rule"></div>
-    <div class="kick">Week 12 · Tuesday</div>
-    <h1>The most powerful medium is a person you trust.</h1>
-    <div class="idea">A movement with no money and no mass media won a national boycott, one <span class="hl">kitchen table</span> at a time.</div>
-  </section>
-
-  <section class="panel">
-    <div class="kick gold">Debate this</div>
-    <h2 class="q">"Knocking on one stranger's door is a waste of time when a single post reaches a million."</h2>
+    <div class="kick">Week 12 &middot; Tuesday</div>
+    <h1>The best idea is never the first idea.</h1>
+    <div class="idea">Today is a working session. We are going to generate more campaign ideas than you can use, so you can pick from the <span class="hl">best among them</span>.</div>
   </section>
 
   <section class="panel">
     <div class="kick">Goal of today</div>
     <h2 class="q">What you'll walk out with</h2>
-    <div class="teach"><p>Today we sit with three ideas that change how you build any campaign: <b>relational organizing</b>, the <b>boycott as a relational medium</b>, and the subtler one, that you <b>match the medium to the job</b> instead of assuming reach always wins. We'll trace a movement that had no ads and no press and still won, then find where that model breaks. Thursday's module goes deeper on the same cases; today we dig in together.</p></div>
+    <div class="teach"><p>Three candidate artifacts for Project 3.</p></div>
   </section>
 
   <section class="panel">
-    <div class="kick">Feel It</div>
-    <h2 class="q">The last time you changed what you bought or ate, who actually moved you?</h2>
-    <p class="sub">An ad? A post? An influencer you've never met? Or a specific person you know, who said "you have to try this," or "I stopped buying that, and here's why"? Say which one actually did it.</p>
-  </section>
-
-  <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week12-pickets.jpg" alt="Grape boycott picketers on a sidewalk with strike signs">
-        <figcaption>Grape boycott pickets, United Farm Workers, 1960s (Wikimedia Commons, public domain).</figcaption>
-      </figure>
-      <div>
-        <div class="kick">Put yourself in it</div>
-        <h2 class="q">You can't buy ads. The press ignores you. What is the one lever you DO have?</h2>
-        <p class="sub">1965, Delano, California. Filipino and Mexican-American farmworkers walk off the grape fields. Dirt poor, most can't vote, no newspaper on their side.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week12-huerta.jpg" alt="Dolores Huerta holding a Huelga (strike) sign, 1965">
-        <figcaption>Dolores Huerta with a Huelga (strike) sign, El Malcriado No. 21, September 1965 (Wikimedia Commons, public domain).</figcaption>
-      </figure>
-      <div>
-        <div class="kick">The organizer</div>
-        <h2 class="q">If a shopper in New York will never meet that farmworker again, why would she change what she buys?</h2>
-        <p class="sub">Dolores Huerta co-founded the union and ran the New York City grape boycott out of a cramped office with volunteers and no budget. Before we name how she did it, take a guess.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="panel">
-    <div class="kick">Here's the idea</div>
+    <div class="kick gold">Looking ahead</div>
+    <h2 class="q">Due, and coming up</h2>
     <div class="defs">
-      <div class="def"><h3>Boycott</h3><p>Enough ordinary people stop buying a product that the seller feels it where it counts: sales. Millions quietly skip the grapes.</p></div>
-      <div class="def gold"><h3>Picket line</h3><p>A visible, human presence outside the store. Not a poster. An actual person you have to walk past and answer to.</p></div>
-      <div class="def"><h3>House meeting</h3><p>Persuasion in someone's kitchen, the oldest organizing tool there is. A few neighbors, one direct ask, then each hosts the next.</p></div>
-      <div class="def gold"><h3>Secondary boycott</h3><p>You don't skip the product only. You pressure the store that stocks it, so the pressure climbs the supply chain.</p></div>
-    </div>
-    <div class="teach"><p>Huerta built it the way you build a boycott: house meeting by house meeting, and farmworkers themselves sent to the cities to stand on the sidewalk and ask shoppers, one at a time. Her line became the movement's heartbeat: <b>Si se puede.</b> Yes, it can be done.</p></div>
-  </section>
-
-  <section class="panel">
-    <div class="kick gold">The boycott as a medium</div>
-    <div class="board">
-      <b>Watch how it actually spreads:</b>
-      <span class="big">farmworker &rarr; shopper (face to face at the store) &rarr; shopper &rarr; her neighbor &rarr; the neighbor's church &rarr; &hellip;</span>
-      It moves the way trust moves: one person hands it to the next. A billboard buys eyeballs. A boycott borrows relationships. The moment a shopper agrees, she becomes the next messenger.
-      <span class="also">By 1970 the growers signed. Grapes rotted on the vine because millions of people no one had ever met were quietly not buying them.</span>
+      <div class="def gold"><h3>Project 3 starts now</h3><p>Creative Campaign plus &AElig;ffect Report. 30% of the course. Three to five finished artifacts, <b>at least one of which cannot be distributed on social media</b>, plus a report that walks seven elements.</p></div>
+      <div class="def"><h3>Due Week 16</h3><p>Five minutes each, in Weeks 15 and 16. Which means the artifact has to be in the world before then, so the next two weeks are production.</p></div>
     </div>
   </section>
 
   <section class="panel">
-    <div class="kick">Tell it straight</div>
-    <h2 class="q">You've heard one name your whole life: Cesar Chavez. So what does a flawed leader teach us about relational power?</h2>
-    <p class="sub">He was central and he was gifted. Later in life he ran the union in an increasingly controlling, paranoid way, purged loyal staff, and imposed a cult-like group-confrontation ritual (borrowed from a group called Synanon) on members. Historians Miriam Pawel and Frank Bardacke document it. Same habit of following the evidence we used for the Robert Moses bridges in Week 2.</p>
+    <div class="kick gold">Pens out</div>
+    <h2 class="q">Ninety seconds. List every use you can think of for a traffic cone.</h2>
+    <p class="sub">Write fast, no crossing out, no judging. The object is deliberately dumb. Then we go around and each read out <b>the first one you wrote</b>, just the first.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick gold">One rule changes</div>
+    <h2 class="q">Same ninety seconds, same traffic cone, and now it cannot work as a cone.</h2>
+    <p class="sub">It can be cut up, melted down, filled with soil, stacked a thousand deep, buried, worn, or sawn in half. It just cannot stand on a road and mean <i>go around</i>. Go. Then read out <b>your best one</b> from this round.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick gold">Compare your two lists</div>
+    <h2 class="q">Round two is stranger than round one. Why?</h2>
+    <p class="sub">Nothing about you changed in three minutes. Something about the task did. What was it?</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Where that comes from</div>
+    <h2 class="q">Two reasons, and neither of them is talent.</h2>
+    <div class="teach"><p><b>Your first answers were everybody's answers.</b> Round one produced the same handful around the room: mark a hazard, save a parking space, use it as a megaphone. Those arrive first because they are the uses you have already seen, and what you have already seen is, by definition, what nobody notices.</p>
+    <p><b>Then a constraint did the work that inspiration gets credit for.</b> &ldquo;It cannot be a cone&rdquo; blocked the default and pushed you somewhere you would not have gone on purpose.</p>
+    <p>You just ran a version of <b>Alternative Uses</b>, built by the psychologist <b>J.P. Guilford</b>, who in his 1950 address to the American Psychological Association argued that the field had almost entirely ignored creativity, and who then spent years building the first tests for it. He gave us the term <b>divergent thinking</b>: producing many possible answers instead of converging on one correct one.</p>
+    <p>And in 1957 <b>Christensen, Guilford, and Wilson</b> reported something in these tasks that has kept replicating since. The <b>later</b> responses in a person's list are reliably the more original ones. Idea one is a clich&eacute;. Idea twelve is the one nobody else in the room wrote. The only thing separating them is that you kept going.</p>
+    <p>So: <b>persistence, plus a constraint that blocks your default.</b> That is the method you are about to use on your own campaign.</p></div>
+  </section>
+
+    <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <h2 class="q">Ask any room for a campaign idea and you get the same five.</h2>
+    <div class="teach"><p>A poster. An Instagram page. A tabling event in the student union. A canned food drive. A flyer on every door in the building.</p>
+    <p>Those five are not bad ideas. They are the <b>available</b> ideas, which is a different thing. They arrive first because they are what you have already seen, and the fact that you have already seen them is also why nobody notices them now.</p>
+    <p>Same phenomenon as the traffic cone, on the thing you actually have to build. So we are going to do the same two moves to your campaign: keep going past the obvious ones, and add a constraint that blocks the default.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The constraint</div>
+    <h2 class="q">At least one of your artifacts cannot be distributable on social media.</h2>
+    <div class="work">
+      <div class="cell"><div class="lab">The artifact</div><p>Something a person receives by being somewhere, holding something, or doing something alongside other people. A zine handed over. Chalk marks down a sidewalk showing how far it actually is to the nearest grocery store. A booth with two chairs in it. A stack of cards carried into a room.</p></div>
+      <div class="cell g"><div class="lab">Documentation</div><p>The photograph of that, which you will take and which you will need. Photograph everything, post what you want to post, and bring the object itself to your presentation if it is something you can carry. The artifact and the record of it are two different deliverables.</p></div>
+    </div>
+    <p class="sub">You can still use social channels. You just have to defend the choice instead of defaulting to it.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The method</div>
+    <h2 class="q">Ten tactics in ten minutes. The first seven have to be impossible.</h2>
+    <div class="teach"><p>This comes from the Center for Artistic Activism, founded in 2009 by Stephen Duncombe, a scholar of political culture, and Steve Lambert, an artist, who have run this exercise with thousands of organizers. Their instruction, word for word, is <b>quantity over quality</b>.</p>
+    <p>An impossible tactic is one you have no money for, nobody to help you do, and not enough time to pull off. It can break the laws of physics, it can cost a billion dollars, and it can require ten thousand sandwiches or a singing dragon.</p></div>
+    <div class="work">
+      <div class="cell"><div class="lab">Still a tactic</div><p>&ldquo;A choir follows the dean to every meeting for a month.&rdquo; Somebody does something. Impossible, and an action.</p></div>
+      <div class="cell g"><div class="lab">Not a tactic</div><p>&ldquo;Everyone suddenly cares.&rdquo; Nobody does anything. It is not impossible to get people to care, but more importantly, it is not an action.</p></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; ten minutes on the clock</div>
+    <h2 class="q">Write ten. Seven impossible, then three possible.</h2>
+    <div class="prompts">
+      <div class="p">One idea per minute. Keep writing even when it is bad, especially when it is bad.</div>
+      <div class="p">Numbers one through seven are <b>impossible</b>. If one of them seems achievable, it is not impossible enough.</div>
+      <div class="p">Numbers eight through ten are possible, and you write them last.</div>
+      <div class="p">No crossing out. You are not editing today, you are generating.</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Share</div>
+    <h2 class="q">Read out your strangest impossible one. Just the one.</h2>
   </section>
 
   <section class="panel">
     <div class="kick">Here's the idea</div>
-    <div class="teach"><p>The boycott worked because of <b>thousands</b> of trusted messengers, Huerta and every farmworker at every store, not one heroic man. Relational power is distributed by its nature. Concentrate it in one unaccountable person and the very same trust can be used to harm the people inside the movement. Admire the method. Don't sanctify the man.</p></div>
-  </section>
-
-  <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week12-immokalee.jpg" alt="Coalition of Immokalee Workers farmworkers marching in protest">
-        <figcaption>Coalition of Immokalee Workers march, 2013 (Wikimedia Commons, CC BY-SA 3.0).</figcaption>
-      </figure>
-      <div>
-        <div class="kick">Not a 1960s story</div>
-        <h2 class="q">They pressured Taco Bell, the buyer, not the farm. Why go after the brand you eat at instead of the grower?</h2>
-        <p class="sub">Immokalee, Florida. In 2001 the Coalition of Immokalee Workers launched a national boycott of Taco Bell. Same playbook as the grapes: students organizing their own campuses, churches their own congregations, each person asked by someone they trust. Won in 2005: a penny-per-pound raise and enforceable protections in the fields.</p>
-      </div>
+    <h2 class="q">An impossible idea usually has a possible one hiding inside it.</h2>
+    <p class="sub">Start from this impossible one: <b>every unlit crosswalk on campus gets its own lighthouse.</b></p>
+    <div class="work">
+      <div class="cell"><div class="lab">Scale it up</div><p>Twice the budget, every day for a month. A lighthouse at every crossing in the county, burning all night. Pushed that far it breaks, and what is left standing is the thing underneath it: the danger is invisible until somebody lights it.</p></div>
+      <div class="cell g"><div class="lab">Scale it down</div><p>The smallest version that still does the thing. One person at that crosswalk at dusk with a camping lantern, every Tuesday, for three weeks.</p></div>
+      <div class="cell s"><div class="lab">Steal the mechanism</div><p>Throw out the lighthouse and keep how it worked. The mechanism was making an invisible danger visible after dark, which a roll of reflective tape and forty chalk outlines of near-misses also does, for nine dollars.</p></div>
     </div>
   </section>
 
   <section class="panel">
-    <div class="kick">The catch</div>
-    <h2 class="q">Does a trusted person ALWAYS beat a broadcast? When would you actually be better off with the billboard?</h2>
-    <p class="sub">Nobody in your county has ever heard your cause exists. You have $300 and two weeks. One person can't shake ten thousand hands. Push on it: name a job where reach wins.</p>
+    <div class="kick">Worked example</div>
+    <h2 class="q">One impossible idea, run through all three moves.</h2>
+    <div class="teach"><p><b>Impossible:</b> a forty-foot sculpture on Sanford Mall made entirely of menstrual products.</p>
+    <p><b>Scale up:</b> one in front of every school in the county. Still impossible, and it tells you the idea is about scale.</p>
+    <p><b>Scale down:</b> two hundred small cards, each with one person's handwritten line, hung at eye height across a walkway so you have to walk through them.</p>
+    <p><b>Steal the mechanism:</b> the spectacle was never the point. The point was <b>size assembled out of individual pieces</b>, which is the quilt move from Week 8. That mechanism costs about fourteen dollars and three weeks.</p></div>
   </section>
 
   <section class="panel">
-    <div class="kick gold">Here's the idea</div>
-    <div class="teach gold"><p>The lesson is not "relational always wins." A trusted person is strongest <b>per contact</b> and terrible at scale. Match the medium to the job. <b>Broadcast</b> is right for pure first contact, making the name exist for strangers who've never heard of you. <b>Relational</b> is right for turning a supporter into a person standing in the parking lot on Saturday. Most campaigns run both: broadcast to be found, relational to be believed and acted on.</p></div>
+    <div class="kick gold">Workshop &middot; fifteen minutes</div>
+    <h2 class="q">Run the three moves on your weirdest impossible tactic.</h2>
+    <div class="prompts">
+      <div class="p">Pick the one you were most embarrassed to read out. That one usually has the best mechanism in it.</div>
+      <div class="p">Write the scaled-up version, the scaled-down version, and then the sentence that says what the mechanism actually is.</div>
+      <div class="p">Then write the feasible artifact that falls out of it. An object, in a place, that somebody does something with.</div>
+    </div>
   </section>
 
   <section class="panel">
-    <div class="kick gold">Workshop</div>
-    <h2 class="q">Diagnose the medium: broadcast, relational, or a mix?</h2>
-    <p class="sub">Each group takes two of these jobs. For each, decide the best fit, then name what it's trading. The "obvious" answer is sometimes wrong. Pick a spokesperson to report back.</p>
-    <p><span class="pill">30 people at Saturday's fundraiser, 200 past supporters on your list</span><span class="pill">Nobody in the county has heard of you, $300 and two weeks</span><span class="pill">One grocery buyer decides if the co-op stocks you, one meeting</span><span class="pill">A false rumor is spreading in group chats you can't see</span></p>
-    <div class="work">
-      <div class="cell"><span class="lab">Best fit</span><p>Broadcast, relational, or mixed? Say which, and say it out loud to your group before you defend it.</p></div>
-      <div class="cell g"><span class="lab">The trade</span><p>What does that choice gain, and what does it cost you? Every medium trades reach against depth somewhere.</p></div>
-      <div class="cell s"><span class="lab">The pressure point</span><p>Who actually has the power to give you what you want here, and who already has trust with them?</p></div>
-      <div class="cell"><span class="lab">Where it breaks</span><p>Name the case where your instinct would fail. When would the "obvious" medium be the wrong call?</p></div>
+    <div class="kick">The fit test</div>
+    <h2 class="q">Four questions, and a yes to all four means start building.</h2>
+    <div class="prompts">
+      <div class="p">Could you physically have the first one of these finished <b>within two weeks</b>, with the money and the hands you actually have?</div>
+      <div class="p">Does it <b>need a body in a place</b>? If somebody could get all of it from a screenshot, it does not count for the constraint.</div>
+      <div class="p">Does it carry <b>your Project 2 frame</b>, the same conflict and the same ask, without a caption explaining that it does?</div>
+      <div class="p">Can you <b>count something</b> about it? How many taken, how many returned, how many stayed, how many filled in.</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; the rest of the period</div>
+    <h2 class="q">Write your three candidates.</h2>
+    <div class="prompts">
+      <div class="p">Candidate one: the artifact that needs a body. What it is, where it lives, what a person physically does with it.</div>
+      <div class="p">Candidate two: a second artifact in a different mode, which is not a social post of the first one.</div>
+      <div class="p">Candidate three, plus one line on how all three read as a single campaign. Same mark, same line, same ask.</div>
     </div>
   </section>
 
   <section class="panel title">
     <div class="rule"></div>
     <div class="kick">Where we go from here</div>
-    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">A boycott borrows relationships.</h1>
-    <div class="idea"><b>Thursday's module:</b> read the grape-boycott archive and the Immokalee campaign, sort six actual cases of broadcast vs. relational, and plant the seed of Project 3. Bring the notebook. We'll reconvene at the end to share.</div>
+    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">Next Tuesday we meet in the Maker Space in the library.</h1>
   </section>
 
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>

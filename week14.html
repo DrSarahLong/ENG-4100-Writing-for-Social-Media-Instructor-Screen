@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Week 14 · What Actually Counts</title>
+<title>Week 14 · Measurement Studio</title>
 <style>
   :root{
     --bg:#1a1214; --bg2:#241619; --panel:#2b1d21; --panel2:#31232700;
@@ -62,8 +62,8 @@
   .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.9em}
   /* numbered prompts */
   .prompts{counter-reset:p; font-size:clamp(1.3rem,2.4vw,1.95rem); line-height:1.35}
-  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin:14px 0; display:flex; gap:20px; align-items:center}
-  .prompts .p::before{counter-increment:p; content:counter(p); flex:none; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 22px 18px calc(22px + 2.8em); margin:14px 0; position:relative}
+  .prompts .p::before{counter-increment:p; content:counter(p); position:absolute; left:22px; top:16px; width:1.9em; height:1.9em; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--accent),var(--accent-deep)); color:#fff; border-radius:50%; font-family:Georgia,serif; font-weight:800; font-size:1.05em; box-shadow:0 4px 14px rgba(140,47,57,.5)}
   /* workshop grid */
   .work{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin:8px 0 22px}
   @media (max-width:760px){ .work{grid-template-columns:1fr} }
@@ -85,152 +85,166 @@
 
   <section class="panel title">
     <div class="rule"></div>
-    <div class="kick">Week 14 · Tuesday</div>
-    <h1>What actually counts.</h1>
-    <div class="idea">A number that feels like <span class="hl">winning</span> is usually measuring the <span class="hl g">wrong thing</span>.</div>
-  </section>
-
-  <section class="panel">
-    <div class="kick gold">Debate this</div>
-    <h2 class="q">"A cause with a million followers is doing more good than one with a hundred committed people."</h2>
+    <div class="kick">Week 14 &middot; Tuesday</div>
+    <h1>Did it work, and how would you know?</h1>
+    <div class="idea">Last working session before you present. Today we set the numbers <span class="hl">before</span> the artifact runs, which is the only order in which a number can tell you no.</div>
   </section>
 
   <section class="panel">
     <div class="kick">Goal of today</div>
     <h2 class="q">What you'll walk out with</h2>
-    <div class="teach"><p>By the end of class you'll be able to tell a <b>vanity metric</b> from <b>measurable impact</b>, and you'll have a tool for it: an <b>impact ladder</b> that runs from reach at the bottom up to power at the top. We'll bring back <b>Jodi Dean</b> from Week 11 and her line that circulation is not change. Then you'll name the metrics that actually count for your own campaign. Thursday's module builds the framework out; today we argue it into shape together.</p></div>
+    <div class="teach"><p>Two measurement methods you can actually run with no money and three weeks, each with the number you expect and the number you would call a failure. And a draft of the paragraph in your report that says what did not work, which is the paragraph most people leave out and the one that scores.</p></div>
   </section>
 
   <section class="panel">
-    <div class="kick">All semester you built a campaign</div>
-    <h2 class="q">How would you know if it actually worked?</h2>
-    <p class="sub">The uncomfortable question every organizer runs into sooner or later.</p>
-  </section>
-
-  <section class="panel">
-    <div class="kick">Two campaigns, on the table</div>
+    <div class="kick gold">Looking ahead</div>
+    <h2 class="q">Due, and coming up</h2>
     <div class="defs">
-      <div class="def">
-        <h3>Campaign A &middot; KONY 2012</h3>
-        <p>A 30-minute video made to make a Ugandan warlord famous enough to get him arrested by year's end. Around 100 million views in six days, the fastest a video had ever spread. Celebrities shared it. It was everywhere for about two weeks.</p>
-      </div>
-      <div class="def gold">
-        <h3>Campaign B &middot; The crosswalk</h3>
-        <p>A neighborhood wanted a crosswalk where a kid had been hit. Forty neighbors signed a letter. Twelve showed up to two city council meetings and told the story out loud. A reporter wrote 200 words. The city built the crosswalk. Almost no one outside the neighborhood ever heard about it.</p>
-      </div>
+      <div class="def gold"><h3>Presentations start next Tuesday</h3><p>Five minutes each, on your campaign and what it did. Bring the artifact itself if you can carry it. Decide the one thing you want the room to remember and write it as a single sentence.</p></div>
+      <div class="def"><h3>Project 3 due Week 16</h3><p>Artifacts plus the &aelig;ffect report, roughly 1,500 words, walking all seven elements. The example is on the Major Projects page.</p></div>
+      <div class="def s"><h3>Thursday</h3><p>The module on Zoom, then we reconvene at the end to go over evaluation paragraphs.</p></div>
     </div>
   </section>
 
   <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week14-crosswalk.jpg" alt="A painted pedestrian crosswalk across a street">
-        <figcaption>A neighborhood crosswalk (Wikimedia Commons, public domain / CC0).</figcaption>
-      </figure>
-      <div>
-        <div class="kick">Call it</div>
-        <h2 class="q">Which one succeeded, A or B?</h2>
-        <p class="sub">Hands up, then defend your vote to the room. What did each one actually change?</p>
-      </div>
-    </div>
+    <div class="kick gold">Debate this</div>
+    <h2 class="q">&ldquo;Forty thousand people saw it. That means it worked.&rdquo;</h2>
+    <p class="sub">You have spent a semester on this one. Make the argument anyway, as strongly as you can, before we answer it.</p>
   </section>
 
   <section class="panel">
-    <div class="kick gold">The scoreboard</div>
-    <div class="defs">
-      <div class="def">
-        <h3>KONY 2012</h3>
-        <p>Reach: about 100 million views.<br>Felt like: the biggest thing ever.<br>What changed: Kony was never caught, and the group behind it folded within months.</p>
-      </div>
-      <div class="def gold">
-        <h3>The crosswalk</h3>
-        <p>Reach: about 40 people.<br>Felt like: a slow Tuesday.<br>What changed: the crosswalk got built and is still there.</p>
-      </div>
-    </div>
-    <div class="board"><span class="big" style="margin:6px 0 0">The bigger number changed less.</span></div>
-  </section>
-
-  <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week14-iceberg.jpg" alt="An iceberg showing the small tip above the water and the huge mass below">
-        <figcaption>Iceberg, above and below the waterline (Wikimedia Commons, AWeith, CC BY-SA 4.0).</figcaption>
-      </figure>
-      <div>
-        <div class="kick">Two words for it</div>
-        <div class="def" style="margin-bottom:18px">
-          <h3>Vanity metric</h3>
-          <p>A number that goes up and feels great but tells you nothing about whether anything changed. Likes, views, impressions, raw follower count.</p>
-        </div>
-        <div class="def gold">
-          <h3>Measurable impact</h3>
-          <p>For a cause it tends to be one of three things: <b style="color:var(--gold)">behavior</b> (someone did something), <b style="color:var(--gold)">relationships</b> (people you can reach again), <b style="color:var(--gold)">power</b> (a decision you can now affect).</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="panel">
-    <div class="kick">Apply it</div>
-    <h2 class="q">So which kind of number did KONY 2012 rack up, and which kind did it never touch?</h2>
-  </section>
-
-  <section class="panel">
-    <div class="kick">Week 11 &middot; Jodi Dean</div>
-    <h2 class="q">Remind the room: what did "communicative capitalism" mean?</h2>
-    <p class="sub">Think back to the loop where posting can feel like doing something.</p>
-  </section>
-
-  <section class="panel">
-    <div class="kick gold">Here's the idea</div>
-    <div class="board">
-      <b>Jodi Dean:</b> a post that circulates is not the same as a thing that changed.
-      <span class="big">Circulation is not change.</span>
-      A message can be shared, liked, and quoted forever and never once require a response from anyone in power. Watching your reach climb can feel exactly like organizing, and be nothing like it.
-    </div>
-  </section>
-
-  <section class="panel">
-    <div class="kick">Build it with me, bottom to top</div>
-    <h2 class="q">A metric isn't good or bad on its own. It's worth whatever it can reach.</h2>
-    <p class="sub">Start at the bottom rung. What can a platform hand you for free, the number that costs your audience nothing?</p>
-  </section>
-
-  <section class="panel">
-    <div class="kick gold">The impact ladder</div>
-    <div style="display:flex; flex-direction:column; gap:11px; margin:6px 0 22px; font-size:clamp(1.1rem,1.9vw,1.5rem)">
-      <div style="display:flex; gap:16px; align-items:baseline; background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--sage); border-radius:12px; padding:15px 22px"><b style="font-family:Georgia,serif; color:var(--sage); font-size:1.25em; min-width:1.2ch">5</b><b style="color:var(--sage); min-width:9ch">Power</b><span>a decision changed, access you didn't have before</span></div>
-      <div style="display:flex; gap:16px; align-items:baseline; background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--sage); border-radius:12px; padding:15px 22px"><b style="font-family:Georgia,serif; color:var(--sage); font-size:1.25em; min-width:1.2ch">4</b><b style="color:var(--sage); min-width:9ch">Relationship</b><span>people you can reach again, volunteers who stay</span></div>
-      <div style="display:flex; gap:16px; align-items:baseline; background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--sage); border-radius:12px; padding:15px 22px"><b style="font-family:Georgia,serif; color:var(--sage); font-size:1.25em; min-width:1.2ch">3</b><b style="color:var(--sage); min-width:9ch">Action</b><span>someone did the thing: showed up, signed, called</span></div>
-      <div style="display:flex; gap:16px; align-items:baseline; background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--gold); border-radius:12px; padding:15px 22px"><b style="font-family:Georgia,serif; color:var(--gold); font-size:1.25em; min-width:1.2ch">2</b><b style="color:var(--gold); min-width:9ch">Engagement</b><span>likes, comments, shares, saves</span></div>
-      <div style="display:flex; gap:16px; align-items:baseline; background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--gold); border-radius:12px; padding:15px 22px"><b style="font-family:Georgia,serif; color:var(--gold); font-size:1.25em; min-width:1.2ch">1</b><b style="color:var(--gold); min-width:9ch">Reach</b><span>views, impressions, how many were shown it</span></div>
-    </div>
-    <div class="board"><span class="big" style="margin:0">Vanity lives on rungs 1&ndash;2. Impact lives on 3&ndash;5.</span>Higher up is harder to get, harder to fake, and worth more.</div>
-  </section>
-
-  <section class="panel">
-    <div class="kick">Complicate it</div>
-    <h2 class="q">Rungs 1 and 2 aren't worthless. When does reach actually earn its keep for a cause?</h2>
-    <p class="sub">Push back on your own ladder. Where would a big view count actually matter?</p>
-  </section>
-
-  <section class="panel">
-    <div class="kick gold">Workshop</div>
-    <h2 class="q">Run the numbers on one campaign, then call its bluff.</h2>
-    <p class="sub">Each group takes one campaign, <span class="pill">a viral petition</span><span class="pill">a local mutual-aid group</span><span class="pill">a national climate march</span><span class="pill">a small nonprofit's Instagram</span><span class="pill">a campus walkout</span> and fills all four boxes. Pick a spokesperson to report back.</p>
+    <div class="kick">Here's the idea</div>
+    <h2 class="q">&AElig;ffect: one word, because you have to report two things.</h2>
+    <div class="teach"><p>The Center for Artistic Activism jammed <b>affect</b> and <b>effect</b> together because artists and organizers kept measuring different halves and talking past each other.</p>
+    <p><b>Affect</b> is what it moved in people: what they felt, said, remembered, or understood differently. <b>Effect</b> is what it changed in the world: a policy, a practice, a budget line, a decision, a count.</p></div>
     <div class="work">
-      <div class="cell"><span class="lab">The brag number</span><p>What number would this campaign be most tempted to lead with, the one that looks huge?</p></div>
-      <div class="cell g"><span class="lab">What actually moved</span><p>Out in the real world, what changed because of it? Be specific, and say so if the answer is "not much."</p></div>
-      <div class="cell s"><span class="lab">Put it on the ladder</span><p>Which rung does that brag number actually sit on, 1 through 5, and how do you know?</p></div>
-      <div class="cell"><span class="lab">The metric it should report</span><p>Give the one number this campaign should track instead, and say exactly how you'd count it.</p></div>
+      <div class="cell"><div class="lab">Effect</div><p>The district published its supply-access plan eleven days after the meeting, and the page says who restocks it.</p></div>
+      <div class="cell g"><div class="lab">Affect</div><p>&ldquo;I didn't know you were allowed to just take one.&rdquo; Said at the shelf at 11:15 on the 28th, written down that day, used with permission.</p></div>
     </div>
+    <p class="sub">The first one goes in a table. The second one is why anybody came back the next week, and it will never fit in a table.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The effect half, laid out</div>
+    <h2 class="q">Five rungs, and vanity lives on the bottom two.</h2>
+    <div class="prompts">
+      <div class="p"><b>5 &middot; Power.</b> A decision changed. Access to somebody you could not reach before.</div>
+      <div class="p"><b>4 &middot; Relationship.</b> Six names and numbers in a list you own, who will act again.</div>
+      <div class="p"><b>3 &middot; Action.</b> 164 of 200 cards came back with somebody's handwriting on them.</div>
+      <div class="p"><b>2 &middot; Engagement.</b> Likes, comments, shares on the photograph of your artifact.</div>
+      <div class="p"><b>1 &middot; Reach.</b> Forty thousand views of that photograph.</div>
+    </div>
+    <p class="sub">Rungs 1 and 2 are not worthless. They are fuel, and fuel is only worth something if it drives the engine. The test on any number: does it move something to rung 3 or higher?</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick gold">Call it out</div>
+    <h2 class="q">Vanity, impact, or depends? Three fast ones.</h2>
+    <div class="prompts">
+      <div class="p">You made sixty buttons and all sixty were gone from the table by noon.</div>
+      <div class="p">Eleven people told you at the table that they loved the project.</div>
+      <div class="p">Six people asked how they could help with the next one.</div>
+    </div>
+    <p class="sub">Say which, and say why. Argue with each other before I say anything.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <h2 class="q">All three are &ldquo;depends,&rdquo; and what they depend on is a decision you still get to make.</h2>
+    <div class="teach"><p><b>The buttons.</b> Free things leave a table. You measured supply, not interest, and you do not know whether one of them was ever worn. Count how many you see on backpacks the following week and you have a behavior instead.</p>
+    <p><b>The eleven compliments.</b> Praise at a table is the analog version of a like: cheap, pleasant, and offered to your face by people who do not want to be rude. It becomes evidence if you wrote down what they actually said and when.</p>
+    <p><b>The six volunteers.</b> Six people who asked and walked away are six people you cannot find. Six names and numbers is rung 4. The difference between those two outcomes is a clipboard.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The rule</div>
+    <h2 class="q">Decide what counts as success before the artifact goes out.</h2>
+    <div class="teach"><p>A metric chosen afterward will always be the one you happened to hit. A metric chosen in advance can tell you no, and that is the only reason to have one. Write the number down with a date beside it.</p>
+    <p><b>Worked example.</b> &ldquo;Two hundred cards out. Target one hundred and twenty back. Under sixty would mean the prompt failed, not that nobody cares.&rdquo; Three sentences, written before anything ran, and the third one is what makes the first two useful.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; fifteen minutes</div>
+    <h2 class="q">Write two metrics: one effect, one affect.</h2>
+    <div class="prompts">
+      <div class="p">For each one: what you are counting, how you are counting it, the number you expect, and the number you would call a failure.</div>
+      <div class="p">The affect one is the more difficult half. How are you capturing what somebody said, on the day they said it, with their permission?</div>
+      <div class="p">Then flag me down. I will ask you what happens if the number comes in low, and your answer is the thing worth fixing today.</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Six ways to measure with no money</div>
+    <h2 class="q">You cannot run a survey. Build the counting into the artifact instead.</h2>
+    <div class="work">
+      <div class="cell"><div class="lab">The counts you have</div><p>Put out a known number, count what is left. 200 out, 164 back, 36 unaccounted for. Say the 36 out loud.</p></div>
+      <div class="cell g"><div class="lab">A comment wall</div><p>The artifact collects the data. Code the 164 cards for whether they say &ldquo;donate&rdquo; or &ldquo;should already be there.&rdquo; That is your language indicator, measured.</p></div>
+      <div class="cell s"><div class="lab">A speak-out, with a scribe</div><p>One person's only job is writing down what gets said, with the time. That is how affect becomes quotable.</p></div>
+      <div class="cell"><div class="lab">Call and response</div><p>Two jars and a bowl of beans. &ldquo;Did you know the state has a program for this?&rdquo; 38 yes, 121 no. A baseline for two days' work.</p></div>
+      <div class="cell g"><div class="lab">An interactive prop</div><p>A board with 240 blank squares, one per apartment. At the end, 83 are filled. The photograph of it is the finding.</p></div>
+      <div class="cell s"><div class="lab">The two-week follow-up</div><p>Go back to the same place and ask five people whether they remember seeing anything. The cheapest useful thing on this list.</p></div>
+    </div>
+    <p class="sub">The observation sheet Copenhagen used is already built for you: <i>Unleashing Creative Campaigns</i>, PDF page 65, linked on the Project 3 details page. Hand it to somebody who agrees to watch your action instead of taking part in it.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Where that list comes from</div>
+    <h2 class="q">A three-day experiment on a bridge in Copenhagen, 2018.</h2>
+    <div class="teach"><p>The Center for Artistic Activism, with Silas Harrebye of Roskilde University and Stephen Duncombe of New York University, ran conventional tactics against creative ones on the same issue, same bridge, same hours, for three days. A speech against a performance. A petition table against something stranger.</p>
+    <p>Their instruments were a clipboard and a notebook: <b>108 spot interviews</b> with passersby, <b>30 structured observation sheets</b> filled in by people watching rather than taking part, video of both conditions, and a <b>follow-up survey two weeks later</b> to test what stuck.</p>
+    <p>The creative versions beat the conventional ones on nearly every quantitative measure. And the words people used split cleanly: <b>annoying, lecturing, predictable</b> on one side, <b>funny, surprising, captivating</b> on the other. One bridge, one city, three days, so it is a strong result and not a law. Every instrument they used is something you could run on Sanford Mall this week.</p></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; fifteen minutes</div>
+    <h2 class="q">Pick two of the six and write exactly how you run them.</h2>
+    <div class="prompts">
+      <div class="p">Where, when, who is holding the clipboard, and what you write down.</div>
+      <div class="p">If your artifact has already run, go find whatever you can still count, including what is sitting in a box in your room.</div>
+      <div class="p">If it has not run yet, this is the plan you execute, so make it specific enough that you could hand it to somebody else on a day you are sick.</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">What a good evaluation paragraph sounds like</div>
+    <h2 class="q">From the report on a campaign against a 40% rent increase.</h2>
+    <div class="teach"><p>&ldquo;Nine people spoke, not the eleven who had signed up. 140 of 200 zines went. The chalk was gone in one rain and almost nobody saw it, which was a design failure we should have predicted. The paper ran the story and used the word &lsquo;increase.&rsquo; Affect: four people told us it was the first time they had been in a room with their neighbors, and one cried, which no metric caught.&rdquo;</p></div>
+    <p class="sub">Count the moves in that paragraph. What is it doing that most campaign write-ups refuse to do?</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Here's the idea</div>
+    <h2 class="q">Five moves, and four of them are about the parts that went wrong.</h2>
+    <div class="prompts">
+      <div class="p">A shortfall stated as a number rather than as a feeling. Nine, not eleven.</div>
+      <div class="p">A count with a denominator. 140 of 200, so a reader can judge it.</div>
+      <div class="p">A failure diagnosed instead of apologized for. Chalk was the wrong material for the goal.</div>
+      <div class="p">One piece of effect evidence from outside the campaign. The paper used their word.</div>
+      <div class="p">One piece of affect evidence the writer explicitly says the numbers missed.</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="kick gold">Workshop &middot; the rest of the period</div>
+    <h2 class="q">Draft your evaluation paragraph in that shape.</h2>
+    <div class="prompts">
+      <div class="p">Use whatever you have so far. If the artifact has not run, write it in future tense with the numbers you are committing to today.</div>
+      <div class="p">Include the thing that went wrong. If nothing has gone wrong yet, write the thing most likely to, because something will.</div>
+      <div class="p">Bring it to me and read it out loud. A paragraph that sounds defensive when you say it will read that way too.</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Notebook</div>
+    <h2 class="q">Open your Field Notebook and write one line.</h2>
+    <p class="sub">What is the one thing you want the room to remember from your five minutes next week? One sentence, and we will work on it when you present.</p>
   </section>
 
   <section class="panel title">
     <div class="rule"></div>
     <div class="kick">Where we go from here</div>
-    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">Circulation is not change.</h1>
-    <div class="idea"><b>Thursday's module:</b> build the framework out, sort the cases that split the room, and draft your P3 impact report. Bring the three metrics you named today.</div>
+    <h1 style="font-size:clamp(2.2rem,5.4vw,4rem)">A number you set in advance is the only one that can tell you no.</h1>
+    <div class="idea"><b>Thursday:</b> the module on Zoom, then we reconvene and go over evaluation paragraphs. <b>Next Tuesday:</b> presentations begin. Bring the artifact.</div>
   </section>
 
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
